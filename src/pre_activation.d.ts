@@ -7,7 +7,7 @@
  */
 import { Injector } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { RouteEvent } from './events';
+import { Event } from './events';
 import { ChildrenOutletContexts } from './router_outlet_context';
 import { RouterStateSnapshot } from './router_state';
 /**
@@ -20,8 +20,8 @@ export declare class PreActivation {
     private forwardEvent;
     private canActivateChecks;
     private canDeactivateChecks;
-    constructor(future: RouterStateSnapshot, curr: RouterStateSnapshot, moduleInjector: Injector, forwardEvent?: (evt: RouteEvent) => void);
-    initalize(parentContexts: ChildrenOutletContexts): void;
+    constructor(future: RouterStateSnapshot, curr: RouterStateSnapshot, moduleInjector: Injector, forwardEvent?: ((evt: Event) => void) | undefined);
+    initialize(parentContexts: ChildrenOutletContexts): void;
     checkGuards(): Observable<boolean>;
     resolveData(): Observable<any>;
     isDeactivating(): boolean;
@@ -41,6 +41,15 @@ export declare class PreActivation {
     private runCanDeactivateChecks();
     private runCanActivateChecks();
     /**
+     * This should fire off `ActivationStart` events for each route being activated at this
+     * level.
+     * In other words, if you're activating `a` and `b` below, `path` will contain the
+     * `ActivatedRouteSnapshot`s for both and we will fire `ActivationStart` for both. Always
+     * return
+     * `true` so checks continue to run.
+     */
+    private fireActivationStart(snapshot);
+    /**
      * This should fire off `ChildActivationStart` events for each route being activated at this
      * level.
      * In other words, if you're activating `a` and `b` below, `path` will contain the
@@ -48,7 +57,7 @@ export declare class PreActivation {
      * return
      * `true` so checks continue to run.
      */
-    private fireChildActivationStart(path);
+    private fireChildActivationStart(snapshot);
     private runCanActivate(future);
     private runCanActivateChild(path);
     private extractCanActivateChild(p);
