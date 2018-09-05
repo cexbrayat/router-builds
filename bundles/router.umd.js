@@ -1,13 +1,13 @@
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs/BehaviorSubject'), require('rxjs/Subject'), require('rxjs/observable/of'), require('rxjs/operator/concatMap'), require('rxjs/operator/map'), require('rxjs/operator/mergeMap'), require('rxjs/Observable'), require('rxjs/observable/from'), require('rxjs/operator/catch'), require('rxjs/operator/concatAll'), require('rxjs/operator/first'), require('rxjs/util/EmptyError'), require('rxjs/observable/fromPromise'), require('rxjs/operator/every'), require('rxjs/operator/last'), require('rxjs/operator/mergeAll'), require('rxjs/operator/reduce'), require('@angular/platform-browser'), require('rxjs/operator/filter')) :
-	typeof define === 'function' && define.amd ? define('@angular/router', ['exports', '@angular/common', '@angular/core', 'rxjs/BehaviorSubject', 'rxjs/Subject', 'rxjs/observable/of', 'rxjs/operator/concatMap', 'rxjs/operator/map', 'rxjs/operator/mergeMap', 'rxjs/Observable', 'rxjs/observable/from', 'rxjs/operator/catch', 'rxjs/operator/concatAll', 'rxjs/operator/first', 'rxjs/util/EmptyError', 'rxjs/observable/fromPromise', 'rxjs/operator/every', 'rxjs/operator/last', 'rxjs/operator/mergeAll', 'rxjs/operator/reduce', '@angular/platform-browser', 'rxjs/operator/filter'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.router = {}),global.ng.common,global.ng.core,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.platformBrowser,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_common,_angular_core,rxjs_BehaviorSubject,rxjs_Subject,rxjs_observable_of,rxjs_operator_concatMap,rxjs_operator_map,rxjs_operator_mergeMap,rxjs_Observable,rxjs_observable_from,rxjs_operator_catch,rxjs_operator_concatAll,rxjs_operator_first,rxjs_util_EmptyError,rxjs_observable_fromPromise,rxjs_operator_every,rxjs_operator_last,rxjs_operator_mergeAll,rxjs_operator_reduce,_angular_platformBrowser,rxjs_operator_filter) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/platform-browser')) :
+	typeof define === 'function' && define.amd ? define('@angular/router', ['exports', '@angular/common', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/platform-browser'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.router = {}),global.ng.common,global.ng.core,global.rxjs,global.rxjs.operators,global.ng.platformBrowser));
+}(this, (function (exports,_angular_common,_angular_core,rxjs,rxjs_operators,_angular_platformBrowser) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -25,9 +25,12 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = Object.setPrototypeOf ||
-    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -35,25 +38,37 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var __assign = Object.assign || function __assign(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-    }
-    return t;
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
 };
 
 /**
- * @license Angular v5.1.0-beta.0-21bfaf226
- * (c) 2010-2017 Google, Inc. https://angular.io/
+ * @license Angular v7.0.0-beta.4-a2418a9037
+ * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Base for events the Router goes through, as opposed to events tied to a specific
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * \@description
+ *
+ * Base for events the Router goes through, as opposed to events tied to a specific
  * Route. `RouterEvent`s will only be fired one time for any given navigation.
  *
  * Example:
@@ -70,7 +85,7 @@ var __assign = Object.assign || function __assign(t) {
  *
  * \@experimental
  */
-var RouterEvent = (function () {
+var RouterEvent = /** @class */ (function () {
     function RouterEvent(id, url) {
         this.id = id;
         this.url = url;
@@ -78,14 +93,33 @@ var RouterEvent = (function () {
     return RouterEvent;
 }());
 /**
- * \@whatItDoes Represents an event triggered when a navigation starts.
+ * \@description
  *
- * \@stable
+ * Represents an event triggered when a navigation starts.
+ *
+ *
  */
-var NavigationStart = (function (_super) {
+var NavigationStart = /** @class */ (function (_super) {
     __extends(NavigationStart, _super);
-    function NavigationStart() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function NavigationStart(/** @docsNotRequired */
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, /** @docsNotRequired */
+    /** @docsNotRequired */
+    navigationTrigger, /** @docsNotRequired */
+    /** @docsNotRequired */
+    restoredState) {
+        if (navigationTrigger === void 0) { 
+        /** @docsNotRequired */
+        navigationTrigger = 'imperative'; }
+        if (restoredState === void 0) { 
+        /** @docsNotRequired */
+        restoredState = null; }
+        var _this = _super.call(this, id, url) || this;
+        _this.navigationTrigger = navigationTrigger;
+        _this.restoredState = restoredState;
+        return _this;
     }
     /** @docsNotRequired */
     /**
@@ -100,17 +134,19 @@ var NavigationStart = (function (_super) {
     return NavigationStart;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents an event triggered when a navigation ends successfully.
+ * \@description
  *
- * \@stable
+ * Represents an event triggered when a navigation ends successfully.
+ *
+ *
  */
-var NavigationEnd = (function (_super) {
+var NavigationEnd = /** @class */ (function (_super) {
     __extends(NavigationEnd, _super);
     function NavigationEnd(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         return _this;
@@ -130,17 +166,19 @@ var NavigationEnd = (function (_super) {
     return NavigationEnd;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents an event triggered when a navigation is canceled.
+ * \@description
  *
- * \@stable
+ * Represents an event triggered when a navigation is canceled.
+ *
+ *
  */
-var NavigationCancel = (function (_super) {
+var NavigationCancel = /** @class */ (function (_super) {
     __extends(NavigationCancel, _super);
     function NavigationCancel(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, reason) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, reason) {
         var _this = _super.call(this, id, url) || this;
         _this.reason = reason;
         return _this;
@@ -158,17 +196,19 @@ var NavigationCancel = (function (_super) {
     return NavigationCancel;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents an event triggered when a navigation fails due to an unexpected error.
+ * \@description
  *
- * \@stable
+ * Represents an event triggered when a navigation fails due to an unexpected error.
+ *
+ *
  */
-var NavigationError = (function (_super) {
+var NavigationError = /** @class */ (function (_super) {
     __extends(NavigationError, _super);
     function NavigationError(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, error) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, error) {
         var _this = _super.call(this, id, url) || this;
         _this.error = error;
         return _this;
@@ -188,17 +228,19 @@ var NavigationError = (function (_super) {
     return NavigationError;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents an event triggered when routes are recognized.
+ * \@description
  *
- * \@stable
+ * Represents an event triggered when routes are recognized.
+ *
+ *
  */
-var RoutesRecognized = (function (_super) {
+var RoutesRecognized = /** @class */ (function (_super) {
     __extends(RoutesRecognized, _super);
     function RoutesRecognized(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects, state) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects, state) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         _this.state = state;
@@ -219,17 +261,19 @@ var RoutesRecognized = (function (_super) {
     return RoutesRecognized;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents the start of the Guard phase of routing.
+ * \@description
+ *
+ * Represents the start of the Guard phase of routing.
  *
  * \@experimental
  */
-var GuardsCheckStart = (function (_super) {
+var GuardsCheckStart = /** @class */ (function (_super) {
     __extends(GuardsCheckStart, _super);
     function GuardsCheckStart(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects, state) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects, state) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         _this.state = state;
@@ -247,17 +291,19 @@ var GuardsCheckStart = (function (_super) {
     return GuardsCheckStart;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents the end of the Guard phase of routing.
+ * \@description
+ *
+ * Represents the end of the Guard phase of routing.
  *
  * \@experimental
  */
-var GuardsCheckEnd = (function (_super) {
+var GuardsCheckEnd = /** @class */ (function (_super) {
     __extends(GuardsCheckEnd, _super);
     function GuardsCheckEnd(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects, state, shouldActivate) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects, state, shouldActivate) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         _this.state = state;
@@ -276,20 +322,22 @@ var GuardsCheckEnd = (function (_super) {
     return GuardsCheckEnd;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents the start of the Resolve phase of routing. The timing of this
+ * \@description
+ *
+ * Represents the start of the Resolve phase of routing. The timing of this
  * event may change, thus it's experimental. In the current iteration it will run
  * in the "resolve" phase whether there's things to resolve or not. In the future this
  * behavior may change to only run when there are things to be resolved.
  *
  * \@experimental
  */
-var ResolveStart = (function (_super) {
+var ResolveStart = /** @class */ (function (_super) {
     __extends(ResolveStart, _super);
     function ResolveStart(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects, state) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects, state) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         _this.state = state;
@@ -307,18 +355,20 @@ var ResolveStart = (function (_super) {
     return ResolveStart;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents the end of the Resolve phase of routing. See note on
- * {\@link ResolveStart} for use of this experimental API.
+ * \@description
+ *
+ * Represents the end of the Resolve phase of routing. See note on
+ * `ResolveStart` for use of this experimental API.
  *
  * \@experimental
  */
-var ResolveEnd = (function (_super) {
+var ResolveEnd = /** @class */ (function (_super) {
     __extends(ResolveEnd, _super);
     function ResolveEnd(/** @docsNotRequired */
-        /** @docsNotRequired */
-        id, /** @docsNotRequired */
-        /** @docsNotRequired */
-        url, urlAfterRedirects, state) {
+    /** @docsNotRequired */
+    id, /** @docsNotRequired */
+    /** @docsNotRequired */
+    url, urlAfterRedirects, state) {
         var _this = _super.call(this, id, url) || this;
         _this.urlAfterRedirects = urlAfterRedirects;
         _this.state = state;
@@ -336,11 +386,13 @@ var ResolveEnd = (function (_super) {
     return ResolveEnd;
 }(RouterEvent));
 /**
- * \@whatItDoes Represents an event triggered before lazy loading a route config.
+ * \@description
+ *
+ * Represents an event triggered before lazy loading a route config.
  *
  * \@experimental
  */
-var RouteConfigLoadStart = (function () {
+var RouteConfigLoadStart = /** @class */ (function () {
     function RouteConfigLoadStart(route) {
         this.route = route;
     }
@@ -354,11 +406,13 @@ var RouteConfigLoadStart = (function () {
     return RouteConfigLoadStart;
 }());
 /**
- * \@whatItDoes Represents an event triggered when a route has been lazy loaded.
+ * \@description
+ *
+ * Represents an event triggered when a route has been lazy loaded.
  *
  * \@experimental
  */
-var RouteConfigLoadEnd = (function () {
+var RouteConfigLoadEnd = /** @class */ (function () {
     function RouteConfigLoadEnd(route) {
         this.route = route;
     }
@@ -372,12 +426,14 @@ var RouteConfigLoadEnd = (function () {
     return RouteConfigLoadEnd;
 }());
 /**
- * \@whatItDoes Represents the start of end of the Resolve phase of routing. See note on
- * {\@link ChildActivationEnd} for use of this experimental API.
+ * \@description
+ *
+ * Represents the start of end of the Resolve phase of routing. See note on
+ * `ChildActivationEnd` for use of this experimental API.
  *
  * \@experimental
  */
-var ChildActivationStart = (function () {
+var ChildActivationStart = /** @class */ (function () {
     function ChildActivationStart(snapshot) {
         this.snapshot = snapshot;
     }
@@ -388,18 +444,21 @@ var ChildActivationStart = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
+        /** @type {?} */
+        var path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
         return "ChildActivationStart(path: '" + path + "')";
     };
     return ChildActivationStart;
 }());
 /**
- * \@whatItDoes Represents the start of end of the Resolve phase of routing. See note on
- * {\@link ChildActivationStart} for use of this experimental API.
+ * \@description
+ *
+ * Represents the start of end of the Resolve phase of routing. See note on
+ * `ChildActivationStart` for use of this experimental API.
  *
  * \@experimental
  */
-var ChildActivationEnd = (function () {
+var ChildActivationEnd = /** @class */ (function () {
     function ChildActivationEnd(snapshot) {
         this.snapshot = snapshot;
     }
@@ -410,18 +469,21 @@ var ChildActivationEnd = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
+        /** @type {?} */
+        var path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
         return "ChildActivationEnd(path: '" + path + "')";
     };
     return ChildActivationEnd;
 }());
 /**
- * \@whatItDoes Represents the start of end of the Resolve phase of routing. See note on
- * {\@link ActivationEnd} for use of this experimental API.
+ * \@description
+ *
+ * Represents the start of end of the Resolve phase of routing. See note on
+ * `ActivationEnd` for use of this experimental API.
  *
  * \@experimental
  */
-var ActivationStart = (function () {
+var ActivationStart = /** @class */ (function () {
     function ActivationStart(snapshot) {
         this.snapshot = snapshot;
     }
@@ -432,18 +494,21 @@ var ActivationStart = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
+        /** @type {?} */
+        var path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
         return "ActivationStart(path: '" + path + "')";
     };
     return ActivationStart;
 }());
 /**
- * \@whatItDoes Represents the start of end of the Resolve phase of routing. See note on
- * {\@link ActivationStart} for use of this experimental API.
+ * \@description
+ *
+ * Represents the start of end of the Resolve phase of routing. See note on
+ * `ActivationStart` for use of this experimental API.
  *
  * \@experimental
  */
-var ActivationEnd = (function () {
+var ActivationEnd = /** @class */ (function () {
     function ActivationEnd(snapshot) {
         this.snapshot = snapshot;
     }
@@ -454,21 +519,87 @@ var ActivationEnd = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
+        /** @type {?} */
+        var path = this.snapshot.routeConfig && this.snapshot.routeConfig.path || '';
         return "ActivationEnd(path: '" + path + "')";
     };
     return ActivationEnd;
 }());
+/**
+ * \@description
+ *
+ * Represents a scrolling event.
+ */
+var Scroll = /** @class */ (function () {
+    function Scroll(/** @docsNotRequired */
+    routerEvent, /** @docsNotRequired */
+    position, /** @docsNotRequired */
+    anchor) {
+        this.routerEvent = routerEvent;
+        this.position = position;
+        this.anchor = anchor;
+    }
+    /**
+     * @return {?}
+     */
+    Scroll.prototype.toString = /**
+     * @return {?}
+     */
+    function () {
+        /** @type {?} */
+        var pos = this.position ? this.position[0] + ", " + this.position[1] : null;
+        return "Scroll(anchor: '" + this.anchor + "', position: '" + pos + "')";
+    };
+    return Scroll;
+}());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Name of the primary outlet.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * \@stable
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+/**
+ * This component is used internally within the router to be a placeholder when an empty
+ * router-outlet is needed. For example, with a config such as:
+ *
+ * `{path: 'parent', outlet: 'nav', children: [...]}`
+ *
+ * In order to render, there needs to be a component on this config, which will default
+ * to this `EmptyOutletComponent`.
+ */
+var EmptyOutletComponent = /** @class */ (function () {
+    function EmptyOutletComponent() {
+    }
+    EmptyOutletComponent.decorators = [
+        { type: _angular_core.Component, args: [{ template: "<router-outlet></router-outlet>" },] },
+    ];
+    return EmptyOutletComponent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** *
+ * \@description
+ *
+ * Name of the primary outlet.
+ *
+ *
+  @type {?} */
 var PRIMARY_OUTLET = 'primary';
 /**
  * Matrix and Query parameters.
@@ -480,11 +611,11 @@ var PRIMARY_OUTLET = 'primary';
  * The API is inspired by the URLSearchParams interface.
  * see https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
  *
- * \@stable
+ *
  * @record
  */
 
-var ParamsAsMap = (function () {
+var ParamsAsMap = /** @class */ (function () {
     function ParamsAsMap(params) {
         this.params = params || {};
     }
@@ -507,7 +638,8 @@ var ParamsAsMap = (function () {
      */
     function (name) {
         if (this.has(name)) {
-            var /** @type {?} */ v = this.params[name];
+            /** @type {?} */
+            var v = this.params[name];
             return Array.isArray(v) ? v[0] : v;
         }
         return null;
@@ -522,7 +654,8 @@ var ParamsAsMap = (function () {
      */
     function (name) {
         if (this.has(name)) {
-            var /** @type {?} */ v = this.params[name];
+            /** @type {?} */
+            var v = this.params[name];
             return Array.isArray(v) ? v : [v];
         }
         return [];
@@ -538,22 +671,24 @@ var ParamsAsMap = (function () {
     return ParamsAsMap;
 }());
 /**
- * Convert a {\@link Params} instance to a {\@link ParamMap}.
+ * Convert a `Params` instance to a `ParamMap`.
  *
- * \@stable
+ *
  * @param {?} params
  * @return {?}
  */
 function convertToParamMap(params) {
     return new ParamsAsMap(params);
 }
+/** @type {?} */
 var NAVIGATION_CANCELING_ERROR = 'ngNavigationCancelingError';
 /**
  * @param {?} message
  * @return {?}
  */
 function navigationCancelingError(message) {
-    var /** @type {?} */ error = Error('NavigationCancelingError: ' + message);
+    /** @type {?} */
+    var error = Error('NavigationCancelingError: ' + message);
     (/** @type {?} */ (error))[NAVIGATION_CANCELING_ERROR] = true;
     return error;
 }
@@ -571,7 +706,8 @@ function isNavigationCancelingError(error) {
  * @return {?}
  */
 function defaultUrlMatcher(segments, segmentGroup, route) {
-    var /** @type {?} */ parts = /** @type {?} */ ((route.path)).split('/');
+    /** @type {?} */
+    var parts = /** @type {?} */ ((route.path)).split('/');
     if (parts.length > segments.length) {
         // The actual URL is shorter than the config, no match
         return null;
@@ -581,12 +717,16 @@ function defaultUrlMatcher(segments, segmentGroup, route) {
         // The config is longer than the actual URL but we are looking for a full match, return null
         return null;
     }
-    var /** @type {?} */ posParams = {};
+    /** @type {?} */
+    var posParams = {};
     // Check each config part against the actual URL
-    for (var /** @type {?} */ index = 0; index < parts.length; index++) {
-        var /** @type {?} */ part = parts[index];
-        var /** @type {?} */ segment = segments[index];
-        var /** @type {?} */ isParameter = part.startsWith(':');
+    for (var index = 0; index < parts.length; index++) {
+        /** @type {?} */
+        var part = parts[index];
+        /** @type {?} */
+        var segment = segments[index];
+        /** @type {?} */
+        var isParameter = part.startsWith(':');
         if (isParameter) {
             posParams[part.substring(1)] = segment;
         }
@@ -600,15 +740,22 @@ function defaultUrlMatcher(segments, segmentGroup, route) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * See {\@link Routes} for more details.
- * \@stable
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * See `Routes` for more details.
+ *
  * @record
  */
 
-var LoadedRouterConfig = (function () {
+var LoadedRouterConfig = /** @class */ (function () {
     function LoadedRouterConfig(routes, module) {
         this.routes = routes;
         this.module = module;
@@ -623,9 +770,11 @@ var LoadedRouterConfig = (function () {
 function validateConfig(config, parentPath) {
     if (parentPath === void 0) { parentPath = ''; }
     // forEach doesn't iterate undefined values
-    for (var /** @type {?} */ i = 0; i < config.length; i++) {
-        var /** @type {?} */ route = config[i];
-        var /** @type {?} */ fullPath = getFullPath(parentPath, route);
+    for (var i = 0; i < config.length; i++) {
+        /** @type {?} */
+        var route = config[i];
+        /** @type {?} */
+        var fullPath = getFullPath(parentPath, route);
         validateNode(route, fullPath);
     }
 }
@@ -641,8 +790,9 @@ function validateNode(route, fullPath) {
     if (Array.isArray(route)) {
         throw new Error("Invalid configuration of route '" + fullPath + "': Array cannot be specified");
     }
-    if (!route.component && (route.outlet && route.outlet !== PRIMARY_OUTLET)) {
-        throw new Error("Invalid configuration of route '" + fullPath + "': a componentless route cannot have a named outlet set");
+    if (!route.component && !route.children && !route.loadChildren &&
+        (route.outlet && route.outlet !== PRIMARY_OUTLET)) {
+        throw new Error("Invalid configuration of route '" + fullPath + "': a componentless route without children or loadChildren cannot have a named outlet set");
     }
     if (route.redirectTo && route.children) {
         throw new Error("Invalid configuration of route '" + fullPath + "': redirectTo and children cannot be used together");
@@ -669,7 +819,8 @@ function validateNode(route, fullPath) {
         throw new Error("Invalid configuration of route '" + fullPath + "': path cannot start with a slash");
     }
     if (route.path === '' && route.redirectTo !== void 0 && route.pathMatch === void 0) {
-        var /** @type {?} */ exp = "The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.";
+        /** @type {?} */
+        var exp = "The default value of 'pathMatch' is 'prefix', but often the intent is to use 'full'.";
         throw new Error("Invalid configuration of route '{path: \"" + fullPath + "\", redirectTo: \"" + route.redirectTo + "\"}': please provide 'pathMatch'. " + exp);
     }
     if (route.pathMatch !== void 0 && route.pathMatch !== 'full' && route.pathMatch !== 'prefix') {
@@ -701,10 +852,25 @@ function getFullPath(parentPath, currentRoute) {
         return parentPath + "/" + currentRoute.path;
     }
 }
+/**
+ * Makes a copy of the config and adds any default required properties.
+ * @param {?} r
+ * @return {?}
+ */
+function standardizeConfig(r) {
+    /** @type {?} */
+    var children = r.children && r.children.map(standardizeConfig);
+    /** @type {?} */
+    var c = children ? __assign({}, r, { children: children }) : __assign({}, r);
+    if (!c.component && (children || c.loadChildren) && (c.outlet && c.outlet !== PRIMARY_OUTLET)) {
+        c.component = EmptyOutletComponent;
+    }
+    return c;
+}
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -721,7 +887,7 @@ function getFullPath(parentPath, currentRoute) {
 function shallowEqualArrays(a, b) {
     if (a.length !== b.length)
         return false;
-    for (var /** @type {?} */ i = 0; i < a.length; ++i) {
+    for (var i = 0; i < a.length; ++i) {
         if (!shallowEqual(a[i], b[i]))
             return false;
     }
@@ -733,13 +899,16 @@ function shallowEqualArrays(a, b) {
  * @return {?}
  */
 function shallowEqual(a, b) {
-    var /** @type {?} */ k1 = Object.keys(a);
-    var /** @type {?} */ k2 = Object.keys(b);
+    /** @type {?} */
+    var k1 = Object.keys(a);
+    /** @type {?} */
+    var k2 = Object.keys(b);
     if (k1.length != k2.length) {
         return false;
     }
-    var /** @type {?} */ key;
-    for (var /** @type {?} */ i = 0; i < k1.length; i++) {
+    /** @type {?} */
+    var key;
+    for (var i = 0; i < k1.length; i++) {
         key = k1[i];
         if (a[key] !== b[key]) {
             return false;
@@ -778,7 +947,7 @@ function last$1(a) {
  * @return {?}
  */
 function forEach(map$$1, callback) {
-    for (var /** @type {?} */ prop in map$$1) {
+    for (var prop in map$$1) {
         if (map$$1.hasOwnProperty(prop)) {
             callback(map$$1[prop], prop);
         }
@@ -792,13 +961,17 @@ function forEach(map$$1, callback) {
  */
 function waitForMap(obj, fn) {
     if (Object.keys(obj).length === 0) {
-        return rxjs_observable_of.of({});
+        return rxjs.of({});
     }
-    var /** @type {?} */ waitHead = [];
-    var /** @type {?} */ waitTail = [];
-    var /** @type {?} */ res = {};
+    /** @type {?} */
+    var waitHead = [];
+    /** @type {?} */
+    var waitTail = [];
+    /** @type {?} */
+    var res = {};
     forEach(obj, function (a, k) {
-        var /** @type {?} */ mapped = rxjs_operator_map.map.call(fn(k, a), function (r) { return res[k] = r; });
+        /** @type {?} */
+        var mapped = fn(k, a).pipe(rxjs_operators.map(function (r) { return res[k] = r; }));
         if (k === PRIMARY_OUTLET) {
             waitHead.push(mapped);
         }
@@ -806,9 +979,8 @@ function waitForMap(obj, fn) {
             waitTail.push(mapped);
         }
     });
-    var /** @type {?} */ concat$ = rxjs_operator_concatAll.concatAll.call(rxjs_observable_of.of.apply(void 0, waitHead.concat(waitTail)));
-    var /** @type {?} */ last$ = rxjs_operator_last.last.call(concat$);
-    return rxjs_operator_map.map.call(last$, function () { return res; });
+    // Closure compiler has problem with using spread operator here. So just using Array.concat.
+    return rxjs.of.apply(null, waitHead.concat(waitTail)).pipe(rxjs_operators.concatAll(), rxjs_operators.last(), rxjs_operators.map(function () { return res; }));
 }
 /**
  * ANDs Observables by merging all input observables, reducing to an Observable verifying all
@@ -817,8 +989,7 @@ function waitForMap(obj, fn) {
  * @return {?}
  */
 function andObservables(observables) {
-    var /** @type {?} */ merged$ = rxjs_operator_mergeAll.mergeAll.call(observables);
-    return rxjs_operator_every.every.call(merged$, function (result) { return result === true; });
+    return observables.pipe(rxjs_operators.mergeAll(), rxjs_operators.every(function (result) { return result === true; }));
 }
 /**
  * @template T
@@ -833,14 +1004,14 @@ function wrapIntoObservable(value) {
         // Use `Promise.resolve()` to wrap promise-like instances.
         // Required ie when a Resolver returns a AngularJS `$q` promise to correctly trigger the
         // change detection.
-        return rxjs_observable_fromPromise.fromPromise(Promise.resolve(value));
+        return rxjs.from(Promise.resolve(value));
     }
-    return rxjs_observable_of.of(/** @type {?} */ (value));
+    return rxjs.of(/** @type {?} */ (value));
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -875,6 +1046,7 @@ function containsTree(container, containee, exact) {
  * @return {?}
  */
 function equalQueryParams(container, containee) {
+    // TODO: This does not handle array params correctly.
     return shallowEqual(container, containee);
 }
 /**
@@ -887,7 +1059,7 @@ function equalSegmentGroups(container, containee) {
         return false;
     if (container.numberOfChildren !== containee.numberOfChildren)
         return false;
-    for (var /** @type {?} */ c in containee.children) {
+    for (var c in containee.children) {
         if (!container.children[c])
             return false;
         if (!equalSegmentGroups(container.children[c], containee.children[c]))
@@ -901,6 +1073,7 @@ function equalSegmentGroups(container, containee) {
  * @return {?}
  */
 function containsQueryParams(container, containee) {
+    // TODO: This does not handle array params correctly.
     return Object.keys(containee).length <= Object.keys(container).length &&
         Object.keys(containee).every(function (key) { return containee[key] === container[key]; });
 }
@@ -920,7 +1093,8 @@ function containsSegmentGroup(container, containee) {
  */
 function containsSegmentGroupHelper(container, containee, containeePaths) {
     if (container.segments.length > containeePaths.length) {
-        var /** @type {?} */ current = container.segments.slice(0, containeePaths.length);
+        /** @type {?} */
+        var current = container.segments.slice(0, containeePaths.length);
         if (!equalPath(current, containeePaths))
             return false;
         if (containee.hasChildren())
@@ -930,7 +1104,7 @@ function containsSegmentGroupHelper(container, containee, containeePaths) {
     else if (container.segments.length === containeePaths.length) {
         if (!equalPath(container.segments, containeePaths))
             return false;
-        for (var /** @type {?} */ c in containee.children) {
+        for (var c in containee.children) {
             if (!container.children[c])
                 return false;
             if (!containsSegmentGroup(container.children[c], containee.children[c]))
@@ -939,8 +1113,10 @@ function containsSegmentGroupHelper(container, containee, containeePaths) {
         return true;
     }
     else {
-        var /** @type {?} */ current = containeePaths.slice(0, container.segments.length);
-        var /** @type {?} */ next = containeePaths.slice(container.segments.length);
+        /** @type {?} */
+        var current = containeePaths.slice(0, container.segments.length);
+        /** @type {?} */
+        var next = containeePaths.slice(container.segments.length);
         if (!equalPath(container.segments, current))
             return false;
         if (!container.children[PRIMARY_OUTLET])
@@ -949,9 +1125,15 @@ function containsSegmentGroupHelper(container, containee, containeePaths) {
     }
 }
 /**
- * \@whatItDoes Represents the parsed URL.
+ * \@description
  *
- * \@howToUse
+ * Represents the parsed URL.
+ *
+ * Since a router state is a tree, and the URL is nothing but a serialized state, the URL is a
+ * serialized tree.
+ * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
+ *
+ * ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -969,15 +1151,9 @@ function containsSegmentGroupHelper(container, containee, containeePaths) {
  * }
  * ```
  *
- * \@description
  *
- * Since a router state is a tree, and the URL is nothing but a serialized state, the URL is a
- * serialized tree.
- * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
- *
- * \@stable
  */
-var UrlTree = (function () {
+var UrlTree = /** @class */ (function () {
     /** @internal */
     function UrlTree(root, queryParams, fragment) {
         this.root = root;
@@ -1010,13 +1186,15 @@ var UrlTree = (function () {
     return UrlTree;
 }());
 /**
- * \@whatItDoes Represents the parsed URL segment group.
+ * \@description
  *
- * See {\@link UrlTree} for more information.
+ * Represents the parsed URL segment group.
  *
- * \@stable
+ * See `UrlTree` for more information.
+ *
+ *
  */
-var UrlSegmentGroup = (function () {
+var UrlSegmentGroup = /** @class */ (function () {
     function UrlSegmentGroup(segments, children) {
         var _this = this;
         this.segments = segments;
@@ -1060,9 +1238,14 @@ var UrlSegmentGroup = (function () {
     return UrlSegmentGroup;
 }());
 /**
- * \@whatItDoes Represents a single URL segment.
+ * \@description
  *
- * \@howToUse
+ * Represents a single URL segment.
+ *
+ * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
+ * parameters associated with the segment.
+ *
+ *  ## Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -1077,14 +1260,9 @@ var UrlSegmentGroup = (function () {
  * }
  * ```
  *
- * \@description
  *
- * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
- * parameters associated with the segment.
- *
- * \@stable
  */
-var UrlSegment = (function () {
+var UrlSegment = /** @class */ (function () {
     function UrlSegment(path, parameters) {
         this.path = path;
         this.parameters = parameters;
@@ -1139,7 +1317,8 @@ function equalPath(as, bs) {
  * @return {?}
  */
 function mapChildrenIntoArray(segment, fn) {
-    var /** @type {?} */ res = [];
+    /** @type {?} */
+    var res = [];
     forEach(segment.children, function (child, childOutlet) {
         if (childOutlet === PRIMARY_OUTLET) {
             res = res.concat(fn(child, childOutlet));
@@ -1153,25 +1332,27 @@ function mapChildrenIntoArray(segment, fn) {
     return res;
 }
 /**
- * \@whatItDoes Serializes and deserializes a URL string into a URL tree.
+ * \@description
  *
- * \@description The url serialization strategy is customizable. You can
+ * Serializes and deserializes a URL string into a URL tree.
+ *
+ * The url serialization strategy is customizable. You can
  * make all URLs case insensitive by providing a custom UrlSerializer.
  *
- * See {\@link DefaultUrlSerializer} for an example of a URL serializer.
+ * See `DefaultUrlSerializer` for an example of a URL serializer.
  *
- * \@stable
+ *
  * @abstract
  */
-var UrlSerializer = (function () {
+var UrlSerializer = /** @class */ (function () {
     function UrlSerializer() {
     }
     return UrlSerializer;
 }());
 /**
- * \@whatItDoes A default implementation of the {\@link UrlSerializer}.
- *
  * \@description
+ *
+ * A default implementation of the `UrlSerializer`.
  *
  * Example URLs:
  *
@@ -1184,45 +1365,50 @@ var UrlSerializer = (function () {
  * colon syntax to specify the outlet, and the ';parameter=value' syntax (e.g., open=true) to
  * specify route specific parameters.
  *
- * \@stable
+ *
  */
-var DefaultUrlSerializer = (function () {
+var DefaultUrlSerializer = /** @class */ (function () {
     function DefaultUrlSerializer() {
     }
-    /** Parses a url into a {@link UrlTree} */
+    /** Parses a url into a `UrlTree` */
     /**
-     * Parses a url into a {\@link UrlTree}
+     * Parses a url into a `UrlTree`
      * @param {?} url
      * @return {?}
      */
     DefaultUrlSerializer.prototype.parse = /**
-     * Parses a url into a {\@link UrlTree}
+     * Parses a url into a `UrlTree`
      * @param {?} url
      * @return {?}
      */
     function (url) {
-        var /** @type {?} */ p = new UrlParser(url);
+        /** @type {?} */
+        var p = new UrlParser(url);
         return new UrlTree(p.parseRootSegment(), p.parseQueryParams(), p.parseFragment());
     };
-    /** Converts a {@link UrlTree} into a url */
+    /** Converts a `UrlTree` into a url */
     /**
-     * Converts a {\@link UrlTree} into a url
+     * Converts a `UrlTree` into a url
      * @param {?} tree
      * @return {?}
      */
     DefaultUrlSerializer.prototype.serialize = /**
-     * Converts a {\@link UrlTree} into a url
+     * Converts a `UrlTree` into a url
      * @param {?} tree
      * @return {?}
      */
     function (tree) {
-        var /** @type {?} */ segment = "/" + serializeSegment(tree.root, true);
-        var /** @type {?} */ query = serializeQueryParams(tree.queryParams);
-        var /** @type {?} */ fragment = typeof tree.fragment === "string" ? "#" + encodeURI((/** @type {?} */ ((tree.fragment)))) : '';
+        /** @type {?} */
+        var segment = "/" + serializeSegment(tree.root, true);
+        /** @type {?} */
+        var query = serializeQueryParams(tree.queryParams);
+        /** @type {?} */
+        var fragment = typeof tree.fragment === "string" ? "#" + encodeUriFragment((/** @type {?} */ ((tree.fragment)))) : '';
         return "" + segment + query + fragment;
     };
     return DefaultUrlSerializer;
 }());
+/** @type {?} */
 var DEFAULT_SERIALIZER = new DefaultUrlSerializer();
 /**
  * @param {?} segment
@@ -1241,10 +1427,12 @@ function serializeSegment(segment, root) {
         return serializePaths(segment);
     }
     if (root) {
-        var /** @type {?} */ primary = segment.children[PRIMARY_OUTLET] ?
+        /** @type {?} */
+        var primary = segment.children[PRIMARY_OUTLET] ?
             serializeSegment(segment.children[PRIMARY_OUTLET], false) :
             '';
-        var /** @type {?} */ children_1 = [];
+        /** @type {?} */
+        var children_1 = [];
         forEach(segment.children, function (v, k) {
             if (k !== PRIMARY_OUTLET) {
                 children_1.push(k + ":" + serializeSegment(v, false));
@@ -1253,7 +1441,8 @@ function serializeSegment(segment, root) {
         return children_1.length > 0 ? primary + "(" + children_1.join('//') + ")" : primary;
     }
     else {
-        var /** @type {?} */ children = mapChildrenIntoArray(segment, function (v, k) {
+        /** @type {?} */
+        var children = mapChildrenIntoArray(segment, function (v, k) {
             if (k === PRIMARY_OUTLET) {
                 return [serializeSegment(segment.children[PRIMARY_OUTLET], false)];
             }
@@ -1263,25 +1452,53 @@ function serializeSegment(segment, root) {
     }
 }
 /**
- * This method is intended for encoding *key* or *value* parts of query component. We need a custom
- * method because encodeURIComponent is too aggressive and encodes stuff that doesn't have to be
- * encoded per http://tools.ietf.org/html/rfc3986:
- *    query         = *( pchar / "/" / "?" )
- *    pchar         = unreserved / pct-encoded / sub-delims / ":" / "\@"
- *    unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
- *    pct-encoded   = "%" HEXDIG HEXDIG
- *    sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
- *                     / "*" / "+" / "," / ";" / "="
+ * Encodes a URI string with the default encoding. This function will only ever be called from
+ * `encodeUriQuery` or `encodeUriSegment` as it's the base set of encodings to be used. We need
+ * a custom encoding because encodeURIComponent is too aggressive and encodes stuff that doesn't
+ * have to be encoded per https://url.spec.whatwg.org.
  * @param {?} s
  * @return {?}
  */
-function encode(s) {
+function encodeUriString(s) {
     return encodeURIComponent(s)
         .replace(/%40/g, '@')
         .replace(/%3A/gi, ':')
         .replace(/%24/g, '$')
-        .replace(/%2C/gi, ',')
-        .replace(/%3B/gi, ';');
+        .replace(/%2C/gi, ',');
+}
+/**
+ * This function should be used to encode both keys and values in a query string key/value. In
+ * the following URL, you need to call encodeUriQuery on "k" and "v":
+ *
+ * http://www.site.org/html;mk=mv?k=v#f
+ * @param {?} s
+ * @return {?}
+ */
+function encodeUriQuery(s) {
+    return encodeUriString(s).replace(/%3B/gi, ';');
+}
+/**
+ * This function should be used to encode a URL fragment. In the following URL, you need to call
+ * encodeUriFragment on "f":
+ *
+ * http://www.site.org/html;mk=mv?k=v#f
+ * @param {?} s
+ * @return {?}
+ */
+function encodeUriFragment(s) {
+    return encodeURI(s);
+}
+/**
+ * This function should be run on any URI segment as well as the key and value in a key/value
+ * pair for matrix params. In the following URL, you need to call encodeUriSegment on "html",
+ * "mk", and "mv":
+ *
+ * http://www.site.org/html;mk=mv?k=v#f
+ * @param {?} s
+ * @return {?}
+ */
+function encodeUriSegment(s) {
+    return encodeUriString(s).replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/%26/gi, '&');
 }
 /**
  * @param {?} s
@@ -1291,59 +1508,77 @@ function decode(s) {
     return decodeURIComponent(s);
 }
 /**
+ * @param {?} s
+ * @return {?}
+ */
+function decodeQuery(s) {
+    return decode(s.replace(/\+/g, '%20'));
+}
+/**
  * @param {?} path
  * @return {?}
  */
 function serializePath(path) {
-    return "" + encode(path.path) + serializeParams(path.parameters);
+    return "" + encodeUriSegment(path.path) + serializeMatrixParams(path.parameters);
 }
 /**
  * @param {?} params
  * @return {?}
  */
-function serializeParams(params) {
-    return Object.keys(params).map(function (key) { return ";" + encode(key) + "=" + encode(params[key]); }).join('');
+function serializeMatrixParams(params) {
+    return Object.keys(params)
+        .map(function (key) { return ";" + encodeUriSegment(key) + "=" + encodeUriSegment(params[key]); })
+        .join('');
 }
 /**
  * @param {?} params
  * @return {?}
  */
 function serializeQueryParams(params) {
-    var /** @type {?} */ strParams = Object.keys(params).map(function (name) {
-        var /** @type {?} */ value = params[name];
-        return Array.isArray(value) ? value.map(function (v) { return encode(name) + "=" + encode(v); }).join('&') :
-            encode(name) + "=" + encode(value);
+    /** @type {?} */
+    var strParams = Object.keys(params).map(function (name) {
+        /** @type {?} */
+        var value = params[name];
+        return Array.isArray(value) ?
+            value.map(function (v) { return encodeUriQuery(name) + "=" + encodeUriQuery(v); }).join('&') :
+            encodeUriQuery(name) + "=" + encodeUriQuery(value);
     });
     return strParams.length ? "?" + strParams.join("&") : '';
 }
-var SEGMENT_RE = /^[^\/()?;=&#]+/;
+/** @type {?} */
+var SEGMENT_RE = /^[^\/()?;=#]+/;
 /**
  * @param {?} str
  * @return {?}
  */
 function matchSegments(str) {
-    var /** @type {?} */ match = str.match(SEGMENT_RE);
+    /** @type {?} */
+    var match = str.match(SEGMENT_RE);
     return match ? match[0] : '';
 }
+/** @type {?} */
 var QUERY_PARAM_RE = /^[^=?&#]+/;
 /**
  * @param {?} str
  * @return {?}
  */
 function matchQueryParams(str) {
-    var /** @type {?} */ match = str.match(QUERY_PARAM_RE);
+    /** @type {?} */
+    var match = str.match(QUERY_PARAM_RE);
     return match ? match[0] : '';
 }
+/** @type {?} */
 var QUERY_PARAM_VALUE_RE = /^[^?&#]+/;
 /**
  * @param {?} str
  * @return {?}
  */
 function matchUrlQueryParamValue(str) {
-    var /** @type {?} */ match = str.match(QUERY_PARAM_VALUE_RE);
+    /** @type {?} */
+    var match = str.match(QUERY_PARAM_VALUE_RE);
     return match ? match[0] : '';
 }
-var UrlParser = (function () {
+var UrlParser = /** @class */ (function () {
     function UrlParser(url) {
         this.url = url;
         this.remaining = url;
@@ -1369,7 +1604,8 @@ var UrlParser = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ params = {};
+        /** @type {?} */
+        var params = {};
         if (this.consumeOptional('?')) {
             do {
                 this.parseQueryParam(params);
@@ -1384,7 +1620,7 @@ var UrlParser = (function () {
      * @return {?}
      */
     function () {
-        return this.consumeOptional('#') ? decodeURI(this.remaining) : null;
+        return this.consumeOptional('#') ? decodeURIComponent(this.remaining) : null;
     };
     /**
      * @return {?}
@@ -1397,7 +1633,8 @@ var UrlParser = (function () {
             return {};
         }
         this.consumeOptional('/');
-        var /** @type {?} */ segments = [];
+        /** @type {?} */
+        var segments = [];
         if (!this.peekStartsWith('(')) {
             segments.push(this.parseSegment());
         }
@@ -1405,12 +1642,14 @@ var UrlParser = (function () {
             this.capture('/');
             segments.push(this.parseSegment());
         }
-        var /** @type {?} */ children = {};
+        /** @type {?} */
+        var children = {};
         if (this.peekStartsWith('/(')) {
             this.capture('/');
             children = this.parseParens(true);
         }
-        var /** @type {?} */ res = {};
+        /** @type {?} */
+        var res = {};
         if (this.peekStartsWith('(')) {
             res = this.parseParens(false);
         }
@@ -1426,7 +1665,8 @@ var UrlParser = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ path = matchSegments(this.remaining);
+        /** @type {?} */
+        var path = matchSegments(this.remaining);
         if (path === '' && this.peekStartsWith(';')) {
             throw new Error("Empty path url segment cannot have parameters: '" + this.remaining + "'.");
         }
@@ -1440,7 +1680,8 @@ var UrlParser = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ params = {};
+        /** @type {?} */
+        var params = {};
         while (this.consumeOptional(';')) {
             this.parseParam(params);
         }
@@ -1455,14 +1696,17 @@ var UrlParser = (function () {
      * @return {?}
      */
     function (params) {
-        var /** @type {?} */ key = matchSegments(this.remaining);
+        /** @type {?} */
+        var key = matchSegments(this.remaining);
         if (!key) {
             return;
         }
         this.capture(key);
-        var /** @type {?} */ value = '';
+        /** @type {?} */
+        var value = '';
         if (this.consumeOptional('=')) {
-            var /** @type {?} */ valueMatch = matchSegments(this.remaining);
+            /** @type {?} */
+            var valueMatch = matchSegments(this.remaining);
             if (valueMatch) {
                 value = valueMatch;
                 this.capture(value);
@@ -1479,24 +1723,29 @@ var UrlParser = (function () {
      * @return {?}
      */
     function (params) {
-        var /** @type {?} */ key = matchQueryParams(this.remaining);
+        /** @type {?} */
+        var key = matchQueryParams(this.remaining);
         if (!key) {
             return;
         }
         this.capture(key);
-        var /** @type {?} */ value = '';
+        /** @type {?} */
+        var value = '';
         if (this.consumeOptional('=')) {
-            var /** @type {?} */ valueMatch = matchUrlQueryParamValue(this.remaining);
+            /** @type {?} */
+            var valueMatch = matchUrlQueryParamValue(this.remaining);
             if (valueMatch) {
                 value = valueMatch;
                 this.capture(value);
             }
         }
-        var /** @type {?} */ decodedKey = decode(key);
-        var /** @type {?} */ decodedVal = decode(value);
+        /** @type {?} */
+        var decodedKey = decodeQuery(key);
+        /** @type {?} */
+        var decodedVal = decodeQuery(value);
         if (params.hasOwnProperty(decodedKey)) {
-            // Append to existing values
-            var /** @type {?} */ currentVal = params[decodedKey];
+            /** @type {?} */
+            var currentVal = params[decodedKey];
             if (!Array.isArray(currentVal)) {
                 currentVal = [currentVal];
                 params[decodedKey] = currentVal;
@@ -1517,17 +1766,21 @@ var UrlParser = (function () {
      * @return {?}
      */
     function (allowPrimary) {
-        var /** @type {?} */ segments = {};
+        /** @type {?} */
+        var segments = {};
         this.capture('(');
         while (!this.consumeOptional(')') && this.remaining.length > 0) {
-            var /** @type {?} */ path = matchSegments(this.remaining);
-            var /** @type {?} */ next = this.remaining[path.length];
+            /** @type {?} */
+            var path = matchSegments(this.remaining);
+            /** @type {?} */
+            var next = this.remaining[path.length];
             // if is is not one of these characters, then the segment was unescaped
             // or the group was not closed
             if (next !== '/' && next !== ')' && next !== ';') {
                 throw new Error("Cannot parse url '" + this.url + "'");
             }
-            var /** @type {?} */ outletName = /** @type {?} */ ((undefined));
+            /** @type {?} */
+            var outletName = /** @type {?} */ ((undefined));
             if (path.indexOf(':') > -1) {
                 outletName = path.substr(0, path.indexOf(':'));
                 this.capture(outletName);
@@ -1536,7 +1789,8 @@ var UrlParser = (function () {
             else if (allowPrimary) {
                 outletName = PRIMARY_OUTLET;
             }
-            var /** @type {?} */ children = this.parseChildren();
+            /** @type {?} */
+            var children = this.parseChildren();
             segments[outletName] = Object.keys(children).length === 1 ? children[PRIMARY_OUTLET] :
                 new UrlSegmentGroup([], children);
             this.consumeOptional('//');
@@ -1585,7 +1839,7 @@ var UrlParser = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -1594,13 +1848,13 @@ var UrlParser = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var NoMatch = (function () {
+var NoMatch = /** @class */ (function () {
     function NoMatch(segmentGroup) {
         this.segmentGroup = segmentGroup || null;
     }
     return NoMatch;
 }());
-var AbsoluteRedirect = (function () {
+var AbsoluteRedirect = /** @class */ (function () {
     function AbsoluteRedirect(urlTree) {
         this.urlTree = urlTree;
     }
@@ -1611,32 +1865,28 @@ var AbsoluteRedirect = (function () {
  * @return {?}
  */
 function noMatch(segmentGroup) {
-    return new rxjs_Observable.Observable(function (obs) { return obs.error(new NoMatch(segmentGroup)); });
+    return new rxjs.Observable(function (obs) { return obs.error(new NoMatch(segmentGroup)); });
 }
 /**
  * @param {?} newTree
  * @return {?}
  */
 function absoluteRedirect(newTree) {
-    return new rxjs_Observable.Observable(function (obs) { return obs.error(new AbsoluteRedirect(newTree)); });
+    return new rxjs.Observable(function (obs) { return obs.error(new AbsoluteRedirect(newTree)); });
 }
 /**
  * @param {?} redirectTo
  * @return {?}
  */
 function namedOutletsRedirect(redirectTo) {
-    return new rxjs_Observable.Observable(function (obs) {
-        return obs.error(new Error("Only absolute redirects can have named outlets. redirectTo: '" + redirectTo + "'"));
-    });
+    return new rxjs.Observable(function (obs) { return obs.error(new Error("Only absolute redirects can have named outlets. redirectTo: '" + redirectTo + "'")); });
 }
 /**
  * @param {?} route
  * @return {?}
  */
 function canLoadFails(route) {
-    return new rxjs_Observable.Observable(function (obs) {
-        return obs.error(navigationCancelingError("Cannot load children because the guard of the route \"path: '" + route.path + "'\" returned false"));
-    });
+    return new rxjs.Observable(function (obs) { return obs.error(navigationCancelingError("Cannot load children because the guard of the route \"path: '" + route.path + "'\" returned false")); });
 }
 /**
  * Returns the `UrlTree` with the redirection applied.
@@ -1652,7 +1902,7 @@ function canLoadFails(route) {
 function applyRedirects(moduleInjector, configLoader, urlSerializer, urlTree, config) {
     return new ApplyRedirects(moduleInjector, configLoader, urlSerializer, urlTree, config).apply();
 }
-var ApplyRedirects = (function () {
+var ApplyRedirects = /** @class */ (function () {
     function ApplyRedirects(moduleInjector, configLoader, urlSerializer, urlTree, config) {
         this.configLoader = configLoader;
         this.urlSerializer = urlSerializer;
@@ -1669,11 +1919,11 @@ var ApplyRedirects = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ expanded$ = this.expandSegmentGroup(this.ngModule, this.config, this.urlTree.root, PRIMARY_OUTLET);
-        var /** @type {?} */ urlTrees$ = rxjs_operator_map.map.call(expanded$, function (rootSegmentGroup) {
-            return _this.createUrlTree(rootSegmentGroup, _this.urlTree.queryParams, /** @type {?} */ ((_this.urlTree.fragment)));
-        });
-        return rxjs_operator_catch._catch.call(urlTrees$, function (e) {
+        /** @type {?} */
+        var expanded$ = this.expandSegmentGroup(this.ngModule, this.config, this.urlTree.root, PRIMARY_OUTLET);
+        /** @type {?} */
+        var urlTrees$ = expanded$.pipe(rxjs_operators.map(function (rootSegmentGroup) { return _this.createUrlTree(rootSegmentGroup, _this.urlTree.queryParams, /** @type {?} */ ((_this.urlTree.fragment))); }));
+        return urlTrees$.pipe(rxjs_operators.catchError(function (e) {
             if (e instanceof AbsoluteRedirect) {
                 // after an absolute redirect we do not apply any more redirects!
                 // after an absolute redirect we do not apply any more redirects!
@@ -1685,7 +1935,7 @@ var ApplyRedirects = (function () {
                 throw _this.noMatchError(e);
             }
             throw e;
-        });
+        }));
     };
     /**
      * @param {?} tree
@@ -1697,16 +1947,18 @@ var ApplyRedirects = (function () {
      */
     function (tree) {
         var _this = this;
-        var /** @type {?} */ expanded$ = this.expandSegmentGroup(this.ngModule, this.config, tree.root, PRIMARY_OUTLET);
-        var /** @type {?} */ mapped$ = rxjs_operator_map.map.call(expanded$, function (rootSegmentGroup) {
+        /** @type {?} */
+        var expanded$ = this.expandSegmentGroup(this.ngModule, this.config, tree.root, PRIMARY_OUTLET);
+        /** @type {?} */
+        var mapped$ = expanded$.pipe(rxjs_operators.map(function (rootSegmentGroup) {
             return _this.createUrlTree(rootSegmentGroup, tree.queryParams, /** @type {?} */ ((tree.fragment)));
-        });
-        return rxjs_operator_catch._catch.call(mapped$, function (e) {
+        }));
+        return mapped$.pipe(rxjs_operators.catchError(function (e) {
             if (e instanceof NoMatch) {
                 throw _this.noMatchError(e);
             }
             throw e;
-        });
+        }));
     };
     /**
      * @param {?} e
@@ -1732,11 +1984,12 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (rootCandidate, queryParams, fragment) {
-        var /** @type {?} */ root = rootCandidate.segments.length > 0 ?
+        var _a;
+        /** @type {?} */
+        var root = rootCandidate.segments.length > 0 ?
             new UrlSegmentGroup([], (_a = {}, _a[PRIMARY_OUTLET] = rootCandidate, _a)) :
             rootCandidate;
         return new UrlTree(root, queryParams, fragment);
-        var _a;
     };
     /**
      * @param {?} ngModule
@@ -1754,7 +2007,8 @@ var ApplyRedirects = (function () {
      */
     function (ngModule, routes, segmentGroup, outlet) {
         if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
-            return rxjs_operator_map.map.call(this.expandChildren(ngModule, routes, segmentGroup), function (children) { return new UrlSegmentGroup([], children); });
+            return this.expandChildren(ngModule, routes, segmentGroup)
+                .pipe(rxjs_operators.map(function (children) { return new UrlSegmentGroup([], children); }));
         }
         return this.expandSegment(ngModule, segmentGroup, routes, segmentGroup.segments, outlet, true);
     };
@@ -1794,27 +2048,26 @@ var ApplyRedirects = (function () {
      */
     function (ngModule, segmentGroup, routes, segments, outlet, allowRedirects) {
         var _this = this;
-        var /** @type {?} */ routes$ = rxjs_observable_of.of.apply(void 0, routes);
-        var /** @type {?} */ processedRoutes$ = rxjs_operator_map.map.call(routes$, function (r) {
-            var /** @type {?} */ expanded$ = _this.expandSegmentAgainstRoute(ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
-            return rxjs_operator_catch._catch.call(expanded$, function (e) {
+        return rxjs.of.apply(void 0, routes).pipe(rxjs_operators.map(function (r) {
+            /** @type {?} */
+            var expanded$ = _this.expandSegmentAgainstRoute(ngModule, segmentGroup, routes, r, segments, outlet, allowRedirects);
+            return expanded$.pipe(rxjs_operators.catchError(function (e) {
                 if (e instanceof NoMatch) {
-                    return rxjs_observable_of.of(null);
+                    // TODO(i): this return type doesn't match the declared Observable<UrlSegmentGroup> -
+                    // talk to Jason
+                    return /** @type {?} */ (rxjs.of(null));
                 }
                 throw e;
-            });
-        });
-        var /** @type {?} */ concattedProcessedRoutes$ = rxjs_operator_concatAll.concatAll.call(processedRoutes$);
-        var /** @type {?} */ first$ = rxjs_operator_first.first.call(concattedProcessedRoutes$, function (s) { return !!s; });
-        return rxjs_operator_catch._catch.call(first$, function (e, _) {
-            if (e instanceof rxjs_util_EmptyError.EmptyError) {
+            }));
+        }), rxjs_operators.concatAll(), rxjs_operators.first(function (s) { return !!s; }), rxjs_operators.catchError(function (e, _) {
+            if (e instanceof rxjs.EmptyError || e.name === 'EmptyError') {
                 if (_this.noLeftoversInUrl(segmentGroup, segments, outlet)) {
-                    return rxjs_observable_of.of(new UrlSegmentGroup([], {}));
+                    return rxjs.of(new UrlSegmentGroup([], {}));
                 }
                 throw new NoMatch(segmentGroup);
             }
             throw e;
-        });
+        }));
     };
     /**
      * @param {?} segmentGroup
@@ -1903,14 +2156,16 @@ var ApplyRedirects = (function () {
      */
     function (ngModule, routes, route, outlet) {
         var _this = this;
-        var /** @type {?} */ newTree = this.applyRedirectCommands([], /** @type {?} */ ((route.redirectTo)), {});
+        /** @type {?} */
+        var newTree = this.applyRedirectCommands([], /** @type {?} */ ((route.redirectTo)), {});
         if (/** @type {?} */ ((route.redirectTo)).startsWith('/')) {
             return absoluteRedirect(newTree);
         }
-        return rxjs_operator_mergeMap.mergeMap.call(this.lineralizeSegments(route, newTree), function (newSegments) {
-            var /** @type {?} */ group = new UrlSegmentGroup(newSegments, {});
+        return this.lineralizeSegments(route, newTree).pipe(rxjs_operators.mergeMap(function (newSegments) {
+            /** @type {?} */
+            var group = new UrlSegmentGroup(newSegments, {});
             return _this.expandSegment(ngModule, group, routes, newSegments, outlet, false);
-        });
+        }));
     };
     /**
      * @param {?} ngModule
@@ -1935,13 +2190,14 @@ var ApplyRedirects = (function () {
         var _a = match(segmentGroup, route, segments), matched = _a.matched, consumedSegments = _a.consumedSegments, lastChild = _a.lastChild, positionalParamSegments = _a.positionalParamSegments;
         if (!matched)
             return noMatch(segmentGroup);
-        var /** @type {?} */ newTree = this.applyRedirectCommands(consumedSegments, /** @type {?} */ ((route.redirectTo)), /** @type {?} */ (positionalParamSegments));
+        /** @type {?} */
+        var newTree = this.applyRedirectCommands(consumedSegments, /** @type {?} */ ((route.redirectTo)), /** @type {?} */ (positionalParamSegments));
         if (/** @type {?} */ ((route.redirectTo)).startsWith('/')) {
             return absoluteRedirect(newTree);
         }
-        return rxjs_operator_mergeMap.mergeMap.call(this.lineralizeSegments(route, newTree), function (newSegments) {
+        return this.lineralizeSegments(route, newTree).pipe(rxjs_operators.mergeMap(function (newSegments) {
             return _this.expandSegment(ngModule, segmentGroup, routes, newSegments.concat(segments.slice(lastChild)), outlet, false);
-        });
+        }));
     };
     /**
      * @param {?} ngModule
@@ -1961,67 +2217,78 @@ var ApplyRedirects = (function () {
         var _this = this;
         if (route.path === '**') {
             if (route.loadChildren) {
-                return rxjs_operator_map.map.call(this.configLoader.load(ngModule.injector, route), function (cfg) {
+                return this.configLoader.load(ngModule.injector, route)
+                    .pipe(rxjs_operators.map(function (cfg) {
                     route._loadedConfig = cfg;
                     return new UrlSegmentGroup(segments, {});
-                });
+                }));
             }
-            return rxjs_observable_of.of(new UrlSegmentGroup(segments, {}));
+            return rxjs.of(new UrlSegmentGroup(segments, {}));
         }
         var _a = match(rawSegmentGroup, route, segments), matched = _a.matched, consumedSegments = _a.consumedSegments, lastChild = _a.lastChild;
         if (!matched)
             return noMatch(rawSegmentGroup);
-        var /** @type {?} */ rawSlicedSegments = segments.slice(lastChild);
-        var /** @type {?} */ childConfig$ = this.getChildConfig(ngModule, route);
-        return rxjs_operator_mergeMap.mergeMap.call(childConfig$, function (routerConfig) {
-            var /** @type {?} */ childModule = routerConfig.module;
-            var /** @type {?} */ childConfig = routerConfig.routes;
+        /** @type {?} */
+        var rawSlicedSegments = segments.slice(lastChild);
+        /** @type {?} */
+        var childConfig$ = this.getChildConfig(ngModule, route, segments);
+        return childConfig$.pipe(rxjs_operators.mergeMap(function (routerConfig) {
+            /** @type {?} */
+            var childModule = routerConfig.module;
+            /** @type {?} */
+            var childConfig = routerConfig.routes;
             var _a = split(rawSegmentGroup, consumedSegments, rawSlicedSegments, childConfig), segmentGroup = _a.segmentGroup, slicedSegments = _a.slicedSegments;
             if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
-                var /** @type {?} */ expanded$_1 = _this.expandChildren(childModule, childConfig, segmentGroup);
-                return rxjs_operator_map.map.call(expanded$_1, function (children) { return new UrlSegmentGroup(consumedSegments, children); });
+                /** @type {?} */
+                var expanded$_1 = _this.expandChildren(childModule, childConfig, segmentGroup);
+                return expanded$_1.pipe(rxjs_operators.map(function (children) { return new UrlSegmentGroup(consumedSegments, children); }));
             }
             if (childConfig.length === 0 && slicedSegments.length === 0) {
-                return rxjs_observable_of.of(new UrlSegmentGroup(consumedSegments, {}));
+                return rxjs.of(new UrlSegmentGroup(consumedSegments, {}));
             }
-            var /** @type {?} */ expanded$ = _this.expandSegment(childModule, segmentGroup, childConfig, slicedSegments, PRIMARY_OUTLET, true);
-            return rxjs_operator_map.map.call(expanded$, function (cs) {
+            /** @type {?} */
+            var expanded$ = _this.expandSegment(childModule, segmentGroup, childConfig, slicedSegments, PRIMARY_OUTLET, true);
+            return expanded$.pipe(rxjs_operators.map(function (cs) {
                 return new UrlSegmentGroup(consumedSegments.concat(cs.segments), cs.children);
-            });
-        });
+            }));
+        }));
     };
     /**
      * @param {?} ngModule
      * @param {?} route
+     * @param {?} segments
      * @return {?}
      */
     ApplyRedirects.prototype.getChildConfig = /**
      * @param {?} ngModule
      * @param {?} route
+     * @param {?} segments
      * @return {?}
      */
-    function (ngModule, route) {
+    function (ngModule, route, segments) {
         var _this = this;
         if (route.children) {
             // The children belong to the same module
-            return rxjs_observable_of.of(new LoadedRouterConfig(route.children, ngModule));
+            return rxjs.of(new LoadedRouterConfig(route.children, ngModule));
         }
         if (route.loadChildren) {
             // lazy children belong to the loaded module
             if (route._loadedConfig !== undefined) {
-                return rxjs_observable_of.of(route._loadedConfig);
+                return rxjs.of(route._loadedConfig);
             }
-            return rxjs_operator_mergeMap.mergeMap.call(runCanLoadGuard(ngModule.injector, route), function (shouldLoad) {
+            return runCanLoadGuard(ngModule.injector, route, segments)
+                .pipe(rxjs_operators.mergeMap(function (shouldLoad) {
                 if (shouldLoad) {
-                    return rxjs_operator_map.map.call(_this.configLoader.load(ngModule.injector, route), function (cfg) {
+                    return _this.configLoader.load(ngModule.injector, route)
+                        .pipe(rxjs_operators.map(function (cfg) {
                         route._loadedConfig = cfg;
                         return cfg;
-                    });
+                    }));
                 }
                 return canLoadFails(route);
-            });
+            }));
         }
-        return rxjs_observable_of.of(new LoadedRouterConfig([], ngModule));
+        return rxjs.of(new LoadedRouterConfig([], ngModule));
     };
     /**
      * @param {?} route
@@ -2034,12 +2301,14 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (route, urlTree) {
-        var /** @type {?} */ res = [];
-        var /** @type {?} */ c = urlTree.root;
+        /** @type {?} */
+        var res = [];
+        /** @type {?} */
+        var c = urlTree.root;
         while (true) {
             res = res.concat(c.segments);
             if (c.numberOfChildren === 0) {
-                return rxjs_observable_of.of(res);
+                return rxjs.of(res);
             }
             if (c.numberOfChildren > 1 || !c.children[PRIMARY_OUTLET]) {
                 return namedOutletsRedirect(/** @type {?} */ ((route.redirectTo)));
@@ -2077,7 +2346,8 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (redirectTo, urlTree, segments, posParams) {
-        var /** @type {?} */ newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
+        /** @type {?} */
+        var newRoot = this.createSegmentGroup(redirectTo, urlTree.root, segments, posParams);
         return new UrlTree(newRoot, this.createQueryParams(urlTree.queryParams, this.urlTree.queryParams), urlTree.fragment);
     };
     /**
@@ -2091,11 +2361,14 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (redirectToParams, actualParams) {
-        var /** @type {?} */ res = {};
+        /** @type {?} */
+        var res = {};
         forEach(redirectToParams, function (v, k) {
-            var /** @type {?} */ copySourceValue = typeof v === 'string' && v.startsWith(':');
+            /** @type {?} */
+            var copySourceValue = typeof v === 'string' && v.startsWith(':');
             if (copySourceValue) {
-                var /** @type {?} */ sourceName = v.substring(1);
+                /** @type {?} */
+                var sourceName = v.substring(1);
                 res[k] = actualParams[sourceName];
             }
             else {
@@ -2120,8 +2393,10 @@ var ApplyRedirects = (function () {
      */
     function (redirectTo, group, segments, posParams) {
         var _this = this;
-        var /** @type {?} */ updatedSegments = this.createSegments(redirectTo, group.segments, segments, posParams);
-        var /** @type {?} */ children = {};
+        /** @type {?} */
+        var updatedSegments = this.createSegments(redirectTo, group.segments, segments, posParams);
+        /** @type {?} */
+        var children = {};
         forEach(group.children, function (child, name) {
             children[name] = _this.createSegmentGroup(redirectTo, child, segments, posParams);
         });
@@ -2143,10 +2418,8 @@ var ApplyRedirects = (function () {
      */
     function (redirectTo, redirectToSegments, actualSegments, posParams) {
         var _this = this;
-        return redirectToSegments.map(function (s) {
-            return s.path.startsWith(':') ? _this.findPosParam(redirectTo, s, posParams) :
-                _this.findOrReturn(s, actualSegments);
-        });
+        return redirectToSegments.map(function (s) { return s.path.startsWith(':') ? _this.findPosParam(redirectTo, s, posParams) :
+            _this.findOrReturn(s, actualSegments); });
     };
     /**
      * @param {?} redirectTo
@@ -2161,7 +2434,8 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (redirectTo, redirectToUrlSegment, posParams) {
-        var /** @type {?} */ pos = posParams[redirectToUrlSegment.path.substring(1)];
+        /** @type {?} */
+        var pos = posParams[redirectToUrlSegment.path.substring(1)];
         if (!pos)
             throw new Error("Cannot redirect to '" + redirectTo + "'. Cannot find '" + redirectToUrlSegment.path + "'.");
         return pos;
@@ -2177,7 +2451,8 @@ var ApplyRedirects = (function () {
      * @return {?}
      */
     function (redirectToUrlSegment, actualSegments) {
-        var /** @type {?} */ idx = 0;
+        /** @type {?} */
+        var idx = 0;
         for (var _i = 0, actualSegments_1 = actualSegments; _i < actualSegments_1.length; _i++) {
             var s = actualSegments_1[_i];
             if (s.path === redirectToUrlSegment.path) {
@@ -2193,16 +2468,20 @@ var ApplyRedirects = (function () {
 /**
  * @param {?} moduleInjector
  * @param {?} route
+ * @param {?} segments
  * @return {?}
  */
-function runCanLoadGuard(moduleInjector, route) {
-    var /** @type {?} */ canLoad = route.canLoad;
+function runCanLoadGuard(moduleInjector, route, segments) {
+    /** @type {?} */
+    var canLoad = route.canLoad;
     if (!canLoad || canLoad.length === 0)
-        return rxjs_observable_of.of(true);
-    var /** @type {?} */ obs = rxjs_operator_map.map.call(rxjs_observable_from.from(canLoad), function (injectionToken) {
-        var /** @type {?} */ guard = moduleInjector.get(injectionToken);
-        return wrapIntoObservable(guard.canLoad ? guard.canLoad(route) : guard(route));
-    });
+        return rxjs.of(true);
+    /** @type {?} */
+    var obs = rxjs.from(canLoad).pipe(rxjs_operators.map(function (injectionToken) {
+        /** @type {?} */
+        var guard = moduleInjector.get(injectionToken);
+        return wrapIntoObservable(guard.canLoad ? guard.canLoad(route, segments) : guard(route, segments));
+    }));
     return andObservables(obs);
 }
 /**
@@ -2218,8 +2497,10 @@ function match(segmentGroup, route, segments) {
         }
         return { matched: true, consumedSegments: [], lastChild: 0, positionalParamSegments: {} };
     }
-    var /** @type {?} */ matcher = route.matcher || defaultUrlMatcher;
-    var /** @type {?} */ res = matcher(segments, segmentGroup, route);
+    /** @type {?} */
+    var matcher = route.matcher || defaultUrlMatcher;
+    /** @type {?} */
+    var res = matcher(segments, segmentGroup, route);
     if (!res) {
         return {
             matched: false,
@@ -2245,12 +2526,14 @@ function match(segmentGroup, route, segments) {
 function split(segmentGroup, consumedSegments, slicedSegments, config) {
     if (slicedSegments.length > 0 &&
         containsEmptyPathRedirectsWithNamedOutlets(segmentGroup, slicedSegments, config)) {
-        var /** @type {?} */ s = new UrlSegmentGroup(consumedSegments, createChildrenForEmptySegments(config, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
+        /** @type {?} */
+        var s = new UrlSegmentGroup(consumedSegments, createChildrenForEmptySegments(config, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
         return { segmentGroup: mergeTrivialChildren(s), slicedSegments: [] };
     }
     if (slicedSegments.length === 0 &&
         containsEmptyPathRedirects(segmentGroup, slicedSegments, config)) {
-        var /** @type {?} */ s = new UrlSegmentGroup(segmentGroup.segments, addEmptySegmentsToChildrenIfNeeded(segmentGroup, slicedSegments, config, segmentGroup.children));
+        /** @type {?} */
+        var s = new UrlSegmentGroup(segmentGroup.segments, addEmptySegmentsToChildrenIfNeeded(segmentGroup, slicedSegments, config, segmentGroup.children));
         return { segmentGroup: mergeTrivialChildren(s), slicedSegments: slicedSegments };
     }
     return { segmentGroup: segmentGroup, slicedSegments: slicedSegments };
@@ -2261,7 +2544,8 @@ function split(segmentGroup, consumedSegments, slicedSegments, config) {
  */
 function mergeTrivialChildren(s) {
     if (s.numberOfChildren === 1 && s.children[PRIMARY_OUTLET]) {
-        var /** @type {?} */ c = s.children[PRIMARY_OUTLET];
+        /** @type {?} */
+        var c = s.children[PRIMARY_OUTLET];
         return new UrlSegmentGroup(s.segments.concat(c.segments), c.children);
     }
     return s;
@@ -2274,7 +2558,8 @@ function mergeTrivialChildren(s) {
  * @return {?}
  */
 function addEmptySegmentsToChildrenIfNeeded(segmentGroup, slicedSegments, routes, children) {
-    var /** @type {?} */ res = {};
+    /** @type {?} */
+    var res = {};
     for (var _i = 0, routes_1 = routes; _i < routes_1.length; _i++) {
         var r = routes_1[_i];
         if (isEmptyPathRedirect(segmentGroup, slicedSegments, r) && !children[getOutlet(r)]) {
@@ -2289,7 +2574,8 @@ function addEmptySegmentsToChildrenIfNeeded(segmentGroup, slicedSegments, routes
  * @return {?}
  */
 function createChildrenForEmptySegments(routes, primarySegmentGroup) {
-    var /** @type {?} */ res = {};
+    /** @type {?} */
+    var res = {};
     res[PRIMARY_OUTLET] = primarySegmentGroup;
     for (var _i = 0, routes_2 = routes; _i < routes_2.length; _i++) {
         var r = routes_2[_i];
@@ -2339,9 +2625,19 @@ function getOutlet(route) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-var Tree = (function () {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * @template T
+ */
+var Tree = /** @class */ (function () {
     function Tree(root) {
         this._root = root;
     }
@@ -2367,7 +2663,8 @@ var Tree = (function () {
      * @return {?}
      */
     function (t) {
-        var /** @type {?} */ p = this.pathFromRoot(t);
+        /** @type {?} */
+        var p = this.pathFromRoot(t);
         return p.length > 1 ? p[p.length - 2] : null;
     };
     /**
@@ -2384,7 +2681,8 @@ var Tree = (function () {
      * @return {?}
      */
     function (t) {
-        var /** @type {?} */ n = findNode(t, this._root);
+        /** @type {?} */
+        var n = findNode(t, this._root);
         return n ? n.children.map(function (t) { return t.value; }) : [];
     };
     /**
@@ -2401,7 +2699,8 @@ var Tree = (function () {
      * @return {?}
      */
     function (t) {
-        var /** @type {?} */ n = findNode(t, this._root);
+        /** @type {?} */
+        var n = findNode(t, this._root);
         return n && n.children.length > 0 ? n.children[0].value : null;
     };
     /**
@@ -2418,10 +2717,12 @@ var Tree = (function () {
      * @return {?}
      */
     function (t) {
-        var /** @type {?} */ p = findPath(t, this._root);
+        /** @type {?} */
+        var p = findPath(t, this._root);
         if (p.length < 2)
             return [];
-        var /** @type {?} */ c = p[p.length - 2].children.map(function (c) { return c.value; });
+        /** @type {?} */
+        var c = p[p.length - 2].children.map(function (c) { return c.value; });
         return c.filter(function (cc) { return cc !== t; });
     };
     /**
@@ -2451,7 +2752,8 @@ function findNode(value, node) {
         return node;
     for (var _i = 0, _a = node.children; _i < _a.length; _i++) {
         var child = _a[_i];
-        var /** @type {?} */ node_1 = findNode(value, child);
+        /** @type {?} */
+        var node_1 = findNode(value, child);
         if (node_1)
             return node_1;
     }
@@ -2468,7 +2770,8 @@ function findPath(value, node) {
         return [node];
     for (var _i = 0, _a = node.children; _i < _a.length; _i++) {
         var child = _a[_i];
-        var /** @type {?} */ path = findPath(value, child);
+        /** @type {?} */
+        var path = findPath(value, child);
         if (path.length) {
             path.unshift(node);
             return path;
@@ -2476,7 +2779,10 @@ function findPath(value, node) {
     }
     return [];
 }
-var TreeNode = (function () {
+/**
+ * @template T
+ */
+var TreeNode = /** @class */ (function () {
     function TreeNode(value, children) {
         this.value = value;
         this.children = children;
@@ -2496,7 +2802,8 @@ var TreeNode = (function () {
  * @return {?}
  */
 function nodeChildrenAsMap(node) {
-    var /** @type {?} */ map$$1 = {};
+    /** @type {?} */
+    var map$$1 = {};
     if (node) {
         node.children.forEach(function (child) { return map$$1[child.value.outlet] = child; });
     }
@@ -2505,12 +2812,24 @@ function nodeChildrenAsMap(node) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Represents the state of the router.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * \@howToUse
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * \@description
+ *
+ * Represents the state of the router.
+ *
+ * RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL
+ * segments, the extracted parameters, and the resolved data.
+ *
+ * ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -2525,15 +2844,11 @@ function nodeChildrenAsMap(node) {
  * }
  * ```
  *
- * \@description
- * RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL
- * segments, the extracted parameters, and the resolved data.
+ * See `ActivatedRoute` for more information.
  *
- * See {\@link ActivatedRoute} for more information.
  *
- * \@stable
  */
-var RouterState = (function (_super) {
+var RouterState = /** @class */ (function (_super) {
     __extends(RouterState, _super);
     /** @internal */
     function RouterState(root, snapshot) {
@@ -2557,13 +2872,20 @@ var RouterState = (function (_super) {
  * @return {?}
  */
 function createEmptyState(urlTree, rootComponent) {
-    var /** @type {?} */ snapshot = createEmptyStateSnapshot(urlTree, rootComponent);
-    var /** @type {?} */ emptyUrl = new rxjs_BehaviorSubject.BehaviorSubject([new UrlSegment('', {})]);
-    var /** @type {?} */ emptyParams = new rxjs_BehaviorSubject.BehaviorSubject({});
-    var /** @type {?} */ emptyData = new rxjs_BehaviorSubject.BehaviorSubject({});
-    var /** @type {?} */ emptyQueryParams = new rxjs_BehaviorSubject.BehaviorSubject({});
-    var /** @type {?} */ fragment = new rxjs_BehaviorSubject.BehaviorSubject('');
-    var /** @type {?} */ activated = new ActivatedRoute(emptyUrl, emptyParams, emptyQueryParams, fragment, emptyData, PRIMARY_OUTLET, rootComponent, snapshot.root);
+    /** @type {?} */
+    var snapshot = createEmptyStateSnapshot(urlTree, rootComponent);
+    /** @type {?} */
+    var emptyUrl = new rxjs.BehaviorSubject([new UrlSegment('', {})]);
+    /** @type {?} */
+    var emptyParams = new rxjs.BehaviorSubject({});
+    /** @type {?} */
+    var emptyData = new rxjs.BehaviorSubject({});
+    /** @type {?} */
+    var emptyQueryParams = new rxjs.BehaviorSubject({});
+    /** @type {?} */
+    var fragment = new rxjs.BehaviorSubject('');
+    /** @type {?} */
+    var activated = new ActivatedRoute(emptyUrl, emptyParams, emptyQueryParams, fragment, emptyData, PRIMARY_OUTLET, rootComponent, snapshot.root);
     activated.snapshot = snapshot.root;
     return new RouterState(new TreeNode(activated, []), snapshot);
 }
@@ -2573,19 +2895,23 @@ function createEmptyState(urlTree, rootComponent) {
  * @return {?}
  */
 function createEmptyStateSnapshot(urlTree, rootComponent) {
-    var /** @type {?} */ emptyParams = {};
-    var /** @type {?} */ emptyData = {};
-    var /** @type {?} */ emptyQueryParams = {};
-    var /** @type {?} */ fragment = '';
-    var /** @type {?} */ activated = new ActivatedRouteSnapshot([], emptyParams, emptyQueryParams, fragment, emptyData, PRIMARY_OUTLET, rootComponent, null, urlTree.root, -1, {});
+    /** @type {?} */
+    var emptyParams = {};
+    /** @type {?} */
+    var emptyData = {};
+    /** @type {?} */
+    var emptyQueryParams = {};
+    /** @type {?} */
+    var fragment = '';
+    /** @type {?} */
+    var activated = new ActivatedRouteSnapshot([], emptyParams, emptyQueryParams, fragment, emptyData, PRIMARY_OUTLET, rootComponent, null, urlTree.root, -1, {});
     return new RouterStateSnapshot('', new TreeNode(activated, []));
 }
 /**
- * \@whatItDoes Contains the information about a route associated with a component loaded in an
- * outlet.
- * An `ActivatedRoute` can also be used to traverse the router state tree.
+ * \@description
  *
- * \@howToUse
+ * Contains the information about a route associated with a component loaded in an
+ * outlet.  An `ActivatedRoute` can also be used to traverse the router state tree.
  *
  * ```
  * \@Component({...})
@@ -2599,9 +2925,9 @@ function createEmptyStateSnapshot(urlTree, rootComponent) {
  * }
  * ```
  *
- * \@stable
+ *
  */
-var ActivatedRoute = (function () {
+var ActivatedRoute = /** @class */ (function () {
     /** @internal */
     function ActivatedRoute(url, params, queryParams, fragment, data, outlet, component, futureSnapshot) {
         this.url = url;
@@ -2679,7 +3005,7 @@ var ActivatedRoute = (function () {
          */
         function () {
             if (!this._paramMap) {
-                this._paramMap = rxjs_operator_map.map.call(this.params, function (p) { return convertToParamMap(p); });
+                this._paramMap = this.params.pipe(rxjs_operators.map(function (p) { return convertToParamMap(p); }));
             }
             return this._paramMap;
         },
@@ -2693,7 +3019,7 @@ var ActivatedRoute = (function () {
         function () {
             if (!this._queryParamMap) {
                 this._queryParamMap =
-                    rxjs_operator_map.map.call(this.queryParams, function (p) { return convertToParamMap(p); });
+                    this.queryParams.pipe(rxjs_operators.map(function (p) { return convertToParamMap(p); }));
             }
             return this._queryParamMap;
         },
@@ -2712,42 +3038,63 @@ var ActivatedRoute = (function () {
     return ActivatedRoute;
 }());
 /**
+ * Returns the inherited params, data, and resolve for a given route.
+ * By default, this only inherits values up to the nearest path-less or component-less route.
  * \@internal
  * @param {?} route
+ * @param {?=} paramsInheritanceStrategy
  * @return {?}
  */
-function inheritedParamsDataResolve(route) {
-    var /** @type {?} */ pathToRoot = route.pathFromRoot;
-    var /** @type {?} */ inhertingStartingFrom = pathToRoot.length - 1;
-    while (inhertingStartingFrom >= 1) {
-        var /** @type {?} */ current = pathToRoot[inhertingStartingFrom];
-        var /** @type {?} */ parent_1 = pathToRoot[inhertingStartingFrom - 1];
-        // current route is an empty path => inherits its parent's params and data
-        if (current.routeConfig && current.routeConfig.path === '') {
-            inhertingStartingFrom--;
-            // parent is componentless => current route should inherit its params and data
-        }
-        else if (!parent_1.component) {
-            inhertingStartingFrom--;
-        }
-        else {
-            break;
+function inheritedParamsDataResolve(route, paramsInheritanceStrategy) {
+    if (paramsInheritanceStrategy === void 0) { paramsInheritanceStrategy = 'emptyOnly'; }
+    /** @type {?} */
+    var pathFromRoot = route.pathFromRoot;
+    /** @type {?} */
+    var inheritingStartingFrom = 0;
+    if (paramsInheritanceStrategy !== 'always') {
+        inheritingStartingFrom = pathFromRoot.length - 1;
+        while (inheritingStartingFrom >= 1) {
+            /** @type {?} */
+            var current = pathFromRoot[inheritingStartingFrom];
+            /** @type {?} */
+            var parent_1 = pathFromRoot[inheritingStartingFrom - 1];
+            // current route is an empty path => inherits its parent's params and data
+            if (current.routeConfig && current.routeConfig.path === '') {
+                inheritingStartingFrom--;
+                // parent is componentless => current route should inherit its params and data
+            }
+            else if (!parent_1.component) {
+                inheritingStartingFrom--;
+            }
+            else {
+                break;
+            }
         }
     }
-    return pathToRoot.slice(inhertingStartingFrom).reduce(function (res, curr) {
-        var /** @type {?} */ params = __assign({}, res.params, curr.params);
-        var /** @type {?} */ data = __assign({}, res.data, curr.data);
-        var /** @type {?} */ resolve = __assign({}, res.resolve, curr._resolvedData);
+    return flattenInherited(pathFromRoot.slice(inheritingStartingFrom));
+}
+/**
+ * \@internal
+ * @param {?} pathFromRoot
+ * @return {?}
+ */
+function flattenInherited(pathFromRoot) {
+    return pathFromRoot.reduce(function (res, curr) {
+        /** @type {?} */
+        var params = __assign({}, res.params, curr.params);
+        /** @type {?} */
+        var data = __assign({}, res.data, curr.data);
+        /** @type {?} */
+        var resolve = __assign({}, res.resolve, curr._resolvedData);
         return { params: params, data: data, resolve: resolve };
     }, /** @type {?} */ ({ params: {}, data: {}, resolve: {} }));
 }
 /**
- * \@whatItDoes Contains the information about a route associated with a component loaded in an
- * outlet
- * at a particular moment in time. ActivatedRouteSnapshot can also be used to traverse the router
- * state tree.
+ * \@description
  *
- * \@howToUse
+ * Contains the information about a route associated with a component loaded in an
+ * outlet at a particular moment in time. ActivatedRouteSnapshot can also be used to
+ * traverse the router state tree.
  *
  * ```
  * \@Component({templateUrl:'./my-component.html'})
@@ -2760,9 +3107,9 @@ function inheritedParamsDataResolve(route) {
  * }
  * ```
  *
- * \@stable
+ *
  */
-var ActivatedRouteSnapshot = (function () {
+var ActivatedRouteSnapshot = /** @class */ (function () {
     /** @internal */
     function ActivatedRouteSnapshot(url, params, queryParams, fragment, data, outlet, component, routeConfig, urlSegment, lastPathIndex, resolve) {
         this.url = url;
@@ -2860,16 +3207,23 @@ var ActivatedRouteSnapshot = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ url = this.url.map(function (segment) { return segment.toString(); }).join('/');
-        var /** @type {?} */ matched = this.routeConfig ? this.routeConfig.path : '';
+        /** @type {?} */
+        var url = this.url.map(function (segment) { return segment.toString(); }).join('/');
+        /** @type {?} */
+        var matched = this.routeConfig ? this.routeConfig.path : '';
         return "Route(url:'" + url + "', path:'" + matched + "')";
     };
     return ActivatedRouteSnapshot;
 }());
 /**
- * \@whatItDoes Represents the state of the router at a moment in time.
+ * \@description
  *
- * \@howToUse
+ * Represents the state of the router at a moment in time.
+ *
+ * This is a tree of activated route snapshots. Every node in this tree knows about
+ * the "consumed" URL segments, the extracted parameters, and the resolved data.
+ *
+ * ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -2885,13 +3239,9 @@ var ActivatedRouteSnapshot = (function () {
  * }
  * ```
  *
- * \@description
- * RouterStateSnapshot is a tree of activated route snapshots. Every node in this tree knows about
- * the "consumed" URL segments, the extracted parameters, and the resolved data.
  *
- * \@stable
  */
-var RouterStateSnapshot = (function (_super) {
+var RouterStateSnapshot = /** @class */ (function (_super) {
     __extends(RouterStateSnapshot, _super);
     /** @internal */
     function RouterStateSnapshot(url, root) {
@@ -2924,7 +3274,8 @@ function setRouterState(state, node) {
  * @return {?}
  */
 function serializeNode(node) {
-    var /** @type {?} */ c = node.children.length > 0 ? " { " + node.children.map(serializeNode).join(", ") + " } " : '';
+    /** @type {?} */
+    var c = node.children.length > 0 ? " { " + node.children.map(serializeNode).join(', ') + " } " : '';
     return "" + node.value + c;
 }
 /**
@@ -2936,8 +3287,10 @@ function serializeNode(node) {
  */
 function advanceActivatedRoute(route) {
     if (route.snapshot) {
-        var /** @type {?} */ currentSnapshot = route.snapshot;
-        var /** @type {?} */ nextSnapshot = route._futureSnapshot;
+        /** @type {?} */
+        var currentSnapshot = route.snapshot;
+        /** @type {?} */
+        var nextSnapshot = route._futureSnapshot;
         route.snapshot = nextSnapshot;
         if (!shallowEqual(currentSnapshot.queryParams, nextSnapshot.queryParams)) {
             (/** @type {?} */ (route.queryParams)).next(nextSnapshot.queryParams);
@@ -2967,15 +3320,17 @@ function advanceActivatedRoute(route) {
  * @return {?}
  */
 function equalParamsAndUrlSegments(a, b) {
-    var /** @type {?} */ equalUrlParams = shallowEqual(a.params, b.params) && equalSegments(a.url, b.url);
-    var /** @type {?} */ parentsMismatch = !a.parent !== !b.parent;
+    /** @type {?} */
+    var equalUrlParams = shallowEqual(a.params, b.params) && equalSegments(a.url, b.url);
+    /** @type {?} */
+    var parentsMismatch = !a.parent !== !b.parent;
     return equalUrlParams && !parentsMismatch &&
         (!a.parent || equalParamsAndUrlSegments(a.parent, /** @type {?} */ ((b.parent))));
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -2991,7 +3346,8 @@ function equalParamsAndUrlSegments(a, b) {
  * @return {?}
  */
 function createRouterState(routeReuseStrategy, curr, prevState) {
-    var /** @type {?} */ root = createNode(routeReuseStrategy, curr._root, prevState ? prevState._root : undefined);
+    /** @type {?} */
+    var root = createNode(routeReuseStrategy, curr._root, prevState ? prevState._root : undefined);
     return new RouterState(root, curr);
 }
 /**
@@ -3003,21 +3359,30 @@ function createRouterState(routeReuseStrategy, curr, prevState) {
 function createNode(routeReuseStrategy, curr, prevState) {
     // reuse an activated route that is currently displayed on the screen
     if (prevState && routeReuseStrategy.shouldReuseRoute(curr.value, prevState.value.snapshot)) {
-        var /** @type {?} */ value = prevState.value;
+        /** @type {?} */
+        var value = prevState.value;
         value._futureSnapshot = curr.value;
-        var /** @type {?} */ children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
+        /** @type {?} */
+        var children = createOrReuseChildren(routeReuseStrategy, curr, prevState);
         return new TreeNode(value, children);
         // retrieve an activated route that is used to be displayed, but is not currently displayed
     }
-    else if (routeReuseStrategy.retrieve(curr.value)) {
-        var /** @type {?} */ tree = (/** @type {?} */ (routeReuseStrategy.retrieve(curr.value))).route;
-        setFutureSnapshotsOfActivatedRoutes(curr, tree);
-        return tree;
-    }
     else {
-        var /** @type {?} */ value = createActivatedRoute(curr.value);
-        var /** @type {?} */ children = curr.children.map(function (c) { return createNode(routeReuseStrategy, c); });
-        return new TreeNode(value, children);
+        /** @type {?} */
+        var detachedRouteHandle = /** @type {?} */ (routeReuseStrategy.retrieve(curr.value));
+        if (detachedRouteHandle) {
+            /** @type {?} */
+            var tree = detachedRouteHandle.route;
+            setFutureSnapshotsOfActivatedRoutes(curr, tree);
+            return tree;
+        }
+        else {
+            /** @type {?} */
+            var value = createActivatedRoute(curr.value);
+            /** @type {?} */
+            var children = curr.children.map(function (c) { return createNode(routeReuseStrategy, c); });
+            return new TreeNode(value, children);
+        }
     }
 }
 /**
@@ -3033,7 +3398,7 @@ function setFutureSnapshotsOfActivatedRoutes(curr, result) {
         throw new Error('Cannot reattach ActivatedRouteSnapshot with a different number of children');
     }
     result.value._futureSnapshot = curr.value;
-    for (var /** @type {?} */ i = 0; i < curr.children.length; ++i) {
+    for (var i = 0; i < curr.children.length; ++i) {
         setFutureSnapshotsOfActivatedRoutes(curr.children[i], result.children[i]);
     }
 }
@@ -3059,12 +3424,19 @@ function createOrReuseChildren(routeReuseStrategy, curr, prevState) {
  * @return {?}
  */
 function createActivatedRoute(c) {
-    return new ActivatedRoute(new rxjs_BehaviorSubject.BehaviorSubject(c.url), new rxjs_BehaviorSubject.BehaviorSubject(c.params), new rxjs_BehaviorSubject.BehaviorSubject(c.queryParams), new rxjs_BehaviorSubject.BehaviorSubject(c.fragment), new rxjs_BehaviorSubject.BehaviorSubject(c.data), c.outlet, c.component, c);
+    return new ActivatedRoute(new rxjs.BehaviorSubject(c.url), new rxjs.BehaviorSubject(c.params), new rxjs.BehaviorSubject(c.queryParams), new rxjs.BehaviorSubject(c.fragment), new rxjs.BehaviorSubject(c.data), c.outlet, c.component, c);
 }
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 /**
  * @param {?} route
@@ -3078,12 +3450,15 @@ function createUrlTree(route, urlTree, commands, queryParams, fragment) {
     if (commands.length === 0) {
         return tree(urlTree.root, urlTree.root, urlTree, queryParams, fragment);
     }
-    var /** @type {?} */ nav = computeNavigation(commands);
+    /** @type {?} */
+    var nav = computeNavigation(commands);
     if (nav.toRoot()) {
         return tree(urlTree.root, new UrlSegmentGroup([], {}), urlTree, queryParams, fragment);
     }
-    var /** @type {?} */ startingPosition = findStartingPosition(nav, urlTree, route);
-    var /** @type {?} */ segmentGroup = startingPosition.processChildren ?
+    /** @type {?} */
+    var startingPosition = findStartingPosition(nav, urlTree, route);
+    /** @type {?} */
+    var segmentGroup = startingPosition.processChildren ?
         updateSegmentGroupChildren(startingPosition.segmentGroup, startingPosition.index, nav.commands) :
         updateSegmentGroup(startingPosition.segmentGroup, startingPosition.index, nav.commands);
     return tree(startingPosition.segmentGroup, segmentGroup, urlTree, queryParams, fragment);
@@ -3104,7 +3479,8 @@ function isMatrixParams(command) {
  * @return {?}
  */
 function tree(oldSegmentGroup, newSegmentGroup, urlTree, queryParams, fragment) {
-    var /** @type {?} */ qp = {};
+    /** @type {?} */
+    var qp = {};
     if (queryParams) {
         forEach(queryParams, function (value, name) {
             qp[name] = Array.isArray(value) ? value.map(function (v) { return "" + v; }) : "" + value;
@@ -3122,7 +3498,8 @@ function tree(oldSegmentGroup, newSegmentGroup, urlTree, queryParams, fragment) 
  * @return {?}
  */
 function replaceSegment(current, oldSegment, newSegment) {
-    var /** @type {?} */ children = {};
+    /** @type {?} */
+    var children = {};
     forEach(current.children, function (c, outletName) {
         if (c === oldSegment) {
             children[outletName] = newSegment;
@@ -3133,7 +3510,7 @@ function replaceSegment(current, oldSegment, newSegment) {
     });
     return new UrlSegmentGroup(current.segments, children);
 }
-var Navigation = (function () {
+var Navigation = /** @class */ (function () {
     function Navigation(isAbsolute, numberOfDoubleDots, commands) {
         this.isAbsolute = isAbsolute;
         this.numberOfDoubleDots = numberOfDoubleDots;
@@ -3141,7 +3518,8 @@ var Navigation = (function () {
         if (isAbsolute && commands.length > 0 && isMatrixParams(commands[0])) {
             throw new Error('Root segment cannot have matrix parameters');
         }
-        var /** @type {?} */ cmdWithOutlet = commands.find(function (c) { return typeof c === 'object' && c != null && c.outlets; });
+        /** @type {?} */
+        var cmdWithOutlet = commands.find(function (c) { return typeof c === 'object' && c != null && c.outlets; });
         if (cmdWithOutlet && cmdWithOutlet !== last$1(commands)) {
             throw new Error('{outlets:{}} has to be the last command');
         }
@@ -3166,12 +3544,16 @@ function computeNavigation(commands) {
     if ((typeof commands[0] === 'string') && commands.length === 1 && commands[0] === '/') {
         return new Navigation(true, 0, commands);
     }
-    var /** @type {?} */ numberOfDoubleDots = 0;
-    var /** @type {?} */ isAbsolute = false;
-    var /** @type {?} */ res = commands.reduce(function (res, cmd, cmdIdx) {
+    /** @type {?} */
+    var numberOfDoubleDots = 0;
+    /** @type {?} */
+    var isAbsolute = false;
+    /** @type {?} */
+    var res = commands.reduce(function (res, cmd, cmdIdx) {
         if (typeof cmd === 'object' && cmd != null) {
             if (cmd.outlets) {
-                var /** @type {?} */ outlets_1 = {};
+                /** @type {?} */
+                var outlets_1 = {};
                 forEach(cmd.outlets, function (commands, name) {
                     outlets_1[name] = typeof commands === 'string' ? commands.split('/') : commands;
                 });
@@ -3189,11 +3571,11 @@ function computeNavigation(commands) {
                 if (partIndex == 0 && urlPart === '.') {
                     // skip './a'
                 }
-                else if (partIndex == 0 && urlPart === '') {
+                else if (partIndex == 0 && urlPart === '') { //  '/a'
                     //  '/a'
                     isAbsolute = true;
                 }
-                else if (urlPart === '..') {
+                else if (urlPart === '..') { //  '../a'
                     //  '../a'
                     numberOfDoubleDots++;
                 }
@@ -3207,7 +3589,7 @@ function computeNavigation(commands) {
     }, []);
     return new Navigation(isAbsolute, numberOfDoubleDots, res);
 }
-var Position = (function () {
+var Position = /** @class */ (function () {
     function Position(segmentGroup, processChildren, index) {
         this.segmentGroup = segmentGroup;
         this.processChildren = processChildren;
@@ -3228,8 +3610,10 @@ function findStartingPosition(nav, tree, route) {
     if (route.snapshot._lastPathIndex === -1) {
         return new Position(route.snapshot._urlSegment, true, 0);
     }
-    var /** @type {?} */ modifier = isMatrixParams(nav.commands[0]) ? 0 : 1;
-    var /** @type {?} */ index = route.snapshot._lastPathIndex + modifier;
+    /** @type {?} */
+    var modifier = isMatrixParams(nav.commands[0]) ? 0 : 1;
+    /** @type {?} */
+    var index = route.snapshot._lastPathIndex + modifier;
     return createPositionApplyingDoubleDots(route.snapshot._urlSegment, index, nav.numberOfDoubleDots);
 }
 /**
@@ -3239,9 +3623,12 @@ function findStartingPosition(nav, tree, route) {
  * @return {?}
  */
 function createPositionApplyingDoubleDots(group, index, numberOfDoubleDots) {
-    var /** @type {?} */ g = group;
-    var /** @type {?} */ ci = index;
-    var /** @type {?} */ dd = numberOfDoubleDots;
+    /** @type {?} */
+    var g = group;
+    /** @type {?} */
+    var ci = index;
+    /** @type {?} */
+    var dd = numberOfDoubleDots;
     while (dd > ci) {
         dd -= ci;
         g = /** @type {?} */ ((g.parent));
@@ -3267,12 +3654,12 @@ function getPath(command) {
  * @return {?}
  */
 function getOutlets(commands) {
+    var _a, _b;
     if (!(typeof commands[0] === 'object'))
         return _a = {}, _a[PRIMARY_OUTLET] = commands, _a;
     if (commands[0].outlets === undefined)
         return _b = {}, _b[PRIMARY_OUTLET] = commands, _b;
     return commands[0].outlets;
-    var _a, _b;
 }
 /**
  * @param {?} segmentGroup
@@ -3287,10 +3674,13 @@ function updateSegmentGroup(segmentGroup, startIndex, commands) {
     if (segmentGroup.segments.length === 0 && segmentGroup.hasChildren()) {
         return updateSegmentGroupChildren(segmentGroup, startIndex, commands);
     }
-    var /** @type {?} */ m = prefixedWith(segmentGroup, startIndex, commands);
-    var /** @type {?} */ slicedCommands = commands.slice(m.commandIndex);
+    /** @type {?} */
+    var m = prefixedWith(segmentGroup, startIndex, commands);
+    /** @type {?} */
+    var slicedCommands = commands.slice(m.commandIndex);
     if (m.match && m.pathIndex < segmentGroup.segments.length) {
-        var /** @type {?} */ g = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
+        /** @type {?} */
+        var g = new UrlSegmentGroup(segmentGroup.segments.slice(0, m.pathIndex), {});
         g.children[PRIMARY_OUTLET] =
             new UrlSegmentGroup(segmentGroup.segments.slice(m.pathIndex), segmentGroup.children);
         return updateSegmentGroupChildren(g, 0, slicedCommands);
@@ -3319,8 +3709,10 @@ function updateSegmentGroupChildren(segmentGroup, startIndex, commands) {
         return new UrlSegmentGroup(segmentGroup.segments, {});
     }
     else {
-        var /** @type {?} */ outlets_2 = getOutlets(commands);
-        var /** @type {?} */ children_1 = {};
+        /** @type {?} */
+        var outlets_2 = getOutlets(commands);
+        /** @type {?} */
+        var children_1 = {};
         forEach(outlets_2, function (commands, outlet) {
             if (commands !== null) {
                 children_1[outlet] = updateSegmentGroup(segmentGroup.children[outlet], startIndex, commands);
@@ -3341,15 +3733,21 @@ function updateSegmentGroupChildren(segmentGroup, startIndex, commands) {
  * @return {?}
  */
 function prefixedWith(segmentGroup, startIndex, commands) {
-    var /** @type {?} */ currentCommandIndex = 0;
-    var /** @type {?} */ currentPathIndex = startIndex;
-    var /** @type {?} */ noMatch = { match: false, pathIndex: 0, commandIndex: 0 };
+    /** @type {?} */
+    var currentCommandIndex = 0;
+    /** @type {?} */
+    var currentPathIndex = startIndex;
+    /** @type {?} */
+    var noMatch = { match: false, pathIndex: 0, commandIndex: 0 };
     while (currentPathIndex < segmentGroup.segments.length) {
         if (currentCommandIndex >= commands.length)
             return noMatch;
-        var /** @type {?} */ path = segmentGroup.segments[currentPathIndex];
-        var /** @type {?} */ curr = getPath(commands[currentCommandIndex]);
-        var /** @type {?} */ next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
+        /** @type {?} */
+        var path = segmentGroup.segments[currentPathIndex];
+        /** @type {?} */
+        var curr = getPath(commands[currentCommandIndex]);
+        /** @type {?} */
+        var next = currentCommandIndex < commands.length - 1 ? commands[currentCommandIndex + 1] : null;
         if (currentPathIndex > 0 && curr === undefined)
             break;
         if (curr && next && (typeof next === 'object') && next.outlets === undefined) {
@@ -3373,22 +3771,28 @@ function prefixedWith(segmentGroup, startIndex, commands) {
  * @return {?}
  */
 function createNewSegmentGroup(segmentGroup, startIndex, commands) {
-    var /** @type {?} */ paths = segmentGroup.segments.slice(0, startIndex);
-    var /** @type {?} */ i = 0;
+    /** @type {?} */
+    var paths = segmentGroup.segments.slice(0, startIndex);
+    /** @type {?} */
+    var i = 0;
     while (i < commands.length) {
         if (typeof commands[i] === 'object' && commands[i].outlets !== undefined) {
-            var /** @type {?} */ children = createNewSegmentChildren(commands[i].outlets);
+            /** @type {?} */
+            var children = createNewSegmentChildren(commands[i].outlets);
             return new UrlSegmentGroup(paths, children);
         }
         // if we start with an object literal, we need to reuse the path part from the segment
         if (i === 0 && isMatrixParams(commands[0])) {
-            var /** @type {?} */ p = segmentGroup.segments[startIndex];
+            /** @type {?} */
+            var p = segmentGroup.segments[startIndex];
             paths.push(new UrlSegment(p.path, commands[0]));
             i++;
             continue;
         }
-        var /** @type {?} */ curr = getPath(commands[i]);
-        var /** @type {?} */ next = (i < commands.length - 1) ? commands[i + 1] : null;
+        /** @type {?} */
+        var curr = getPath(commands[i]);
+        /** @type {?} */
+        var next = (i < commands.length - 1) ? commands[i + 1] : null;
         if (curr && next && isMatrixParams(next)) {
             paths.push(new UrlSegment(curr, stringify(next)));
             i += 2;
@@ -3405,7 +3809,8 @@ function createNewSegmentGroup(segmentGroup, startIndex, commands) {
  * @return {?}
  */
 function createNewSegmentChildren(outlets) {
-    var /** @type {?} */ children = {};
+    /** @type {?} */
+    var children = {};
     forEach(outlets, function (commands, outlet) {
         if (commands !== null) {
             children[outlet] = createNewSegmentGroup(new UrlSegmentGroup([], {}), 0, commands);
@@ -3418,7 +3823,8 @@ function createNewSegmentChildren(outlets) {
  * @return {?}
  */
 function stringify(params) {
-    var /** @type {?} */ res = {};
+    /** @type {?} */
+    var res = {};
     forEach(params, function (v, k) { return res[k] = "" + v; });
     return res;
 }
@@ -3434,23 +3840,23 @@ function compare(path, params, segment) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-var CanActivate = (function () {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var CanActivate = /** @class */ (function () {
     function CanActivate(path) {
         this.path = path;
+        this.route = this.path[this.path.length - 1];
     }
-    Object.defineProperty(CanActivate.prototype, "route", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this.path[this.path.length - 1]; },
-        enumerable: true,
-        configurable: true
-    });
     return CanActivate;
 }());
-var CanDeactivate = (function () {
+var CanDeactivate = /** @class */ (function () {
     function CanDeactivate(component, route) {
         this.component = component;
         this.route = route;
@@ -3460,7 +3866,7 @@ var CanDeactivate = (function () {
 /**
  * This class bundles the actions involved in preactivation of a route.
  */
-var PreActivation = (function () {
+var PreActivation = /** @class */ (function () {
     function PreActivation(future, curr, moduleInjector, forwardEvent) {
         this.future = future;
         this.curr = curr;
@@ -3478,8 +3884,10 @@ var PreActivation = (function () {
      * @return {?}
      */
     function (parentContexts) {
-        var /** @type {?} */ futureRoot = this.future._root;
-        var /** @type {?} */ currRoot = this.curr ? this.curr._root : null;
+        /** @type {?} */
+        var futureRoot = this.future._root;
+        /** @type {?} */
+        var currRoot = this.curr ? this.curr._root : null;
         this.setupChildRouteGuards(futureRoot, currRoot, parentContexts, [futureRoot.value]);
     };
     /**
@@ -3491,24 +3899,26 @@ var PreActivation = (function () {
     function () {
         var _this = this;
         if (!this.isDeactivating() && !this.isActivating()) {
-            return rxjs_observable_of.of(true);
+            return rxjs.of(true);
         }
-        var /** @type {?} */ canDeactivate$ = this.runCanDeactivateChecks();
-        return rxjs_operator_mergeMap.mergeMap.call(canDeactivate$, function (canDeactivate) { return canDeactivate ? _this.runCanActivateChecks() : rxjs_observable_of.of(false); });
+        /** @type {?} */
+        var canDeactivate$ = this.runCanDeactivateChecks();
+        return canDeactivate$.pipe(rxjs_operators.mergeMap(function (canDeactivate) { return canDeactivate ? _this.runCanActivateChecks() : rxjs.of(false); }));
     };
     /**
+     * @param {?} paramsInheritanceStrategy
      * @return {?}
      */
     PreActivation.prototype.resolveData = /**
+     * @param {?} paramsInheritanceStrategy
      * @return {?}
      */
-    function () {
+    function (paramsInheritanceStrategy) {
         var _this = this;
         if (!this.isActivating())
-            return rxjs_observable_of.of(null);
-        var /** @type {?} */ checks$ = rxjs_observable_from.from(this.canActivateChecks);
-        var /** @type {?} */ runningChecks$ = rxjs_operator_concatMap.concatMap.call(checks$, function (check) { return _this.runResolve(check.route); });
-        return rxjs_operator_reduce.reduce.call(runningChecks$, function (_, __) { return _; });
+            return rxjs.of(null);
+        return rxjs.from(this.canActivateChecks)
+            .pipe(rxjs_operators.concatMap(function (check) { return _this.runResolve(check.route, paramsInheritanceStrategy); }), rxjs_operators.reduce(function (_, __) { return _; }));
     };
     /**
      * @return {?}
@@ -3544,7 +3954,8 @@ var PreActivation = (function () {
      */
     function (futureNode, currNode, contexts, futurePath) {
         var _this = this;
-        var /** @type {?} */ prevChildren = nodeChildrenAsMap(currNode);
+        /** @type {?} */
+        var prevChildren = nodeChildrenAsMap(currNode);
         // Process the children of the future route
         futureNode.children.forEach(function (c) {
             _this.setupRouteGuards(c, prevChildren[c.value.outlet], contexts, futurePath.concat([c.value]));
@@ -3574,12 +3985,16 @@ var PreActivation = (function () {
      * @return {?}
      */
     function (futureNode, currNode, parentContexts, futurePath) {
-        var /** @type {?} */ future = futureNode.value;
-        var /** @type {?} */ curr = currNode ? currNode.value : null;
-        var /** @type {?} */ context = parentContexts ? parentContexts.getContext(futureNode.value.outlet) : null;
+        /** @type {?} */
+        var future = futureNode.value;
+        /** @type {?} */
+        var curr = currNode ? currNode.value : null;
+        /** @type {?} */
+        var context = parentContexts ? parentContexts.getContext(futureNode.value.outlet) : null;
         // reusing the node
         if (curr && future.routeConfig === curr.routeConfig) {
-            var /** @type {?} */ shouldRunGuardsAndResolvers = this.shouldRunGuardsAndResolvers(curr, future, /** @type {?} */ ((future.routeConfig)).runGuardsAndResolvers);
+            /** @type {?} */
+            var shouldRunGuardsAndResolvers = this.shouldRunGuardsAndResolvers(curr, future, /** @type {?} */ ((future.routeConfig)).runGuardsAndResolvers);
             if (shouldRunGuardsAndResolvers) {
                 this.canActivateChecks.push(new CanActivate(futurePath));
             }
@@ -3597,7 +4012,8 @@ var PreActivation = (function () {
                 this.setupChildRouteGuards(futureNode, currNode, parentContexts, futurePath);
             }
             if (shouldRunGuardsAndResolvers) {
-                var /** @type {?} */ outlet = /** @type {?} */ ((/** @type {?} */ ((context)).outlet));
+                /** @type {?} */
+                var outlet = /** @type {?} */ ((/** @type {?} */ ((context)).outlet));
                 this.canDeactivateChecks.push(new CanDeactivate(outlet.component, curr));
             }
         }
@@ -3652,8 +4068,10 @@ var PreActivation = (function () {
      */
     function (route, context) {
         var _this = this;
-        var /** @type {?} */ children = nodeChildrenAsMap(route);
-        var /** @type {?} */ r = route.value;
+        /** @type {?} */
+        var children = nodeChildrenAsMap(route);
+        /** @type {?} */
+        var r = route.value;
         forEach(children, function (node, childName) {
             if (!r.component) {
                 _this.deactivateRouteAndItsChildren(node, context);
@@ -3683,9 +4101,8 @@ var PreActivation = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ checks$ = rxjs_observable_from.from(this.canDeactivateChecks);
-        var /** @type {?} */ runningChecks$ = rxjs_operator_mergeMap.mergeMap.call(checks$, function (check) { return _this.runCanDeactivate(check.component, check.route); });
-        return rxjs_operator_every.every.call(runningChecks$, function (result) { return result === true; });
+        return rxjs.from(this.canDeactivateChecks)
+            .pipe(rxjs_operators.mergeMap(function (check) { return _this.runCanDeactivate(check.component, check.route); }), rxjs_operators.every(function (result) { return result === true; }));
     };
     /**
      * @return {?}
@@ -3695,14 +4112,12 @@ var PreActivation = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ checks$ = rxjs_observable_from.from(this.canActivateChecks);
-        var /** @type {?} */ runningChecks$ = rxjs_operator_concatMap.concatMap.call(checks$, function (check) {
-            return andObservables(rxjs_observable_from.from([
-                _this.fireChildActivationStart(check.route.parent), _this.fireActivationStart(check.route),
-                _this.runCanActivateChild(check.path), _this.runCanActivate(check.route)
-            ]));
-        });
-        return rxjs_operator_every.every.call(runningChecks$, function (result) { return result === true; });
+        return rxjs.from(this.canActivateChecks)
+            .pipe(rxjs_operators.concatMap(function (check) { return andObservables(rxjs.from([
+            _this.fireChildActivationStart(check.route.parent),
+            _this.fireActivationStart(check.route), _this.runCanActivateChild(check.path),
+            _this.runCanActivate(check.route)
+        ])); }), rxjs_operators.every(function (result) { return result === true; }));
         // this.fireChildActivationStart(check.path),
     };
     /**
@@ -3729,7 +4144,7 @@ var PreActivation = (function () {
         if (snapshot !== null && this.forwardEvent) {
             this.forwardEvent(new ActivationStart(snapshot));
         }
-        return rxjs_observable_of.of(true);
+        return rxjs.of(true);
     };
     /**
      * This should fire off `ChildActivationStart` events for each route being activated at this
@@ -3755,7 +4170,7 @@ var PreActivation = (function () {
         if (snapshot !== null && this.forwardEvent) {
             this.forwardEvent(new ChildActivationStart(snapshot));
         }
-        return rxjs_observable_of.of(true);
+        return rxjs.of(true);
     };
     /**
      * @param {?} future
@@ -3767,20 +4182,24 @@ var PreActivation = (function () {
      */
     function (future) {
         var _this = this;
-        var /** @type {?} */ canActivate = future.routeConfig ? future.routeConfig.canActivate : null;
+        /** @type {?} */
+        var canActivate = future.routeConfig ? future.routeConfig.canActivate : null;
         if (!canActivate || canActivate.length === 0)
-            return rxjs_observable_of.of(true);
-        var /** @type {?} */ obs = rxjs_operator_map.map.call(rxjs_observable_from.from(canActivate), function (c) {
-            var /** @type {?} */ guard = _this.getToken(c, future);
-            var /** @type {?} */ observable;
+            return rxjs.of(true);
+        /** @type {?} */
+        var obs = rxjs.from(canActivate).pipe(rxjs_operators.map(function (c) {
+            /** @type {?} */
+            var guard = _this.getToken(c, future);
+            /** @type {?} */
+            var observable;
             if (guard.canActivate) {
                 observable = wrapIntoObservable(guard.canActivate(future, _this.future));
             }
             else {
                 observable = wrapIntoObservable(guard(future, _this.future));
             }
-            return rxjs_operator_first.first.call(observable);
-        });
+            return observable.pipe(rxjs_operators.first());
+        }));
         return andObservables(obs);
     };
     /**
@@ -3793,25 +4212,30 @@ var PreActivation = (function () {
      */
     function (path) {
         var _this = this;
-        var /** @type {?} */ future = path[path.length - 1];
-        var /** @type {?} */ canActivateChildGuards = path.slice(0, path.length - 1)
+        /** @type {?} */
+        var future = path[path.length - 1];
+        /** @type {?} */
+        var canActivateChildGuards = path.slice(0, path.length - 1)
             .reverse()
             .map(function (p) { return _this.extractCanActivateChild(p); })
             .filter(function (_) { return _ !== null; });
-        return andObservables(rxjs_operator_map.map.call(rxjs_observable_from.from(canActivateChildGuards), function (d) {
-            var /** @type {?} */ obs = rxjs_operator_map.map.call(rxjs_observable_from.from(d.guards), function (c) {
-                var /** @type {?} */ guard = _this.getToken(c, d.node);
-                var /** @type {?} */ observable;
+        return andObservables(rxjs.from(canActivateChildGuards).pipe(rxjs_operators.map(function (d) {
+            /** @type {?} */
+            var obs = rxjs.from(d.guards).pipe(rxjs_operators.map(function (c) {
+                /** @type {?} */
+                var guard = _this.getToken(c, d.node);
+                /** @type {?} */
+                var observable;
                 if (guard.canActivateChild) {
                     observable = wrapIntoObservable(guard.canActivateChild(future, _this.future));
                 }
                 else {
                     observable = wrapIntoObservable(guard(future, _this.future));
                 }
-                return rxjs_operator_first.first.call(observable);
-            });
+                return observable.pipe(rxjs_operators.first());
+            }));
             return andObservables(obs);
-        }));
+        })));
     };
     /**
      * @param {?} p
@@ -3822,7 +4246,8 @@ var PreActivation = (function () {
      * @return {?}
      */
     function (p) {
-        var /** @type {?} */ canActivateChild = p.routeConfig ? p.routeConfig.canActivateChild : null;
+        /** @type {?} */
+        var canActivateChild = p.routeConfig ? p.routeConfig.canActivateChild : null;
         if (!canActivateChild || canActivateChild.length === 0)
             return null;
         return { node: p, guards: canActivateChild };
@@ -3839,12 +4264,16 @@ var PreActivation = (function () {
      */
     function (component, curr) {
         var _this = this;
-        var /** @type {?} */ canDeactivate = curr && curr.routeConfig ? curr.routeConfig.canDeactivate : null;
+        /** @type {?} */
+        var canDeactivate = curr && curr.routeConfig ? curr.routeConfig.canDeactivate : null;
         if (!canDeactivate || canDeactivate.length === 0)
-            return rxjs_observable_of.of(true);
-        var /** @type {?} */ canDeactivate$ = rxjs_operator_mergeMap.mergeMap.call(rxjs_observable_from.from(canDeactivate), function (c) {
-            var /** @type {?} */ guard = _this.getToken(c, curr);
-            var /** @type {?} */ observable;
+            return rxjs.of(true);
+        /** @type {?} */
+        var canDeactivate$ = rxjs.from(canDeactivate).pipe(rxjs_operators.mergeMap(function (c) {
+            /** @type {?} */
+            var guard = _this.getToken(c, curr);
+            /** @type {?} */
+            var observable;
             if (guard.canDeactivate) {
                 observable =
                     wrapIntoObservable(guard.canDeactivate(component, curr, _this.curr, _this.future));
@@ -3852,25 +4281,28 @@ var PreActivation = (function () {
             else {
                 observable = wrapIntoObservable(guard(component, curr, _this.curr, _this.future));
             }
-            return rxjs_operator_first.first.call(observable);
-        });
-        return rxjs_operator_every.every.call(canDeactivate$, function (result) { return result === true; });
+            return observable.pipe(rxjs_operators.first());
+        }));
+        return canDeactivate$.pipe(rxjs_operators.every(function (result) { return result === true; }));
     };
     /**
      * @param {?} future
+     * @param {?} paramsInheritanceStrategy
      * @return {?}
      */
     PreActivation.prototype.runResolve = /**
      * @param {?} future
+     * @param {?} paramsInheritanceStrategy
      * @return {?}
      */
-    function (future) {
-        var /** @type {?} */ resolve = future._resolve;
-        return rxjs_operator_map.map.call(this.resolveNode(resolve, future), function (resolvedData) {
+    function (future, paramsInheritanceStrategy) {
+        /** @type {?} */
+        var resolve = future._resolve;
+        return this.resolveNode(resolve, future).pipe(rxjs_operators.map(function (resolvedData) {
             future._resolvedData = resolvedData;
-            future.data = __assign({}, future.data, inheritedParamsDataResolve(future).resolve);
+            future.data = __assign({}, future.data, inheritedParamsDataResolve(future, paramsInheritanceStrategy).resolve);
             return null;
-        });
+        }));
     };
     /**
      * @param {?} resolve
@@ -3884,25 +4316,29 @@ var PreActivation = (function () {
      */
     function (resolve, future) {
         var _this = this;
-        var /** @type {?} */ keys = Object.keys(resolve);
+        /** @type {?} */
+        var keys = Object.keys(resolve);
         if (keys.length === 0) {
-            return rxjs_observable_of.of({});
+            return rxjs.of({});
         }
         if (keys.length === 1) {
-            var /** @type {?} */ key_1 = keys[0];
-            return rxjs_operator_map.map.call(this.getResolver(resolve[key_1], future), function (value) {
-                return _a = {}, _a[key_1] = value, _a;
+            /** @type {?} */
+            var key_1 = keys[0];
+            return this.getResolver(resolve[key_1], future).pipe(rxjs_operators.map(function (value) {
                 var _a;
-            });
+                return _a = {}, _a[key_1] = value, _a;
+            }));
         }
-        var /** @type {?} */ data = {};
-        var /** @type {?} */ runningResolvers$ = rxjs_operator_mergeMap.mergeMap.call(rxjs_observable_from.from(keys), function (key) {
-            return rxjs_operator_map.map.call(_this.getResolver(resolve[key], future), function (value) {
+        /** @type {?} */
+        var data = {};
+        /** @type {?} */
+        var runningResolvers$ = rxjs.from(keys).pipe(rxjs_operators.mergeMap(function (key) {
+            return _this.getResolver(resolve[key], future).pipe(rxjs_operators.map(function (value) {
                 data[key] = value;
                 return value;
-            });
-        });
-        return rxjs_operator_map.map.call(rxjs_operator_last.last.call(runningResolvers$), function () { return data; });
+            }));
+        }));
+        return runningResolvers$.pipe(rxjs_operators.last(), rxjs_operators.map(function () { return data; }));
     };
     /**
      * @param {?} injectionToken
@@ -3915,7 +4351,8 @@ var PreActivation = (function () {
      * @return {?}
      */
     function (injectionToken, future) {
-        var /** @type {?} */ resolver = this.getToken(injectionToken, future);
+        /** @type {?} */
+        var resolver = this.getToken(injectionToken, future);
         return resolver.resolve ? wrapIntoObservable(resolver.resolve(future, this.future)) :
             wrapIntoObservable(resolver(future, this.future));
     };
@@ -3930,8 +4367,10 @@ var PreActivation = (function () {
      * @return {?}
      */
     function (token, snapshot) {
-        var /** @type {?} */ config = closestLoadedConfig(snapshot);
-        var /** @type {?} */ injector = config ? config.module.injector : this.moduleInjector;
+        /** @type {?} */
+        var config = closestLoadedConfig(snapshot);
+        /** @type {?} */
+        var injector = config ? config.module.injector : this.moduleInjector;
         return injector.get(token);
     };
     return PreActivation;
@@ -3943,8 +4382,9 @@ var PreActivation = (function () {
 function closestLoadedConfig(snapshot) {
     if (!snapshot)
         return null;
-    for (var /** @type {?} */ s = snapshot.parent; s; s = s.parent) {
-        var /** @type {?} */ route = s.routeConfig;
+    for (var s = snapshot.parent; s; s = s.parent) {
+        /** @type {?} */
+        var route = s.routeConfig;
         if (route && route._loadedConfig)
             return route._loadedConfig;
     }
@@ -3953,9 +4393,16 @@ function closestLoadedConfig(snapshot) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-var NoMatch$1 = (function () {
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+var NoMatch$1 = /** @class */ (function () {
     function NoMatch() {
     }
     return NoMatch;
@@ -3965,17 +4412,24 @@ var NoMatch$1 = (function () {
  * @param {?} config
  * @param {?} urlTree
  * @param {?} url
+ * @param {?=} paramsInheritanceStrategy
+ * @param {?=} relativeLinkResolution
  * @return {?}
  */
-function recognize(rootComponentType, config, urlTree, url) {
-    return new Recognizer(rootComponentType, config, urlTree, url).recognize();
+function recognize(rootComponentType, config, urlTree, url, paramsInheritanceStrategy, relativeLinkResolution) {
+    if (paramsInheritanceStrategy === void 0) { paramsInheritanceStrategy = 'emptyOnly'; }
+    if (relativeLinkResolution === void 0) { relativeLinkResolution = 'legacy'; }
+    return new Recognizer(rootComponentType, config, urlTree, url, paramsInheritanceStrategy, relativeLinkResolution)
+        .recognize();
 }
-var Recognizer = (function () {
-    function Recognizer(rootComponentType, config, urlTree, url) {
+var Recognizer = /** @class */ (function () {
+    function Recognizer(rootComponentType, config, urlTree, url, paramsInheritanceStrategy, relativeLinkResolution) {
         this.rootComponentType = rootComponentType;
         this.config = config;
         this.urlTree = urlTree;
         this.url = url;
+        this.paramsInheritanceStrategy = paramsInheritanceStrategy;
+        this.relativeLinkResolution = relativeLinkResolution;
     }
     /**
      * @return {?}
@@ -3985,16 +4439,21 @@ var Recognizer = (function () {
      */
     function () {
         try {
-            var /** @type {?} */ rootSegmentGroup = split$1(this.urlTree.root, [], [], this.config).segmentGroup;
-            var /** @type {?} */ children = this.processSegmentGroup(this.config, rootSegmentGroup, PRIMARY_OUTLET);
-            var /** @type {?} */ root = new ActivatedRouteSnapshot([], Object.freeze({}), Object.freeze(this.urlTree.queryParams), /** @type {?} */ ((this.urlTree.fragment)), {}, PRIMARY_OUTLET, this.rootComponentType, null, this.urlTree.root, -1, {});
-            var /** @type {?} */ rootNode = new TreeNode(root, children);
-            var /** @type {?} */ routeState = new RouterStateSnapshot(this.url, rootNode);
+            /** @type {?} */
+            var rootSegmentGroup = split$1(this.urlTree.root, [], [], this.config, this.relativeLinkResolution).segmentGroup;
+            /** @type {?} */
+            var children = this.processSegmentGroup(this.config, rootSegmentGroup, PRIMARY_OUTLET);
+            /** @type {?} */
+            var root = new ActivatedRouteSnapshot([], Object.freeze({}), Object.freeze(__assign({}, this.urlTree.queryParams)), /** @type {?} */ ((this.urlTree.fragment)), {}, PRIMARY_OUTLET, this.rootComponentType, null, this.urlTree.root, -1, {});
+            /** @type {?} */
+            var rootNode = new TreeNode(root, children);
+            /** @type {?} */
+            var routeState = new RouterStateSnapshot(this.url, rootNode);
             this.inheritParamsAndData(routeState._root);
-            return rxjs_observable_of.of(routeState);
+            return rxjs.of(routeState);
         }
-        catch (/** @type {?} */ e) {
-            return new rxjs_Observable.Observable(function (obs) { return obs.error(e); });
+        catch (e) {
+            return new rxjs.Observable(function (obs) { return obs.error(e); });
         }
     };
     /**
@@ -4007,8 +4466,10 @@ var Recognizer = (function () {
      */
     function (routeNode) {
         var _this = this;
-        var /** @type {?} */ route = routeNode.value;
-        var /** @type {?} */ i = inheritedParamsDataResolve(route);
+        /** @type {?} */
+        var route = routeNode.value;
+        /** @type {?} */
+        var i = inheritedParamsDataResolve(route, this.paramsInheritanceStrategy);
         route.params = Object.freeze(i.params);
         route.data = Object.freeze(i.data);
         routeNode.children.forEach(function (n) { return _this.inheritParamsAndData(n); });
@@ -4043,7 +4504,8 @@ var Recognizer = (function () {
      */
     function (config, segmentGroup) {
         var _this = this;
-        var /** @type {?} */ children = mapChildrenIntoArray(segmentGroup, function (child, childOutlet) { return _this.processSegmentGroup(config, child, childOutlet); });
+        /** @type {?} */
+        var children = mapChildrenIntoArray(segmentGroup, function (child, childOutlet) { return _this.processSegmentGroup(config, child, childOutlet); });
         checkOutletNameUniqueness(children);
         sortActivatedRouteSnapshots(children);
         return children;
@@ -4068,7 +4530,7 @@ var Recognizer = (function () {
             try {
                 return this.processSegmentAgainstRoute(r, segmentGroup, segments, outlet);
             }
-            catch (/** @type {?} */ e) {
+            catch (e) {
                 if (!(e instanceof NoMatch$1))
                     throw e;
             }
@@ -4112,24 +4574,37 @@ var Recognizer = (function () {
             throw new NoMatch$1();
         if ((route.outlet || PRIMARY_OUTLET) !== outlet)
             throw new NoMatch$1();
+        /** @type {?} */
+        var snapshot;
+        /** @type {?} */
+        var consumedSegments = [];
+        /** @type {?} */
+        var rawSlicedSegments = [];
         if (route.path === '**') {
-            var /** @type {?} */ params = segments.length > 0 ? /** @type {?} */ ((last$1(segments))).parameters : {};
-            var /** @type {?} */ snapshot_1 = new ActivatedRouteSnapshot(segments, params, Object.freeze(this.urlTree.queryParams), /** @type {?} */ ((this.urlTree.fragment)), getData(route), outlet, /** @type {?} */ ((route.component)), route, getSourceSegmentGroup(rawSegment), getPathIndexShift(rawSegment) + segments.length, getResolve(route));
-            return [new TreeNode(snapshot_1, [])];
+            /** @type {?} */
+            var params = segments.length > 0 ? /** @type {?} */ ((last$1(segments))).parameters : {};
+            snapshot = new ActivatedRouteSnapshot(segments, params, Object.freeze(__assign({}, this.urlTree.queryParams)), /** @type {?} */ ((this.urlTree.fragment)), getData(route), outlet, /** @type {?} */ ((route.component)), route, getSourceSegmentGroup(rawSegment), getPathIndexShift(rawSegment) + segments.length, getResolve(route));
         }
-        var _a = match$1(rawSegment, route, segments), consumedSegments = _a.consumedSegments, parameters = _a.parameters, lastChild = _a.lastChild;
-        var /** @type {?} */ rawSlicedSegments = segments.slice(lastChild);
-        var /** @type {?} */ childConfig = getChildConfig(route);
-        var _b = split$1(rawSegment, consumedSegments, rawSlicedSegments, childConfig), segmentGroup = _b.segmentGroup, slicedSegments = _b.slicedSegments;
-        var /** @type {?} */ snapshot = new ActivatedRouteSnapshot(consumedSegments, parameters, Object.freeze(this.urlTree.queryParams), /** @type {?} */ ((this.urlTree.fragment)), getData(route), outlet, /** @type {?} */ ((route.component)), route, getSourceSegmentGroup(rawSegment), getPathIndexShift(rawSegment) + consumedSegments.length, getResolve(route));
+        else {
+            /** @type {?} */
+            var result = match$1(rawSegment, route, segments);
+            consumedSegments = result.consumedSegments;
+            rawSlicedSegments = segments.slice(result.lastChild);
+            snapshot = new ActivatedRouteSnapshot(consumedSegments, result.parameters, Object.freeze(__assign({}, this.urlTree.queryParams)), /** @type {?} */ ((this.urlTree.fragment)), getData(route), outlet, /** @type {?} */ ((route.component)), route, getSourceSegmentGroup(rawSegment), getPathIndexShift(rawSegment) + consumedSegments.length, getResolve(route));
+        }
+        /** @type {?} */
+        var childConfig = getChildConfig(route);
+        var _a = split$1(rawSegment, consumedSegments, rawSlicedSegments, childConfig, this.relativeLinkResolution), segmentGroup = _a.segmentGroup, slicedSegments = _a.slicedSegments;
         if (slicedSegments.length === 0 && segmentGroup.hasChildren()) {
-            var /** @type {?} */ children_1 = this.processChildren(childConfig, segmentGroup);
+            /** @type {?} */
+            var children_1 = this.processChildren(childConfig, segmentGroup);
             return [new TreeNode(snapshot, children_1)];
         }
         if (childConfig.length === 0 && slicedSegments.length === 0) {
             return [new TreeNode(snapshot, [])];
         }
-        var /** @type {?} */ children = this.processSegment(childConfig, segmentGroup, slicedSegments, PRIMARY_OUTLET);
+        /** @type {?} */
+        var children = this.processSegment(childConfig, segmentGroup, slicedSegments, PRIMARY_OUTLET);
         return [new TreeNode(snapshot, children)];
     };
     return Recognizer;
@@ -4173,13 +4648,17 @@ function match$1(segmentGroup, route, segments) {
         }
         return { consumedSegments: [], lastChild: 0, parameters: {} };
     }
-    var /** @type {?} */ matcher = route.matcher || defaultUrlMatcher;
-    var /** @type {?} */ res = matcher(segments, segmentGroup, route);
+    /** @type {?} */
+    var matcher = route.matcher || defaultUrlMatcher;
+    /** @type {?} */
+    var res = matcher(segments, segmentGroup, route);
     if (!res)
         throw new NoMatch$1();
-    var /** @type {?} */ posParams = {};
+    /** @type {?} */
+    var posParams = {};
     forEach(/** @type {?} */ ((res.posParams)), function (v, k) { posParams[k] = v.path; });
-    var /** @type {?} */ parameters = res.consumed.length > 0 ? __assign({}, posParams, res.consumed[res.consumed.length - 1].parameters) :
+    /** @type {?} */
+    var parameters = res.consumed.length > 0 ? __assign({}, posParams, res.consumed[res.consumed.length - 1].parameters) :
         posParams;
     return { consumedSegments: res.consumed, lastChild: res.consumed.length, parameters: parameters };
 }
@@ -4188,12 +4667,16 @@ function match$1(segmentGroup, route, segments) {
  * @return {?}
  */
 function checkOutletNameUniqueness(nodes) {
-    var /** @type {?} */ names = {};
+    /** @type {?} */
+    var names = {};
     nodes.forEach(function (n) {
-        var /** @type {?} */ routeWithSameOutletName = names[n.value.outlet];
+        /** @type {?} */
+        var routeWithSameOutletName = names[n.value.outlet];
         if (routeWithSameOutletName) {
-            var /** @type {?} */ p = routeWithSameOutletName.url.map(function (s) { return s.toString(); }).join('/');
-            var /** @type {?} */ c = n.value.url.map(function (s) { return s.toString(); }).join('/');
+            /** @type {?} */
+            var p = routeWithSameOutletName.url.map(function (s) { return s.toString(); }).join('/');
+            /** @type {?} */
+            var c = n.value.url.map(function (s) { return s.toString(); }).join('/');
             throw new Error("Two segments cannot have the same outlet name: '" + p + "' and '" + c + "'.");
         }
         names[n.value.outlet] = n.value;
@@ -4204,7 +4687,8 @@ function checkOutletNameUniqueness(nodes) {
  * @return {?}
  */
 function getSourceSegmentGroup(segmentGroup) {
-    var /** @type {?} */ s = segmentGroup;
+    /** @type {?} */
+    var s = segmentGroup;
     while (s._sourceSegment) {
         s = s._sourceSegment;
     }
@@ -4215,8 +4699,10 @@ function getSourceSegmentGroup(segmentGroup) {
  * @return {?}
  */
 function getPathIndexShift(segmentGroup) {
-    var /** @type {?} */ s = segmentGroup;
-    var /** @type {?} */ res = (s._segmentIndexShift ? s._segmentIndexShift : 0);
+    /** @type {?} */
+    var s = segmentGroup;
+    /** @type {?} */
+    var res = (s._segmentIndexShift ? s._segmentIndexShift : 0);
     while (s._sourceSegment) {
         s = s._sourceSegment;
         res += (s._segmentIndexShift ? s._segmentIndexShift : 0);
@@ -4228,43 +4714,56 @@ function getPathIndexShift(segmentGroup) {
  * @param {?} consumedSegments
  * @param {?} slicedSegments
  * @param {?} config
+ * @param {?} relativeLinkResolution
  * @return {?}
  */
-function split$1(segmentGroup, consumedSegments, slicedSegments, config) {
+function split$1(segmentGroup, consumedSegments, slicedSegments, config, relativeLinkResolution) {
     if (slicedSegments.length > 0 &&
         containsEmptyPathMatchesWithNamedOutlets(segmentGroup, slicedSegments, config)) {
-        var /** @type {?} */ s_1 = new UrlSegmentGroup(consumedSegments, createChildrenForEmptyPaths(segmentGroup, consumedSegments, config, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
+        /** @type {?} */
+        var s_1 = new UrlSegmentGroup(consumedSegments, createChildrenForEmptyPaths(segmentGroup, consumedSegments, config, new UrlSegmentGroup(slicedSegments, segmentGroup.children)));
         s_1._sourceSegment = segmentGroup;
         s_1._segmentIndexShift = consumedSegments.length;
         return { segmentGroup: s_1, slicedSegments: [] };
     }
     if (slicedSegments.length === 0 &&
         containsEmptyPathMatches(segmentGroup, slicedSegments, config)) {
-        var /** @type {?} */ s_2 = new UrlSegmentGroup(segmentGroup.segments, addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, config, segmentGroup.children));
+        /** @type {?} */
+        var s_2 = new UrlSegmentGroup(segmentGroup.segments, addEmptyPathsToChildrenIfNeeded(segmentGroup, consumedSegments, slicedSegments, config, segmentGroup.children, relativeLinkResolution));
         s_2._sourceSegment = segmentGroup;
         s_2._segmentIndexShift = consumedSegments.length;
         return { segmentGroup: s_2, slicedSegments: slicedSegments };
     }
-    var /** @type {?} */ s = new UrlSegmentGroup(segmentGroup.segments, segmentGroup.children);
+    /** @type {?} */
+    var s = new UrlSegmentGroup(segmentGroup.segments, segmentGroup.children);
     s._sourceSegment = segmentGroup;
     s._segmentIndexShift = consumedSegments.length;
     return { segmentGroup: s, slicedSegments: slicedSegments };
 }
 /**
  * @param {?} segmentGroup
+ * @param {?} consumedSegments
  * @param {?} slicedSegments
  * @param {?} routes
  * @param {?} children
+ * @param {?} relativeLinkResolution
  * @return {?}
  */
-function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes, children) {
-    var /** @type {?} */ res = {};
+function addEmptyPathsToChildrenIfNeeded(segmentGroup, consumedSegments, slicedSegments, routes, children, relativeLinkResolution) {
+    /** @type {?} */
+    var res = {};
     for (var _i = 0, routes_1 = routes; _i < routes_1.length; _i++) {
         var r = routes_1[_i];
         if (emptyPathMatch(segmentGroup, slicedSegments, r) && !children[getOutlet$1(r)]) {
-            var /** @type {?} */ s = new UrlSegmentGroup([], {});
+            /** @type {?} */
+            var s = new UrlSegmentGroup([], {});
             s._sourceSegment = segmentGroup;
-            s._segmentIndexShift = segmentGroup.segments.length;
+            if (relativeLinkResolution === 'legacy') {
+                s._segmentIndexShift = segmentGroup.segments.length;
+            }
+            else {
+                s._segmentIndexShift = consumedSegments.length;
+            }
             res[getOutlet$1(r)] = s;
         }
     }
@@ -4278,14 +4777,16 @@ function addEmptyPathsToChildrenIfNeeded(segmentGroup, slicedSegments, routes, c
  * @return {?}
  */
 function createChildrenForEmptyPaths(segmentGroup, consumedSegments, routes, primarySegment) {
-    var /** @type {?} */ res = {};
+    /** @type {?} */
+    var res = {};
     res[PRIMARY_OUTLET] = primarySegment;
     primarySegment._sourceSegment = segmentGroup;
     primarySegment._segmentIndexShift = consumedSegments.length;
     for (var _i = 0, routes_2 = routes; _i < routes_2.length; _i++) {
         var r = routes_2[_i];
         if (r.path === '' && getOutlet$1(r) !== PRIMARY_OUTLET) {
-            var /** @type {?} */ s = new UrlSegmentGroup([], {});
+            /** @type {?} */
+            var s = new UrlSegmentGroup([], {});
             s._sourceSegment = segmentGroup;
             s._segmentIndexShift = consumedSegments.length;
             res[getOutlet$1(r)] = s;
@@ -4347,15 +4848,25 @@ function getResolve(route) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Provides a way to customize when activated routes get reused.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/** @typedef {?} */
+/**
+ * \@description
+ *
+ * Provides a way to customize when activated routes get reused.
  *
  * \@experimental
  * @abstract
  */
-var RouteReuseStrategy = (function () {
+var RouteReuseStrategy = /** @class */ (function () {
     function RouteReuseStrategy() {
     }
     return RouteReuseStrategy;
@@ -4363,7 +4874,7 @@ var RouteReuseStrategy = (function () {
 /**
  * Does not detach any subtrees. Reuses routes as long as their route config is the same.
  */
-var DefaultRouteReuseStrategy = (function () {
+var DefaultRouteReuseStrategy = /** @class */ (function () {
     function DefaultRouteReuseStrategy() {
     }
     /**
@@ -4422,7 +4933,7 @@ var DefaultRouteReuseStrategy = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -4431,12 +4942,12 @@ var DefaultRouteReuseStrategy = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
+/** *
  * \@docsNotRequired
  * \@experimental
- */
+  @type {?} */
 var ROUTES = new _angular_core.InjectionToken('ROUTES');
-var RouterConfigLoader = (function () {
+var RouterConfigLoader = /** @class */ (function () {
     function RouterConfigLoader(loader, compiler, onLoadStartListener, onLoadEndListener) {
         this.loader = loader;
         this.compiler = compiler;
@@ -4458,14 +4969,16 @@ var RouterConfigLoader = (function () {
         if (this.onLoadStartListener) {
             this.onLoadStartListener(route);
         }
-        var /** @type {?} */ moduleFactory$ = this.loadModuleFactory(/** @type {?} */ ((route.loadChildren)));
-        return rxjs_operator_map.map.call(moduleFactory$, function (factory) {
+        /** @type {?} */
+        var moduleFactory$ = this.loadModuleFactory(/** @type {?} */ ((route.loadChildren)));
+        return moduleFactory$.pipe(rxjs_operators.map(function (factory) {
             if (_this.onLoadEndListener) {
                 _this.onLoadEndListener(route);
             }
-            var /** @type {?} */ module = factory.create(parentInjector);
-            return new LoadedRouterConfig(flatten(module.injector.get(ROUTES)), module);
-        });
+            /** @type {?} */
+            var module = factory.create(parentInjector);
+            return new LoadedRouterConfig(flatten(module.injector.get(ROUTES)).map(standardizeConfig), module);
+        }));
     };
     /**
      * @param {?} loadChildren
@@ -4478,17 +4991,17 @@ var RouterConfigLoader = (function () {
     function (loadChildren) {
         var _this = this;
         if (typeof loadChildren === 'string') {
-            return rxjs_observable_fromPromise.fromPromise(this.loader.load(loadChildren));
+            return rxjs.from(this.loader.load(loadChildren));
         }
         else {
-            return rxjs_operator_mergeMap.mergeMap.call(wrapIntoObservable(loadChildren()), function (t) {
+            return wrapIntoObservable(loadChildren()).pipe(rxjs_operators.mergeMap(function (t) {
                 if (t instanceof _angular_core.NgModuleFactory) {
-                    return rxjs_observable_of.of(t);
+                    return rxjs.of(t);
                 }
                 else {
-                    return rxjs_observable_fromPromise.fromPromise(_this.compiler.compileModuleAsync(t));
+                    return rxjs.from(_this.compiler.compileModuleAsync(t));
                 }
-            });
+            }));
         }
     };
     return RouterConfigLoader;
@@ -4496,15 +5009,24 @@ var RouterConfigLoader = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Provides a way to migrate AngularJS applications to Angular.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * \@description
+ *
+ * Provides a way to migrate AngularJS applications to Angular.
  *
  * \@experimental
  * @abstract
  */
-var UrlHandlingStrategy = (function () {
+var UrlHandlingStrategy = /** @class */ (function () {
     function UrlHandlingStrategy() {
     }
     return UrlHandlingStrategy;
@@ -4512,7 +5034,7 @@ var UrlHandlingStrategy = (function () {
 /**
  * \@experimental
  */
-var DefaultUrlHandlingStrategy = (function () {
+var DefaultUrlHandlingStrategy = /** @class */ (function () {
     function DefaultUrlHandlingStrategy() {
     }
     /**
@@ -4549,12 +5071,21 @@ var DefaultUrlHandlingStrategy = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * \@whatItDoes Represents the extra options used during navigation.
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * \@stable
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
+ * \@description
+ *
+ * Represents the extra options used during navigation.
+ *
+ *
  * @record
  */
 
@@ -4566,23 +5097,35 @@ function defaultErrorHandler(error) {
     throw error;
 }
 /**
- * \@internal
- * @param {?} snapshot
+ * @param {?} error
+ * @param {?} urlSerializer
+ * @param {?} url
  * @return {?}
  */
-function defaultRouterHook(snapshot) {
-    return /** @type {?} */ (rxjs_observable_of.of(null));
+function defaultMalformedUriErrorHandler(error, urlSerializer, url) {
+    return urlSerializer.parse('/');
 }
 /**
- * \@whatItDoes Provides the navigation and url manipulation capabilities.
+ * \@internal
+ * @param {?} snapshot
+ * @param {?} runExtras
+ * @return {?}
+ */
+function defaultRouterHook(snapshot, runExtras) {
+    return /** @type {?} */ (rxjs.of(null));
+}
+/**
+ * \@description
  *
- * See {\@link Routes} for more details and examples.
+ * Provides the navigation and url manipulation capabilities.
+ *
+ * See `Routes` for more details and examples.
  *
  * \@ngModule RouterModule
  *
- * \@stable
+ *
  */
-var Router = (function () {
+var Router = /** @class */ (function () {
     /**
      * Creates the router service.
      */
@@ -4594,19 +5137,26 @@ var Router = (function () {
         this.rootContexts = rootContexts;
         this.location = location;
         this.config = config;
-        this.navigations = new rxjs_BehaviorSubject.BehaviorSubject(/** @type {?} */ ((null)));
+        this.navigations = new rxjs.BehaviorSubject(/** @type {?} */ ((null)));
         this.navigationId = 0;
-        this.events = new rxjs_Subject.Subject();
+        this.events = new rxjs.Subject();
         /**
          * Error handler that is invoked when a navigation errors.
          *
-         * See {\@link ErrorHandler} for more information.
+         * See `ErrorHandler` for more information.
          */
         this.errorHandler = defaultErrorHandler;
+        /**
+         * Malformed uri error handler is invoked when `Router.parseUrl(url)` throws an
+         * error due to containing an invalid character. The most common case would be a `%` sign
+         * that's not encoded and is not part of a percent encoded sequence.
+         */
+        this.malformedUriErrorHandler = defaultMalformedUriErrorHandler;
         /**
          * Indicates if at least one navigation happened.
          */
         this.navigated = false;
+        this.lastSuccessfulId = -1;
         /**
          * Used by RouterModule. This allows us to
          * pause the navigation either before preactivation or after it.
@@ -4628,8 +5178,34 @@ var Router = (function () {
          * current URL. Default is 'ignore'.
          */
         this.onSameUrlNavigation = 'ignore';
-        var /** @type {?} */ onLoadStart = function (r) { return _this.triggerEvent(new RouteConfigLoadStart(r)); };
-        var /** @type {?} */ onLoadEnd = function (r) { return _this.triggerEvent(new RouteConfigLoadEnd(r)); };
+        /**
+         * Defines how the router merges params, data and resolved data from parent to child
+         * routes. Available options are:
+         *
+         * - `'emptyOnly'`, the default, only inherits parent params for path-less or component-less
+         *   routes.
+         * - `'always'`, enables unconditional inheritance of parent params.
+         */
+        this.paramsInheritanceStrategy = 'emptyOnly';
+        /**
+         * Defines when the router updates the browser URL. The default behavior is to update after
+         * successful navigation. However, some applications may prefer a mode where the URL gets
+         * updated at the beginning of navigation. The most common use case would be updating the
+         * URL early so if navigation fails, you can show an error message with the URL that failed.
+         * Available options are:
+         *
+         * - `'deferred'`, the default, updates the browser URL after navigation has finished.
+         * - `'eager'`, updates browser URL at the beginning of navigation.
+         */
+        this.urlUpdateStrategy = 'deferred';
+        /**
+         * See {\@link RouterModule} for more information.
+         */
+        this.relativeLinkResolution = 'legacy';
+        /** @type {?} */
+        var onLoadStart = function (r) { return _this.triggerEvent(new RouteConfigLoadStart(r)); };
+        /** @type {?} */
+        var onLoadEnd = function (r) { return _this.triggerEvent(new RouteConfigLoadEnd(r)); };
         this.ngModule = injector.get(_angular_core.NgModuleRef);
         this.resetConfig(config);
         this.currentUrlTree = createEmptyUrlTree();
@@ -4690,14 +5266,21 @@ var Router = (function () {
      */
     function () {
         var _this = this;
-        // Zone.current.wrap is needed because of the issue with RxJS scheduler,
-        // which does not work properly with zone.js in IE and Safari
+        // Don't need to use Zone.wrap any more, because zone.js
+        // already patch onPopState, so location change callback will
+        // run into ngZone
         if (!this.locationSubscription) {
-            this.locationSubscription = /** @type {?} */ (this.location.subscribe(Zone.current.wrap(function (change) {
-                var /** @type {?} */ rawUrlTree = _this.urlSerializer.parse(change['url']);
-                var /** @type {?} */ source = change['type'] === 'popstate' ? 'popstate' : 'hashchange';
-                setTimeout(function () { _this.scheduleNavigation(rawUrlTree, source, { replaceUrl: true }); }, 0);
-            })));
+            this.locationSubscription = /** @type {?} */ (this.location.subscribe(function (change) {
+                /** @type {?} */
+                var rawUrlTree = _this.parseUrl(change['url']);
+                /** @type {?} */
+                var source = change['type'] === 'popstate' ? 'popstate' : 'hashchange';
+                /** @type {?} */
+                var state = change.state && change.state.navigationId ?
+                    { navigationId: change.state.navigationId } :
+                    null;
+                setTimeout(function () { _this.scheduleNavigation(rawUrlTree, source, state, { replaceUrl: true }); }, 0);
+            }));
         }
     };
     Object.defineProperty(Router.prototype, "url", {
@@ -4770,8 +5353,9 @@ var Router = (function () {
      */
     function (config) {
         validateConfig(config);
-        this.config = config;
+        this.config = config.map(standardizeConfig);
         this.navigated = false;
+        this.lastSuccessfulId = -1;
     };
     /** @docsNotRequired */
     /**
@@ -4933,9 +5517,12 @@ var Router = (function () {
         if (_angular_core.isDevMode() && preserveQueryParams && /** @type {?} */ (console) && /** @type {?} */ (console.warn)) {
             console.warn('preserveQueryParams is deprecated, use queryParamsHandling instead.');
         }
-        var /** @type {?} */ a = relativeTo || this.routerState.root;
-        var /** @type {?} */ f = preserveFragment ? this.currentUrlTree.fragment : fragment;
-        var /** @type {?} */ q = null;
+        /** @type {?} */
+        var a = relativeTo || this.routerState.root;
+        /** @type {?} */
+        var f = preserveFragment ? this.currentUrlTree.fragment : fragment;
+        /** @type {?} */
+        var q = null;
         if (queryParamsHandling) {
             switch (queryParamsHandling) {
                 case 'merge':
@@ -4950,6 +5537,9 @@ var Router = (function () {
         }
         else {
             q = preserveQueryParams ? this.currentUrlTree.queryParams : queryParams || null;
+        }
+        if (q !== null) {
+            q = this.removeEmptyProps(q);
         }
         return createUrlTree(a, this.currentUrlTree, commands, /** @type {?} */ ((q)), /** @type {?} */ ((f)));
     };
@@ -5021,9 +5611,11 @@ var Router = (function () {
      */
     function (url, extras) {
         if (extras === void 0) { extras = { skipLocationChange: false }; }
-        var /** @type {?} */ urlTree = url instanceof UrlTree ? url : this.parseUrl(url);
-        var /** @type {?} */ mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
-        return this.scheduleNavigation(mergedTree, 'imperative', extras);
+        /** @type {?} */
+        var urlTree = url instanceof UrlTree ? url : this.parseUrl(url);
+        /** @type {?} */
+        var mergedTree = this.urlHandlingStrategy.merge(urlTree, this.rawUrlTree);
+        return this.scheduleNavigation(mergedTree, 'imperative', null, extras);
     };
     /**
      * Navigate based on the provided array of commands and a starting point.
@@ -5097,35 +5689,42 @@ var Router = (function () {
     function (commands, extras) {
         if (extras === void 0) { extras = { skipLocationChange: false }; }
         validateCommands(commands);
-        if (typeof extras.queryParams === 'object' && extras.queryParams !== null) {
-            extras.queryParams = this.removeEmptyProps(extras.queryParams);
-        }
         return this.navigateByUrl(this.createUrlTree(commands, extras), extras);
     };
-    /** Serializes a {@link UrlTree} into a string */
+    /** Serializes a `UrlTree` into a string */
     /**
-     * Serializes a {\@link UrlTree} into a string
+     * Serializes a `UrlTree` into a string
      * @param {?} url
      * @return {?}
      */
     Router.prototype.serializeUrl = /**
-     * Serializes a {\@link UrlTree} into a string
+     * Serializes a `UrlTree` into a string
      * @param {?} url
      * @return {?}
      */
     function (url) { return this.urlSerializer.serialize(url); };
-    /** Parses a string into a {@link UrlTree} */
+    /** Parses a string into a `UrlTree` */
     /**
-     * Parses a string into a {\@link UrlTree}
+     * Parses a string into a `UrlTree`
      * @param {?} url
      * @return {?}
      */
     Router.prototype.parseUrl = /**
-     * Parses a string into a {\@link UrlTree}
+     * Parses a string into a `UrlTree`
      * @param {?} url
      * @return {?}
      */
-    function (url) { return this.urlSerializer.parse(url); };
+    function (url) {
+        /** @type {?} */
+        var urlTree;
+        try {
+            urlTree = this.urlSerializer.parse(url);
+        }
+        catch (e) {
+            urlTree = this.malformedUriErrorHandler(e, this.urlSerializer, url);
+        }
+        return urlTree;
+    };
     /** Returns whether the url is activated */
     /**
      * Returns whether the url is activated
@@ -5143,7 +5742,8 @@ var Router = (function () {
         if (url instanceof UrlTree) {
             return containsTree(this.currentUrlTree, url, exact);
         }
-        var /** @type {?} */ urlTree = this.urlSerializer.parse(url);
+        /** @type {?} */
+        var urlTree = this.parseUrl(url);
         return containsTree(this.currentUrlTree, urlTree, exact);
     };
     /**
@@ -5156,7 +5756,8 @@ var Router = (function () {
      */
     function (params) {
         return Object.keys(params).reduce(function (result, key) {
-            var /** @type {?} */ value = params[key];
+            /** @type {?} */
+            var value = params[key];
             if (value !== null && value !== undefined) {
                 result[key] = value;
             }
@@ -5171,8 +5772,8 @@ var Router = (function () {
      */
     function () {
         var _this = this;
-        rxjs_operator_concatMap.concatMap
-            .call(this.navigations, function (nav) {
+        this.navigations
+            .pipe(rxjs_operators.concatMap(function (nav) {
             if (nav) {
                 _this.executeScheduledNavigation(nav);
                 // a failed navigation should not stop the router from processing
@@ -5180,25 +5781,28 @@ var Router = (function () {
                 return nav.promise.catch(function () { });
             }
             else {
-                return /** @type {?} */ (rxjs_observable_of.of(null));
+                return /** @type {?} */ (rxjs.of(null));
             }
-        })
+        }))
             .subscribe(function () { });
     };
     /**
      * @param {?} rawUrl
      * @param {?} source
+     * @param {?} state
      * @param {?} extras
      * @return {?}
      */
     Router.prototype.scheduleNavigation = /**
      * @param {?} rawUrl
      * @param {?} source
+     * @param {?} state
      * @param {?} extras
      * @return {?}
      */
-    function (rawUrl, source, extras) {
-        var /** @type {?} */ lastNavigation = this.navigations.value;
+    function (rawUrl, source, state, extras) {
+        /** @type {?} */
+        var lastNavigation = this.navigations.value;
         // If the user triggers a navigation imperatively (e.g., by using navigateByUrl),
         // and that navigation results in 'replaceState' that leads to the same URL,
         // we should skip those.
@@ -5220,14 +5824,18 @@ var Router = (function () {
             lastNavigation.rawUrl.toString() === rawUrl.toString()) {
             return Promise.resolve(true); // return value is not used
         }
-        var /** @type {?} */ resolve = null;
-        var /** @type {?} */ reject = null;
-        var /** @type {?} */ promise = new Promise(function (res, rej) {
+        /** @type {?} */
+        var resolve = null;
+        /** @type {?} */
+        var reject = null;
+        /** @type {?} */
+        var promise = new Promise(function (res, rej) {
             resolve = res;
             reject = rej;
         });
-        var /** @type {?} */ id = ++this.navigationId;
-        this.navigations.next({ id: id, source: source, rawUrl: rawUrl, extras: extras, resolve: resolve, reject: reject, promise: promise });
+        /** @type {?} */
+        var id = ++this.navigationId;
+        this.navigations.next({ id: id, source: source, state: state, rawUrl: rawUrl, extras: extras, resolve: resolve, reject: reject, promise: promise });
         // Make sure that the error is propagated even though `processNavigations` catch
         // handler does not rethrow
         return promise.catch(function (e) { return Promise.reject(e); });
@@ -5242,27 +5850,30 @@ var Router = (function () {
      */
     function (_a) {
         var _this = this;
-        var id = _a.id, rawUrl = _a.rawUrl, extras = _a.extras, resolve = _a.resolve, reject = _a.reject;
-        var /** @type {?} */ url = this.urlHandlingStrategy.extract(rawUrl);
-        var /** @type {?} */ urlTransition = !this.navigated || url.toString() !== this.currentUrlTree.toString();
+        var id = _a.id, rawUrl = _a.rawUrl, extras = _a.extras, resolve = _a.resolve, reject = _a.reject, source = _a.source, state = _a.state;
+        /** @type {?} */
+        var url = this.urlHandlingStrategy.extract(rawUrl);
+        /** @type {?} */
+        var urlTransition = !this.navigated || url.toString() !== this.currentUrlTree.toString();
         if ((this.onSameUrlNavigation === 'reload' ? true : urlTransition) &&
             this.urlHandlingStrategy.shouldProcessUrl(rawUrl)) {
-            (/** @type {?} */ (this.events)).next(new NavigationStart(id, this.serializeUrl(url)));
+            if (this.urlUpdateStrategy === 'eager' && !extras.skipLocationChange) {
+                this.setBrowserUrl(rawUrl, !!extras.replaceUrl, id);
+            }
+            (/** @type {?} */ (this.events))
+                .next(new NavigationStart(id, this.serializeUrl(url), source, state));
             Promise.resolve()
-                .then(function (_) {
-                return _this.runNavigate(url, rawUrl, !!extras.skipLocationChange, !!extras.replaceUrl, id, null);
-            })
+                .then(function (_) { return _this.runNavigate(url, rawUrl, !!extras.skipLocationChange, !!extras.replaceUrl, id, null); })
                 .then(resolve, reject);
             // we cannot process the current URL, but we could process the previous one =>
             // we need to do some cleanup
         }
         else if (urlTransition && this.rawUrlTree &&
             this.urlHandlingStrategy.shouldProcessUrl(this.rawUrlTree)) {
-            (/** @type {?} */ (this.events)).next(new NavigationStart(id, this.serializeUrl(url)));
+            (/** @type {?} */ (this.events))
+                .next(new NavigationStart(id, this.serializeUrl(url), source, state));
             Promise.resolve()
-                .then(function (_) {
-                return _this.runNavigate(url, rawUrl, false, false, id, createEmptyState(url, _this.rootComponentType).snapshot);
-            })
+                .then(function (_) { return _this.runNavigate(url, rawUrl, false, false, id, createEmptyState(url, _this.rootComponentType).snapshot); })
                 .then(resolve, reject);
         }
         else {
@@ -5296,139 +5907,230 @@ var Router = (function () {
             return Promise.resolve(false);
         }
         return new Promise(function (resolvePromise, rejectPromise) {
-            // create an observable of the url and route state snapshot
-            // this operation do not result in any side effects
-            var /** @type {?} */ urlAndSnapshot$;
+            /** @type {?} */
+            var urlAndSnapshot$;
             if (!precreatedState) {
-                var /** @type {?} */ moduleInjector = _this.ngModule.injector;
-                var /** @type {?} */ redirectsApplied$ = applyRedirects(moduleInjector, _this.configLoader, _this.urlSerializer, url, _this.config);
-                urlAndSnapshot$ = rxjs_operator_mergeMap.mergeMap.call(redirectsApplied$, function (appliedUrl) {
-                    return rxjs_operator_map.map.call(recognize(_this.rootComponentType, _this.config, appliedUrl, _this.serializeUrl(appliedUrl)), function (snapshot) {
+                /** @type {?} */
+                var moduleInjector = _this.ngModule.injector;
+                /** @type {?} */
+                var redirectsApplied$ = applyRedirects(moduleInjector, _this.configLoader, _this.urlSerializer, url, _this.config);
+                urlAndSnapshot$ = redirectsApplied$.pipe(rxjs_operators.mergeMap(function (appliedUrl) {
+                    return recognize(_this.rootComponentType, _this.config, appliedUrl, _this.serializeUrl(appliedUrl), _this.paramsInheritanceStrategy, _this.relativeLinkResolution)
+                        .pipe(rxjs_operators.map(function (snapshot) {
                         (/** @type {?} */ (_this.events))
                             .next(new RoutesRecognized(id, _this.serializeUrl(url), _this.serializeUrl(appliedUrl), snapshot));
                         return { appliedUrl: appliedUrl, snapshot: snapshot };
-                    });
-                });
+                    }));
+                }));
             }
             else {
-                urlAndSnapshot$ = rxjs_observable_of.of({ appliedUrl: url, snapshot: precreatedState });
+                urlAndSnapshot$ = rxjs.of({ appliedUrl: url, snapshot: precreatedState });
             }
-            var /** @type {?} */ beforePreactivationDone$ = rxjs_operator_mergeMap.mergeMap.call(urlAndSnapshot$, function (p) {
-                return rxjs_operator_map.map.call(_this.hooks.beforePreactivation(p.snapshot), function () { return p; });
-            });
-            // run preactivation: guards and data resolvers
-            var /** @type {?} */ preActivation;
-            var /** @type {?} */ preactivationSetup$ = rxjs_operator_map.map.call(beforePreactivationDone$, function (_a) {
-                var appliedUrl = _a.appliedUrl, snapshot = _a.snapshot;
-                var /** @type {?} */ moduleInjector = _this.ngModule.injector;
+            /** @type {?} */
+            var beforePreactivationDone$ = urlAndSnapshot$.pipe(rxjs_operators.mergeMap(function (p) {
+                if (typeof p === 'boolean')
+                    return rxjs.of(p);
+                return _this.hooks
+                    .beforePreactivation(p.snapshot, {
+                    navigationId: id,
+                    appliedUrlTree: url,
+                    rawUrlTree: rawUrl, skipLocationChange: skipLocationChange, replaceUrl: replaceUrl,
+                })
+                    .pipe(rxjs_operators.map(function () { return p; }));
+            }));
+            /** @type {?} */
+            var preActivation;
+            /** @type {?} */
+            var preactivationSetup$ = beforePreactivationDone$.pipe(rxjs_operators.map(function (p) {
+                if (typeof p === 'boolean')
+                    return p;
+                var appliedUrl = p.appliedUrl, snapshot = p.snapshot;
+                /** @type {?} */
+                var moduleInjector = _this.ngModule.injector;
                 preActivation = new PreActivation(snapshot, _this.routerState.snapshot, moduleInjector, function (evt) { return _this.triggerEvent(evt); });
                 preActivation.initialize(_this.rootContexts);
                 return { appliedUrl: appliedUrl, snapshot: snapshot };
-            });
-            var /** @type {?} */ preactivationCheckGuards$ = rxjs_operator_mergeMap.mergeMap.call(preactivationSetup$, function (_a) {
-                var appliedUrl = _a.appliedUrl, snapshot = _a.snapshot;
-                if (_this.navigationId !== id)
-                    return rxjs_observable_of.of(false);
-                _this.triggerEvent(new GuardsCheckStart(id, _this.serializeUrl(url), appliedUrl, snapshot));
-                return rxjs_operator_map.map.call(preActivation.checkGuards(), function (shouldActivate) {
-                    _this.triggerEvent(new GuardsCheckEnd(id, _this.serializeUrl(url), appliedUrl, snapshot, shouldActivate));
+            }));
+            /** @type {?} */
+            var preactivationCheckGuards$ = preactivationSetup$.pipe(rxjs_operators.mergeMap(function (p) {
+                if (typeof p === 'boolean' || _this.navigationId !== id)
+                    return rxjs.of(false);
+                var appliedUrl = p.appliedUrl, snapshot = p.snapshot;
+                _this.triggerEvent(new GuardsCheckStart(id, _this.serializeUrl(url), _this.serializeUrl(appliedUrl), snapshot));
+                return preActivation.checkGuards().pipe(rxjs_operators.map(function (shouldActivate) {
+                    _this.triggerEvent(new GuardsCheckEnd(id, _this.serializeUrl(url), _this.serializeUrl(appliedUrl), snapshot, shouldActivate));
                     return { appliedUrl: appliedUrl, snapshot: snapshot, shouldActivate: shouldActivate };
-                });
-            });
-            var /** @type {?} */ preactivationResolveData$ = rxjs_operator_mergeMap.mergeMap.call(preactivationCheckGuards$, function (p) {
-                if (_this.navigationId !== id)
-                    return rxjs_observable_of.of(false);
+                }));
+            }));
+            /** @type {?} */
+            var preactivationResolveData$ = preactivationCheckGuards$.pipe(rxjs_operators.mergeMap(function (p) {
+                if (typeof p === 'boolean' || _this.navigationId !== id)
+                    return rxjs.of(false);
                 if (p.shouldActivate && preActivation.isActivating()) {
-                    _this.triggerEvent(new ResolveStart(id, _this.serializeUrl(url), p.appliedUrl, p.snapshot));
-                    return rxjs_operator_map.map.call(preActivation.resolveData(), function () {
-                        _this.triggerEvent(new ResolveEnd(id, _this.serializeUrl(url), p.appliedUrl, p.snapshot));
+                    _this.triggerEvent(new ResolveStart(id, _this.serializeUrl(url), _this.serializeUrl(p.appliedUrl), p.snapshot));
+                    return preActivation.resolveData(_this.paramsInheritanceStrategy).pipe(rxjs_operators.map(function () {
+                        _this.triggerEvent(new ResolveEnd(id, _this.serializeUrl(url), _this.serializeUrl(p.appliedUrl), p.snapshot));
                         return p;
-                    });
+                    }));
                 }
                 else {
-                    return rxjs_observable_of.of(p);
+                    return rxjs.of(p);
                 }
-            });
-            var /** @type {?} */ preactivationDone$ = rxjs_operator_mergeMap.mergeMap.call(preactivationResolveData$, function (p) {
-                return rxjs_operator_map.map.call(_this.hooks.afterPreactivation(p.snapshot), function () { return p; });
-            });
-            // create router state
-            // this operation has side effects => route state is being affected
-            var /** @type {?} */ routerState$ = rxjs_operator_map.map.call(preactivationDone$, function (_a) {
-                var appliedUrl = _a.appliedUrl, snapshot = _a.snapshot, shouldActivate = _a.shouldActivate;
+            }));
+            /** @type {?} */
+            var preactivationDone$ = preactivationResolveData$.pipe(rxjs_operators.mergeMap(function (p) {
+                if (typeof p === 'boolean' || _this.navigationId !== id)
+                    return rxjs.of(false);
+                return _this.hooks
+                    .afterPreactivation(p.snapshot, {
+                    navigationId: id,
+                    appliedUrlTree: url,
+                    rawUrlTree: rawUrl, skipLocationChange: skipLocationChange, replaceUrl: replaceUrl,
+                })
+                    .pipe(rxjs_operators.map(function () { return p; }));
+            }));
+            /** @type {?} */
+            var routerState$ = preactivationDone$.pipe(rxjs_operators.map(function (p) {
+                if (typeof p === 'boolean' || _this.navigationId !== id)
+                    return false;
+                var appliedUrl = p.appliedUrl, snapshot = p.snapshot, shouldActivate = p.shouldActivate;
                 if (shouldActivate) {
-                    var /** @type {?} */ state = createRouterState(_this.routeReuseStrategy, snapshot, _this.routerState);
+                    /** @type {?} */
+                    var state = createRouterState(_this.routeReuseStrategy, snapshot, _this.routerState);
                     return { appliedUrl: appliedUrl, state: state, shouldActivate: shouldActivate };
                 }
                 else {
                     return { appliedUrl: appliedUrl, state: null, shouldActivate: shouldActivate };
                 }
-            });
-            // applied the new router state
-            // this operation has side effects
-            var /** @type {?} */ navigationIsSuccessful;
-            var /** @type {?} */ storedState = _this.routerState;
-            var /** @type {?} */ storedUrl = _this.currentUrlTree;
-            routerState$
-                .forEach(function (_a) {
-                var appliedUrl = _a.appliedUrl, state = _a.state, shouldActivate = _a.shouldActivate;
-                if (!shouldActivate || id !== _this.navigationId) {
-                    navigationIsSuccessful = false;
-                    return;
-                }
-                _this.currentUrlTree = appliedUrl;
-                _this.rawUrlTree = _this.urlHandlingStrategy.merge(_this.currentUrlTree, rawUrl);
-                (/** @type {?} */ (_this)).routerState = state;
-                if (!skipLocationChange) {
-                    var /** @type {?} */ path = _this.urlSerializer.serialize(_this.rawUrlTree);
-                    if (_this.location.isCurrentPathEqualTo(path) || replaceUrl) {
-                        _this.location.replaceState(path);
-                    }
-                    else {
-                        _this.location.go(path);
-                    }
-                }
-                new ActivateRoutes(_this.routeReuseStrategy, state, storedState, function (evt) { return _this.triggerEvent(evt); })
-                    .activate(_this.rootContexts);
-                navigationIsSuccessful = true;
-            })
-                .then(function () {
-                if (navigationIsSuccessful) {
-                    _this.navigated = true;
-                    (/** @type {?} */ (_this.events))
-                        .next(new NavigationEnd(id, _this.serializeUrl(url), _this.serializeUrl(_this.currentUrlTree)));
-                    resolvePromise(true);
-                }
-                else {
-                    _this.resetUrlToCurrentUrlTree();
-                    (/** @type {?} */ (_this.events))
-                        .next(new NavigationCancel(id, _this.serializeUrl(url), ''));
-                    resolvePromise(false);
-                }
-            }, function (e) {
-                if (isNavigationCancelingError(e)) {
-                    _this.resetUrlToCurrentUrlTree();
-                    _this.navigated = true;
-                    (/** @type {?} */ (_this.events))
-                        .next(new NavigationCancel(id, _this.serializeUrl(url), e.message));
-                    resolvePromise(false);
-                }
-                else {
-                    (/** @type {?} */ (_this.events))
-                        .next(new NavigationError(id, _this.serializeUrl(url), e));
-                    try {
-                        resolvePromise(_this.errorHandler(e));
-                    }
-                    catch (/** @type {?} */ ee) {
-                        rejectPromise(ee);
-                    }
-                }
-                (/** @type {?} */ (_this)).routerState = storedState;
-                _this.currentUrlTree = storedUrl;
-                _this.rawUrlTree = _this.urlHandlingStrategy.merge(_this.currentUrlTree, rawUrl);
-                _this.resetUrlToCurrentUrlTree();
-            });
+            }));
+            _this.activateRoutes(routerState$, _this.routerState, _this.currentUrlTree, id, url, rawUrl, skipLocationChange, replaceUrl, resolvePromise, rejectPromise);
         });
+    };
+    /**
+     * Performs the logic of activating routes. This is a synchronous process by default. While this
+     * is a private method, it could be overridden to make activation asynchronous.
+     * @param {?} state
+     * @param {?} storedState
+     * @param {?} storedUrl
+     * @param {?} id
+     * @param {?} url
+     * @param {?} rawUrl
+     * @param {?} skipLocationChange
+     * @param {?} replaceUrl
+     * @param {?} resolvePromise
+     * @param {?} rejectPromise
+     * @return {?}
+     */
+    Router.prototype.activateRoutes = /**
+     * Performs the logic of activating routes. This is a synchronous process by default. While this
+     * is a private method, it could be overridden to make activation asynchronous.
+     * @param {?} state
+     * @param {?} storedState
+     * @param {?} storedUrl
+     * @param {?} id
+     * @param {?} url
+     * @param {?} rawUrl
+     * @param {?} skipLocationChange
+     * @param {?} replaceUrl
+     * @param {?} resolvePromise
+     * @param {?} rejectPromise
+     * @return {?}
+     */
+    function (state, storedState, storedUrl, id, url, rawUrl, skipLocationChange, replaceUrl, resolvePromise, rejectPromise) {
+        var _this = this;
+        /** @type {?} */
+        var navigationIsSuccessful;
+        state
+            .forEach(function (p) {
+            if (typeof p === 'boolean' || !p.shouldActivate || id !== _this.navigationId || !p.state) {
+                navigationIsSuccessful = false;
+                return;
+            }
+            var appliedUrl = p.appliedUrl, state = p.state;
+            _this.currentUrlTree = appliedUrl;
+            _this.rawUrlTree = _this.urlHandlingStrategy.merge(_this.currentUrlTree, rawUrl);
+            (/** @type {?} */ (_this)).routerState = state;
+            if (_this.urlUpdateStrategy === 'deferred' && !skipLocationChange) {
+                _this.setBrowserUrl(_this.rawUrlTree, replaceUrl, id);
+            }
+            new ActivateRoutes(_this.routeReuseStrategy, state, storedState, function (evt) { return _this.triggerEvent(evt); })
+                .activate(_this.rootContexts);
+            navigationIsSuccessful = true;
+        })
+            .then(function () {
+            if (navigationIsSuccessful) {
+                _this.navigated = true;
+                _this.lastSuccessfulId = id;
+                (/** @type {?} */ (_this.events))
+                    .next(new NavigationEnd(id, _this.serializeUrl(url), _this.serializeUrl(_this.currentUrlTree)));
+                resolvePromise(true);
+            }
+            else {
+                _this.resetUrlToCurrentUrlTree();
+                (/** @type {?} */ (_this.events))
+                    .next(new NavigationCancel(id, _this.serializeUrl(url), ''));
+                resolvePromise(false);
+            }
+        }, function (e) {
+            if (isNavigationCancelingError(e)) {
+                _this.navigated = true;
+                _this.resetStateAndUrl(storedState, storedUrl, rawUrl);
+                (/** @type {?} */ (_this.events))
+                    .next(new NavigationCancel(id, _this.serializeUrl(url), e.message));
+                resolvePromise(false);
+            }
+            else {
+                _this.resetStateAndUrl(storedState, storedUrl, rawUrl);
+                (/** @type {?} */ (_this.events))
+                    .next(new NavigationError(id, _this.serializeUrl(url), e));
+                try {
+                    resolvePromise(_this.errorHandler(e));
+                }
+                catch (ee) {
+                    rejectPromise(ee);
+                }
+            }
+        });
+    };
+    /**
+     * @param {?} url
+     * @param {?} replaceUrl
+     * @param {?} id
+     * @return {?}
+     */
+    Router.prototype.setBrowserUrl = /**
+     * @param {?} url
+     * @param {?} replaceUrl
+     * @param {?} id
+     * @return {?}
+     */
+    function (url, replaceUrl, id) {
+        /** @type {?} */
+        var path = this.urlSerializer.serialize(url);
+        if (this.location.isCurrentPathEqualTo(path) || replaceUrl) {
+            this.location.replaceState(path, '', { navigationId: id });
+        }
+        else {
+            this.location.go(path, '', { navigationId: id });
+        }
+    };
+    /**
+     * @param {?} storedState
+     * @param {?} storedUrl
+     * @param {?} rawUrl
+     * @return {?}
+     */
+    Router.prototype.resetStateAndUrl = /**
+     * @param {?} storedState
+     * @param {?} storedUrl
+     * @param {?} rawUrl
+     * @return {?}
+     */
+    function (storedState, storedUrl, rawUrl) {
+        (/** @type {?} */ (this)).routerState = storedState;
+        this.currentUrlTree = storedUrl;
+        this.rawUrlTree = this.urlHandlingStrategy.merge(this.currentUrlTree, rawUrl);
+        this.resetUrlToCurrentUrlTree();
     };
     /**
      * @return {?}
@@ -5437,11 +6139,11 @@ var Router = (function () {
      * @return {?}
      */
     function () {
-        this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree));
+        this.location.replaceState(this.urlSerializer.serialize(this.rawUrlTree), '', { navigationId: this.lastSuccessfulId });
     };
     return Router;
 }());
-var ActivateRoutes = (function () {
+var ActivateRoutes = /** @class */ (function () {
     function ActivateRoutes(routeReuseStrategy, futureState, currState, forwardEvent) {
         this.routeReuseStrategy = routeReuseStrategy;
         this.futureState = futureState;
@@ -5457,8 +6159,10 @@ var ActivateRoutes = (function () {
      * @return {?}
      */
     function (parentContexts) {
-        var /** @type {?} */ futureRoot = this.futureState._root;
-        var /** @type {?} */ currRoot = this.currState ? this.currState._root : null;
+        /** @type {?} */
+        var futureRoot = this.futureState._root;
+        /** @type {?} */
+        var currRoot = this.currState ? this.currState._root : null;
         this.deactivateChildRoutes(futureRoot, currRoot, parentContexts);
         advanceActivatedRoute(this.futureState.root);
         this.activateChildRoutes(futureRoot, currRoot, parentContexts);
@@ -5477,10 +6181,12 @@ var ActivateRoutes = (function () {
      */
     function (futureNode, currNode, contexts) {
         var _this = this;
-        var /** @type {?} */ children = nodeChildrenAsMap(currNode);
+        /** @type {?} */
+        var children = nodeChildrenAsMap(currNode);
         // Recurse on the routes active in the future state to de-activate deeper children
         futureNode.children.forEach(function (futureChild) {
-            var /** @type {?} */ childOutletName = futureChild.value.outlet;
+            /** @type {?} */
+            var childOutletName = futureChild.value.outlet;
             _this.deactivateRoutes(futureChild, children[childOutletName], contexts);
             delete children[childOutletName];
         });
@@ -5502,13 +6208,15 @@ var ActivateRoutes = (function () {
      * @return {?}
      */
     function (futureNode, currNode, parentContext) {
-        var /** @type {?} */ future = futureNode.value;
-        var /** @type {?} */ curr = currNode ? currNode.value : null;
+        /** @type {?} */
+        var future = futureNode.value;
+        /** @type {?} */
+        var curr = currNode ? currNode.value : null;
         if (future === curr) {
             // Reusing the node, check to see if the children need to be de-activated
             if (future.component) {
-                // If we have a normal route, we need to go through an outlet.
-                var /** @type {?} */ context = parentContext.getContext(future.outlet);
+                /** @type {?} */
+                var context = parentContext.getContext(future.outlet);
                 if (context) {
                     this.deactivateChildRoutes(futureNode, currNode, context.children);
                 }
@@ -5554,10 +6262,13 @@ var ActivateRoutes = (function () {
      * @return {?}
      */
     function (route, parentContexts) {
-        var /** @type {?} */ context = parentContexts.getContext(route.value.outlet);
+        /** @type {?} */
+        var context = parentContexts.getContext(route.value.outlet);
         if (context && context.outlet) {
-            var /** @type {?} */ componentRef = context.outlet.detach();
-            var /** @type {?} */ contexts = context.children.onOutletDeactivated();
+            /** @type {?} */
+            var componentRef = context.outlet.detach();
+            /** @type {?} */
+            var contexts = context.children.onOutletDeactivated();
             this.routeReuseStrategy.store(route.value.snapshot, { componentRef: componentRef, route: route, contexts: contexts });
         }
     };
@@ -5573,10 +6284,13 @@ var ActivateRoutes = (function () {
      */
     function (route, parentContexts) {
         var _this = this;
-        var /** @type {?} */ context = parentContexts.getContext(route.value.outlet);
+        /** @type {?} */
+        var context = parentContexts.getContext(route.value.outlet);
         if (context) {
-            var /** @type {?} */ children = nodeChildrenAsMap(route);
-            var /** @type {?} */ contexts_1 = route.value.component ? context.children : parentContexts;
+            /** @type {?} */
+            var children = nodeChildrenAsMap(route);
+            /** @type {?} */
+            var contexts_1 = route.value.component ? context.children : parentContexts;
             forEach(children, function (v, k) { return _this.deactivateRouteAndItsChildren(v, contexts_1); });
             if (context.outlet) {
                 // Destroy the component
@@ -5600,7 +6314,8 @@ var ActivateRoutes = (function () {
      */
     function (futureNode, currNode, contexts) {
         var _this = this;
-        var /** @type {?} */ children = nodeChildrenAsMap(currNode);
+        /** @type {?} */
+        var children = nodeChildrenAsMap(currNode);
         futureNode.children.forEach(function (c) {
             _this.activateRoutes(c, children[c.value.outlet], contexts);
             _this.forwardEvent(new ActivationEnd(c.value.snapshot));
@@ -5622,14 +6337,16 @@ var ActivateRoutes = (function () {
      * @return {?}
      */
     function (futureNode, currNode, parentContexts) {
-        var /** @type {?} */ future = futureNode.value;
-        var /** @type {?} */ curr = currNode ? currNode.value : null;
+        /** @type {?} */
+        var future = futureNode.value;
+        /** @type {?} */
+        var curr = currNode ? currNode.value : null;
         advanceActivatedRoute(future);
         // reusing the node
         if (future === curr) {
             if (future.component) {
-                // If we have a normal route, we need to go through an outlet.
-                var /** @type {?} */ context = parentContexts.getOrCreateContext(future.outlet);
+                /** @type {?} */
+                var context = parentContexts.getOrCreateContext(future.outlet);
                 this.activateChildRoutes(futureNode, currNode, context.children);
             }
             else {
@@ -5639,10 +6356,11 @@ var ActivateRoutes = (function () {
         }
         else {
             if (future.component) {
-                // if we have a normal route, we need to place the component into the outlet and recurse.
-                var /** @type {?} */ context = parentContexts.getOrCreateContext(future.outlet);
+                /** @type {?} */
+                var context = parentContexts.getOrCreateContext(future.outlet);
                 if (this.routeReuseStrategy.shouldAttach(future.snapshot)) {
-                    var /** @type {?} */ stored = (/** @type {?} */ (this.routeReuseStrategy.retrieve(future.snapshot)));
+                    /** @type {?} */
+                    var stored = (/** @type {?} */ (this.routeReuseStrategy.retrieve(future.snapshot)));
                     this.routeReuseStrategy.store(future.snapshot, null);
                     context.children.onOutletReAttached(stored.contexts);
                     context.attachRef = stored.componentRef;
@@ -5655,8 +6373,10 @@ var ActivateRoutes = (function () {
                     advanceActivatedRouteNodeAndItsChildren(stored.route);
                 }
                 else {
-                    var /** @type {?} */ config = parentLoadedConfig(future.snapshot);
-                    var /** @type {?} */ cmpFactoryResolver = config ? config.module.componentFactoryResolver : null;
+                    /** @type {?} */
+                    var config = parentLoadedConfig(future.snapshot);
+                    /** @type {?} */
+                    var cmpFactoryResolver = config ? config.module.componentFactoryResolver : null;
                     context.route = future;
                     context.resolver = cmpFactoryResolver;
                     if (context.outlet) {
@@ -5688,8 +6408,9 @@ function advanceActivatedRouteNodeAndItsChildren(node) {
  * @return {?}
  */
 function parentLoadedConfig(snapshot) {
-    for (var /** @type {?} */ s = snapshot.parent; s; s = s.parent) {
-        var /** @type {?} */ route = s.routeConfig;
+    for (var s = snapshot.parent; s; s = s.parent) {
+        /** @type {?} */
+        var route = s.routeConfig;
         if (route && route._loadedConfig)
             return route._loadedConfig;
         if (route && route.component)
@@ -5702,8 +6423,9 @@ function parentLoadedConfig(snapshot) {
  * @return {?}
  */
 function validateCommands(commands) {
-    for (var /** @type {?} */ i = 0; i < commands.length; i++) {
-        var /** @type {?} */ cmd = commands[i];
+    for (var i = 0; i < commands.length; i++) {
+        /** @type {?} */
+        var cmd = commands[i];
         if (cmd == null) {
             throw new Error("The requested path contains " + cmd + " segment at index " + i);
         }
@@ -5712,7 +6434,7 @@ function validateCommands(commands) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -5722,21 +6444,15 @@ function validateCommands(commands) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@whatItDoes Lets you link to specific parts of your app.
- *
- * \@howToUse
- *
- * Consider the following route configuration:
- * `[{ path: 'user/:name', component: UserCmp }]`
- *
- * When linking to this `user/:name` route, you can write:
- * `<a routerLink='/user/bob'>link to user component</a>`
- *
  * \@description
  *
- * The RouterLink directives let you link to specific parts of your app.
+ * Lets you link to specific routes in your app.
  *
- * When the link is static, you can use the directive as follows:
+ * Consider the following route configuration:
+ * `[{ path: 'user/:name', component: UserCmp }]`.
+ * When linking to this `user/:name` route, you use the `RouterLink` directive.
+ *
+ * If the link is static, you can use the directive as follows:
  * `<a routerLink="/user/bob">link to user component</a>`
  *
  * If you use dynamic values to generate the link, you can pass an array of path
@@ -5798,9 +6514,9 @@ function validateCommands(commands) {
  *
  * \@ngModule RouterModule
  *
- * \@stable
+ *
  */
-var RouterLink = (function () {
+var RouterLink = /** @class */ (function () {
     function RouterLink(router, route, tabIndex, renderer, el) {
         this.router = router;
         this.route = route;
@@ -5826,6 +6542,9 @@ var RouterLink = (function () {
         configurable: true
     });
     Object.defineProperty(RouterLink.prototype, "preserveQueryParams", {
+        /**
+         * @deprecated 4.0.0 use `queryParamsHandling` instead.
+         */
         set: /**
          * @deprecated 4.0.0 use `queryParamsHandling` instead.
          * @param {?} value
@@ -5847,7 +6566,8 @@ var RouterLink = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ extras = {
+        /** @type {?} */
+        var extras = {
             skipLocationChange: attrBoolValue(this.skipLocationChange),
             replaceUrl: attrBoolValue(this.replaceUrl),
         };
@@ -5876,35 +6596,37 @@ var RouterLink = (function () {
     ];
     /** @nocollapse */
     RouterLink.ctorParameters = function () { return [
-        { type: Router, },
-        { type: ActivatedRoute, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
-        { type: _angular_core.Renderer2, },
-        { type: _angular_core.ElementRef, },
+        { type: Router },
+        { type: ActivatedRoute },
+        { type: String, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] }] },
+        { type: _angular_core.Renderer2 },
+        { type: _angular_core.ElementRef }
     ]; };
     RouterLink.propDecorators = {
-        "queryParams": [{ type: _angular_core.Input },],
-        "fragment": [{ type: _angular_core.Input },],
-        "queryParamsHandling": [{ type: _angular_core.Input },],
-        "preserveFragment": [{ type: _angular_core.Input },],
-        "skipLocationChange": [{ type: _angular_core.Input },],
-        "replaceUrl": [{ type: _angular_core.Input },],
-        "routerLink": [{ type: _angular_core.Input },],
-        "preserveQueryParams": [{ type: _angular_core.Input },],
-        "onClick": [{ type: _angular_core.HostListener, args: ['click',] },],
+        queryParams: [{ type: _angular_core.Input }],
+        fragment: [{ type: _angular_core.Input }],
+        queryParamsHandling: [{ type: _angular_core.Input }],
+        preserveFragment: [{ type: _angular_core.Input }],
+        skipLocationChange: [{ type: _angular_core.Input }],
+        replaceUrl: [{ type: _angular_core.Input }],
+        routerLink: [{ type: _angular_core.Input }],
+        preserveQueryParams: [{ type: _angular_core.Input }],
+        onClick: [{ type: _angular_core.HostListener, args: ['click',] }]
     };
     return RouterLink;
 }());
 /**
- * \@whatItDoes Lets you link to specific parts of your app.
+ * \@description
  *
- * See {\@link RouterLink} for more information.
+ * Lets you link to specific routes in your app.
+ *
+ * See `RouterLink` for more information.
  *
  * \@ngModule RouterModule
  *
- * \@stable
+ *
  */
-var RouterLinkWithHref = (function () {
+var RouterLinkWithHref = /** @class */ (function () {
     function RouterLinkWithHref(router, route, locationStrategy) {
         var _this = this;
         this.router = router;
@@ -5984,7 +6706,8 @@ var RouterLinkWithHref = (function () {
         if (typeof this.target === 'string' && this.target != '_self') {
             return true;
         }
-        var /** @type {?} */ extras = {
+        /** @type {?} */
+        var extras = {
             skipLocationChange: attrBoolValue(this.skipLocationChange),
             replaceUrl: attrBoolValue(this.replaceUrl),
         };
@@ -6022,22 +6745,22 @@ var RouterLinkWithHref = (function () {
     ];
     /** @nocollapse */
     RouterLinkWithHref.ctorParameters = function () { return [
-        { type: Router, },
-        { type: ActivatedRoute, },
-        { type: _angular_common.LocationStrategy, },
+        { type: Router },
+        { type: ActivatedRoute },
+        { type: _angular_common.LocationStrategy }
     ]; };
     RouterLinkWithHref.propDecorators = {
-        "target": [{ type: _angular_core.HostBinding, args: ['attr.target',] }, { type: _angular_core.Input },],
-        "queryParams": [{ type: _angular_core.Input },],
-        "fragment": [{ type: _angular_core.Input },],
-        "queryParamsHandling": [{ type: _angular_core.Input },],
-        "preserveFragment": [{ type: _angular_core.Input },],
-        "skipLocationChange": [{ type: _angular_core.Input },],
-        "replaceUrl": [{ type: _angular_core.Input },],
-        "href": [{ type: _angular_core.HostBinding },],
-        "routerLink": [{ type: _angular_core.Input },],
-        "preserveQueryParams": [{ type: _angular_core.Input },],
-        "onClick": [{ type: _angular_core.HostListener, args: ['click', ['$event.button', '$event.ctrlKey', '$event.metaKey', '$event.shiftKey'],] },],
+        target: [{ type: _angular_core.HostBinding, args: ['attr.target',] }, { type: _angular_core.Input }],
+        queryParams: [{ type: _angular_core.Input }],
+        fragment: [{ type: _angular_core.Input }],
+        queryParamsHandling: [{ type: _angular_core.Input }],
+        preserveFragment: [{ type: _angular_core.Input }],
+        skipLocationChange: [{ type: _angular_core.Input }],
+        replaceUrl: [{ type: _angular_core.Input }],
+        href: [{ type: _angular_core.HostBinding }],
+        routerLink: [{ type: _angular_core.Input }],
+        preserveQueryParams: [{ type: _angular_core.Input }],
+        onClick: [{ type: _angular_core.HostListener, args: ['click', ['$event.button', '$event.ctrlKey', '$event.metaKey', '$event.shiftKey'],] }]
     };
     return RouterLinkWithHref;
 }());
@@ -6051,7 +6774,7 @@ function attrBoolValue(s) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -6061,17 +6784,12 @@ function attrBoolValue(s) {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@whatItDoes Lets you add a CSS class to an element when the link's route becomes active.
- *
- * \@howToUse
- *
- * ```
- * <a routerLink="/user/bob" routerLinkActive="active-link">Bob</a>
- * ```
  *
  * \@description
  *
- * The RouterLinkActive directive lets you add a CSS class to an element when the link's route
+ * Lets you add a CSS class to an element when the link's route becomes active.
+ *
+ * This directive lets you add a CSS class to an element when the link's route
  * becomes active.
  *
  * Consider the following example:
@@ -6120,9 +6838,9 @@ function attrBoolValue(s) {
  *
  * \@ngModule RouterModule
  *
- * \@stable
+ *
  */
-var RouterLinkActive = (function () {
+var RouterLinkActive = /** @class */ (function () {
     function RouterLinkActive(router, element, renderer, cdr) {
         var _this = this;
         this.router = router;
@@ -6156,7 +6874,8 @@ var RouterLinkActive = (function () {
          * @return {?}
          */
         function (data) {
-            var /** @type {?} */ classes = Array.isArray(data) ? data : data.split(' ');
+            /** @type {?} */
+            var classes = Array.isArray(data) ? data : data.split(' ');
             this.classes = classes.filter(function (c) { return !!c; });
         },
         enumerable: true,
@@ -6189,7 +6908,8 @@ var RouterLinkActive = (function () {
         if (!this.links || !this.linksWithHrefs || !this.router.navigated)
             return;
         Promise.resolve().then(function () {
-            var /** @type {?} */ hasActiveLinks = _this.hasActiveLinks();
+            /** @type {?} */
+            var hasActiveLinks = _this.hasActiveLinks();
             if (_this.isActive !== hasActiveLinks) {
                 (/** @type {?} */ (_this)).isActive = hasActiveLinks;
                 _this.classes.forEach(function (c) {
@@ -6235,30 +6955,37 @@ var RouterLinkActive = (function () {
     ];
     /** @nocollapse */
     RouterLinkActive.ctorParameters = function () { return [
-        { type: Router, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
-        { type: _angular_core.ChangeDetectorRef, },
+        { type: Router },
+        { type: _angular_core.ElementRef },
+        { type: _angular_core.Renderer2 },
+        { type: _angular_core.ChangeDetectorRef }
     ]; };
     RouterLinkActive.propDecorators = {
-        "links": [{ type: _angular_core.ContentChildren, args: [RouterLink, { descendants: true },] },],
-        "linksWithHrefs": [{ type: _angular_core.ContentChildren, args: [RouterLinkWithHref, { descendants: true },] },],
-        "routerLinkActiveOptions": [{ type: _angular_core.Input },],
-        "routerLinkActive": [{ type: _angular_core.Input },],
+        links: [{ type: _angular_core.ContentChildren, args: [RouterLink, { descendants: true },] }],
+        linksWithHrefs: [{ type: _angular_core.ContentChildren, args: [RouterLinkWithHref, { descendants: true },] }],
+        routerLinkActiveOptions: [{ type: _angular_core.Input }],
+        routerLinkActive: [{ type: _angular_core.Input }]
     };
     return RouterLinkActive;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
- * Store contextual information about a {\@link RouterOutlet}
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
  *
- * \@stable
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-var OutletContext = (function () {
+/**
+ * Store contextual information about a `RouterOutlet`
+ *
+ *
+ */
+var OutletContext = /** @class */ (function () {
     function OutletContext() {
         this.outlet = null;
         this.route = null;
@@ -6269,11 +6996,11 @@ var OutletContext = (function () {
     return OutletContext;
 }());
 /**
- * Store contextual information about the children (= nested) {\@link RouterOutlet}
+ * Store contextual information about the children (= nested) `RouterOutlet`
  *
- * \@stable
+ *
  */
-var ChildrenOutletContexts = (function () {
+var ChildrenOutletContexts = /** @class */ (function () {
     function ChildrenOutletContexts() {
         this.contexts = new Map();
     }
@@ -6291,7 +7018,8 @@ var ChildrenOutletContexts = (function () {
      * @return {?}
      */
     function (childName, outlet) {
-        var /** @type {?} */ context = this.getOrCreateContext(childName);
+        /** @type {?} */
+        var context = this.getOrCreateContext(childName);
         context.outlet = outlet;
         this.contexts.set(childName, context);
     };
@@ -6315,7 +7043,8 @@ var ChildrenOutletContexts = (function () {
      * @return {?}
      */
     function (childName) {
-        var /** @type {?} */ context = this.getContext(childName);
+        /** @type {?} */
+        var context = this.getContext(childName);
         if (context) {
             context.outlet = null;
         }
@@ -6335,7 +7064,8 @@ var ChildrenOutletContexts = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ contexts = this.contexts;
+        /** @type {?} */
+        var contexts = this.contexts;
         this.contexts = new Map();
         return contexts;
     };
@@ -6357,7 +7087,8 @@ var ChildrenOutletContexts = (function () {
      * @return {?}
      */
     function (childName) {
-        var /** @type {?} */ context = this.getContext(childName);
+        /** @type {?} */
+        var context = this.getContext(childName);
         if (!context) {
             context = new OutletContext();
             this.contexts.set(childName, context);
@@ -6378,7 +7109,7 @@ var ChildrenOutletContexts = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -6388,10 +7119,9 @@ var ChildrenOutletContexts = (function () {
  * found in the LICENSE file at https://angular.io/license
  */
 /**
- * \@whatItDoes Acts as a placeholder that Angular dynamically fills based on the current router
- * state.
+ * \@description
  *
- * \@howToUse
+ * Acts as a placeholder that Angular dynamically fills based on the current router state.
  *
  * ```
  * <router-outlet></router-outlet>
@@ -6409,9 +7139,9 @@ var ChildrenOutletContexts = (function () {
  * ```
  * \@ngModule RouterModule
  *
- * \@stable
+ *
  */
-var RouterOutlet = (function () {
+var RouterOutlet = /** @class */ (function () {
     function RouterOutlet(parentContexts, location, resolver, name, changeDetector) {
         this.parentContexts = parentContexts;
         this.location = location;
@@ -6439,9 +7169,8 @@ var RouterOutlet = (function () {
      */
     function () {
         if (!this.activated) {
-            // If the outlet was not instantiated at the time the route got activated we need to populate
-            // the outlet when it is initialized (ie inside a NgIf)
-            var /** @type {?} */ context = this.parentContexts.getContext(this.name);
+            /** @type {?} */
+            var context = this.parentContexts.getContext(this.name);
             if (context && context.route) {
                 if (context.attachRef) {
                     // `attachRef` is populated when there is an existing component to mount
@@ -6514,7 +7243,8 @@ var RouterOutlet = (function () {
         if (!this.activated)
             throw new Error('Outlet is not activated');
         this.location.detach();
-        var /** @type {?} */ cmp = this.activated;
+        /** @type {?} */
+        var cmp = this.activated;
         this.activated = null;
         this._activatedRoute = null;
         return cmp;
@@ -6547,7 +7277,8 @@ var RouterOutlet = (function () {
      */
     function () {
         if (this.activated) {
-            var /** @type {?} */ c = this.component;
+            /** @type {?} */
+            var c = this.component;
             this.activated.destroy();
             this.activated = null;
             this._activatedRoute = null;
@@ -6569,12 +7300,17 @@ var RouterOutlet = (function () {
             throw new Error('Cannot activate an already activated outlet');
         }
         this._activatedRoute = activatedRoute;
-        var /** @type {?} */ snapshot = activatedRoute._futureSnapshot;
-        var /** @type {?} */ component = /** @type {?} */ (/** @type {?} */ ((snapshot.routeConfig)).component);
+        /** @type {?} */
+        var snapshot = activatedRoute._futureSnapshot;
+        /** @type {?} */
+        var component = /** @type {?} */ (/** @type {?} */ ((snapshot.routeConfig)).component);
         resolver = resolver || this.resolver;
-        var /** @type {?} */ factory = resolver.resolveComponentFactory(component);
-        var /** @type {?} */ childContexts = this.parentContexts.getOrCreateContext(this.name).children;
-        var /** @type {?} */ injector = new OutletInjector(activatedRoute, childContexts, this.location.injector);
+        /** @type {?} */
+        var factory = resolver.resolveComponentFactory(component);
+        /** @type {?} */
+        var childContexts = this.parentContexts.getOrCreateContext(this.name).children;
+        /** @type {?} */
+        var injector = new OutletInjector(activatedRoute, childContexts, this.location.injector);
         this.activated = this.location.createComponent(factory, this.location.length, injector);
         // Calling `markForCheck` to make sure we will run the change detection when the
         // `RouterOutlet` is inside a `ChangeDetectionStrategy.OnPush` component.
@@ -6586,19 +7322,19 @@ var RouterOutlet = (function () {
     ];
     /** @nocollapse */
     RouterOutlet.ctorParameters = function () { return [
-        { type: ChildrenOutletContexts, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: _angular_core.ComponentFactoryResolver, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['name',] },] },
-        { type: _angular_core.ChangeDetectorRef, },
+        { type: ChildrenOutletContexts },
+        { type: _angular_core.ViewContainerRef },
+        { type: _angular_core.ComponentFactoryResolver },
+        { type: String, decorators: [{ type: _angular_core.Attribute, args: ['name',] }] },
+        { type: _angular_core.ChangeDetectorRef }
     ]; };
     RouterOutlet.propDecorators = {
-        "activateEvents": [{ type: _angular_core.Output, args: ['activate',] },],
-        "deactivateEvents": [{ type: _angular_core.Output, args: ['deactivate',] },],
+        activateEvents: [{ type: _angular_core.Output, args: ['activate',] }],
+        deactivateEvents: [{ type: _angular_core.Output, args: ['deactivate',] }]
     };
     return RouterOutlet;
 }());
-var OutletInjector = (function () {
+var OutletInjector = /** @class */ (function () {
     function OutletInjector(route, childContexts, parent) {
         this.route = route;
         this.childContexts = childContexts;
@@ -6628,7 +7364,7 @@ var OutletInjector = (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
 *@license
@@ -6638,20 +7374,22 @@ var OutletInjector = (function () {
 *found in the LICENSE file at https://angular.io/license
 */
 /**
- * \@whatItDoes Provides a preloading strategy.
+ * \@description
+ *
+ * Provides a preloading strategy.
  *
  * \@experimental
  * @abstract
  */
-var PreloadingStrategy = (function () {
+var PreloadingStrategy = /** @class */ (function () {
     function PreloadingStrategy() {
     }
     return PreloadingStrategy;
 }());
 /**
- * \@whatItDoes Provides a preloading strategy that preloads all modules as quickly as possible.
+ * \@description
  *
- * \@howToUse
+ * Provides a preloading strategy that preloads all modules as quickly as possible.
  *
  * ```
  * RouteModule.forRoot(ROUTES, {preloadingStrategy: PreloadAllModules})
@@ -6659,7 +7397,7 @@ var PreloadingStrategy = (function () {
  *
  * \@experimental
  */
-var PreloadAllModules = (function () {
+var PreloadAllModules = /** @class */ (function () {
     function PreloadAllModules() {
     }
     /**
@@ -6673,20 +7411,20 @@ var PreloadAllModules = (function () {
      * @return {?}
      */
     function (route, fn) {
-        return rxjs_operator_catch._catch.call(fn(), function () { return rxjs_observable_of.of(null); });
+        return fn().pipe(rxjs_operators.catchError(function () { return rxjs.of(null); }));
     };
     return PreloadAllModules;
 }());
 /**
- * \@whatItDoes Provides a preloading strategy that does not preload any modules.
- *
  * \@description
+ *
+ * Provides a preloading strategy that does not preload any modules.
  *
  * This strategy is enabled by default.
  *
  * \@experimental
  */
-var NoPreloading = (function () {
+var NoPreloading = /** @class */ (function () {
     function NoPreloading() {
     }
     /**
@@ -6699,7 +7437,7 @@ var NoPreloading = (function () {
      * @param {?} fn
      * @return {?}
      */
-    function (route, fn) { return rxjs_observable_of.of(null); };
+    function (route, fn) { return rxjs.of(null); };
     return NoPreloading;
 }());
 /**
@@ -6712,15 +7450,17 @@ var NoPreloading = (function () {
  *
  * If a route is protected by `canLoad` guards, the preloaded will not load it.
  *
- * \@stable
+ *
  */
-var RouterPreloader = (function () {
+var RouterPreloader = /** @class */ (function () {
     function RouterPreloader(router, moduleLoader, compiler, injector, preloadingStrategy) {
         this.router = router;
         this.injector = injector;
         this.preloadingStrategy = preloadingStrategy;
-        var /** @type {?} */ onStartLoad = function (r) { return router.triggerEvent(new RouteConfigLoadStart(r)); };
-        var /** @type {?} */ onEndLoad = function (r) { return router.triggerEvent(new RouteConfigLoadEnd(r)); };
+        /** @type {?} */
+        var onStartLoad = function (r) { return router.triggerEvent(new RouteConfigLoadStart(r)); };
+        /** @type {?} */
+        var onEndLoad = function (r) { return router.triggerEvent(new RouteConfigLoadEnd(r)); };
         this.loader = new RouterConfigLoader(moduleLoader, compiler, onStartLoad, onEndLoad);
     }
     /**
@@ -6731,8 +7471,10 @@ var RouterPreloader = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ navigations$ = rxjs_operator_filter.filter.call(this.router.events, function (e) { return e instanceof NavigationEnd; });
-        this.subscription = rxjs_operator_concatMap.concatMap.call(navigations$, function () { return _this.preload(); }).subscribe(function () { });
+        this.subscription =
+            this.router.events
+                .pipe(rxjs_operators.filter(function (e) { return e instanceof NavigationEnd; }), rxjs_operators.concatMap(function () { return _this.preload(); }))
+                .subscribe(function () { });
     };
     /**
      * @return {?}
@@ -6741,7 +7483,8 @@ var RouterPreloader = (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ ngModule = this.injector.get(_angular_core.NgModuleRef);
+        /** @type {?} */
+        var ngModule = this.injector.get(_angular_core.NgModuleRef);
         return this.processRoutes(ngModule, this.router.config);
     };
     // TODO(jasonaden): This class relies on code external to the class to call setUpPreloading. If
@@ -6765,12 +7508,14 @@ var RouterPreloader = (function () {
      * @return {?}
      */
     function (ngModule, routes) {
-        var /** @type {?} */ res = [];
+        /** @type {?} */
+        var res = [];
         for (var _i = 0, routes_1 = routes; _i < routes_1.length; _i++) {
             var route = routes_1[_i];
             // we already have the config loaded, just recurse
             if (route.loadChildren && !route.canLoad && route._loadedConfig) {
-                var /** @type {?} */ childConfig = route._loadedConfig;
+                /** @type {?} */
+                var childConfig = route._loadedConfig;
                 res.push(this.processRoutes(childConfig.module, childConfig.routes));
                 // no config loaded, fetch the config
             }
@@ -6782,7 +7527,7 @@ var RouterPreloader = (function () {
                 res.push(this.processRoutes(ngModule, route.children));
             }
         }
-        return rxjs_operator_mergeAll.mergeAll.call(rxjs_observable_from.from(res));
+        return rxjs.from(res).pipe(rxjs_operators.mergeAll(), rxjs_operators.map(function (_) { return void 0; }));
     };
     /**
      * @param {?} ngModule
@@ -6797,11 +7542,12 @@ var RouterPreloader = (function () {
     function (ngModule, route) {
         var _this = this;
         return this.preloadingStrategy.preload(route, function () {
-            var /** @type {?} */ loaded$ = _this.loader.load(ngModule.injector, route);
-            return rxjs_operator_mergeMap.mergeMap.call(loaded$, function (config) {
+            /** @type {?} */
+            var loaded$ = _this.loader.load(ngModule.injector, route);
+            return loaded$.pipe(rxjs_operators.mergeMap(function (config) {
                 route._loadedConfig = config;
                 return _this.processRoutes(config.module, config.routes);
-            });
+            }));
         });
     };
     RouterPreloader.decorators = [
@@ -6809,18 +7555,18 @@ var RouterPreloader = (function () {
     ];
     /** @nocollapse */
     RouterPreloader.ctorParameters = function () { return [
-        { type: Router, },
-        { type: _angular_core.NgModuleFactoryLoader, },
-        { type: _angular_core.Compiler, },
-        { type: _angular_core.Injector, },
-        { type: PreloadingStrategy, },
+        { type: Router },
+        { type: _angular_core.NgModuleFactoryLoader },
+        { type: _angular_core.Compiler },
+        { type: _angular_core.Injector },
+        { type: PreloadingStrategy }
     ]; };
     return RouterPreloader;
 }());
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -6829,20 +7575,151 @@ var RouterPreloader = (function () {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var RouterScroller = /** @class */ (function () {
+    function RouterScroller(router, viewportScroller, options) {
+        if (options === void 0) { options = {}; }
+        this.router = router;
+        this.viewportScroller = viewportScroller;
+        this.options = options;
+        this.lastId = 0;
+        this.lastSource = 'imperative';
+        this.restoredId = 0;
+        this.store = {};
+        // Default both options to 'disabled'
+        options.scrollPositionRestoration = options.scrollPositionRestoration || 'disabled';
+        options.anchorScrolling = options.anchorScrolling || 'disabled';
+    }
+    /**
+     * @return {?}
+     */
+    RouterScroller.prototype.init = /**
+     * @return {?}
+     */
+    function () {
+        // we want to disable the automatic scrolling because having two places
+        // responsible for scrolling results race conditions, especially given
+        // that browser don't implement this behavior consistently
+        if (this.options.scrollPositionRestoration !== 'disabled') {
+            this.viewportScroller.setHistoryScrollRestoration('manual');
+        }
+        this.routerEventsSubscription = this.createScrollEvents();
+        this.scrollEventsSubscription = this.consumeScrollEvents();
+    };
+    /**
+     * @return {?}
+     */
+    RouterScroller.prototype.createScrollEvents = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.router.events.subscribe(function (e) {
+            if (e instanceof NavigationStart) {
+                // store the scroll position of the current stable navigations.
+                // store the scroll position of the current stable navigations.
+                _this.store[_this.lastId] = _this.viewportScroller.getScrollPosition();
+                _this.lastSource = e.navigationTrigger;
+                _this.restoredId = e.restoredState ? e.restoredState.navigationId : 0;
+            }
+            else if (e instanceof NavigationEnd) {
+                _this.lastId = e.id;
+                _this.scheduleScrollEvent(e, _this.router.parseUrl(e.urlAfterRedirects).fragment);
+            }
+        });
+    };
+    /**
+     * @return {?}
+     */
+    RouterScroller.prototype.consumeScrollEvents = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        return this.router.events.subscribe(function (e) {
+            if (!(e instanceof Scroll))
+                return;
+            // a popstate event. The pop state event will always ignore anchor scrolling.
+            if (e.position) {
+                if (_this.options.scrollPositionRestoration === 'top') {
+                    _this.viewportScroller.scrollToPosition([0, 0]);
+                }
+                else if (_this.options.scrollPositionRestoration === 'enabled') {
+                    _this.viewportScroller.scrollToPosition(e.position);
+                }
+                // imperative navigation "forward"
+            }
+            else {
+                if (e.anchor && _this.options.anchorScrolling === 'enabled') {
+                    _this.viewportScroller.scrollToAnchor(e.anchor);
+                }
+                else if (_this.options.scrollPositionRestoration !== 'disabled') {
+                    _this.viewportScroller.scrollToPosition([0, 0]);
+                }
+            }
+        });
+    };
+    /**
+     * @param {?} routerEvent
+     * @param {?} anchor
+     * @return {?}
+     */
+    RouterScroller.prototype.scheduleScrollEvent = /**
+     * @param {?} routerEvent
+     * @param {?} anchor
+     * @return {?}
+     */
+    function (routerEvent, anchor) {
+        this.router.triggerEvent(new Scroll(routerEvent, this.lastSource === 'popstate' ? this.store[this.restoredId] : null, anchor));
+    };
+    /**
+     * @return {?}
+     */
+    RouterScroller.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this.routerEventsSubscription) {
+            this.routerEventsSubscription.unsubscribe();
+        }
+        if (this.scrollEventsSubscription) {
+            this.scrollEventsSubscription.unsubscribe();
+        }
+    };
+    return RouterScroller;
+}());
+
 /**
- * \@whatItDoes Contains a list of directives
- * \@stable
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-var ROUTER_DIRECTIVES = [RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive];
 /**
- * \@whatItDoes Is used in DI to configure the router.
- * \@stable
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
+/** *
+ * \@description
+ *
+ * Contains a list of directives
+ *
+ *
+  @type {?} */
+var ROUTER_DIRECTIVES = [RouterOutlet, RouterLink, RouterLinkWithHref, RouterLinkActive, EmptyOutletComponent];
+/** *
+ * \@description
+ *
+ * Is used in DI to configure the router.
+ *
+ *
+  @type {?} */
 var ROUTER_CONFIGURATION = new _angular_core.InjectionToken('ROUTER_CONFIGURATION');
-/**
+/** *
  * \@docsNotRequired
- */
+  @type {?} */
 var ROUTER_FORROOT_GUARD = new _angular_core.InjectionToken('ROUTER_FORROOT_GUARD');
+/** @type {?} */
 var ROUTER_PROVIDERS = [
     _angular_common.Location,
     { provide: UrlSerializer, useClass: DefaultUrlSerializer },
@@ -6870,9 +7747,7 @@ function routerNgProbeToken() {
     return new _angular_core.NgProbeToken('Router', Router);
 }
 /**
- * \@whatItDoes Adds router directives and providers.
- *
- * \@howToUse
+ * \@usageNotes
  *
  * RouterModule can be imported multiple times: once per lazily-loaded bundle.
  * Since the router deals with a global shared resource--location, we cannot have
@@ -6906,6 +7781,8 @@ function routerNgProbeToken() {
  *
  * \@description
  *
+ * Adds router directives and providers.
+ *
  * Managing state transitions is one of the hardest parts of building applications. This is
  * especially true on the web, where you also need to ensure that the state is reflected in the URL.
  * In addition, we often want to split applications into multiple bundles and load them on demand.
@@ -6918,9 +7795,9 @@ function routerNgProbeToken() {
  * [Read this developer guide](https://angular.io/docs/ts/latest/guide/router.html) to get an
  * overview of how the router should be used.
  *
- * \@stable
+ *
  */
-var RouterModule = (function () {
+var RouterModule = /** @class */ (function () {
     // Note: We are injecting the Router so it gets created eagerly...
     function RouterModule(guard, router) {
     }
@@ -6928,29 +7805,33 @@ var RouterModule = (function () {
      * Creates a module with all the router providers and directives. It also optionally sets up an
      * application listener to perform an initial navigation.
      *
-     * Options (see {@link ExtraOptions}):
+     * Options (see `ExtraOptions`):
      * * `enableTracing` makes the router log all its internal events to the console.
      * * `useHash` enables the location strategy that uses the URL fragment instead of the history
      * API.
      * * `initialNavigation` disables the initial navigation.
      * * `errorHandler` provides a custom error handler.
-     * * `preloadingStrategy` configures a preloading strategy (see {@link PreloadAllModules}).
+     * * `preloadingStrategy` configures a preloading strategy (see `PreloadAllModules`).
      * * `onSameUrlNavigation` configures how the router handles navigation to the current URL. See
-     * {@link ExtraOptions} for more details.
+     * `ExtraOptions` for more details.
+     * * `paramsInheritanceStrategy` defines how the router merges params, data and resolved data
+     * from parent to child routes.
      */
     /**
      * Creates a module with all the router providers and directives. It also optionally sets up an
      * application listener to perform an initial navigation.
      *
-     * Options (see {\@link ExtraOptions}):
+     * Options (see `ExtraOptions`):
      * * `enableTracing` makes the router log all its internal events to the console.
      * * `useHash` enables the location strategy that uses the URL fragment instead of the history
      * API.
      * * `initialNavigation` disables the initial navigation.
      * * `errorHandler` provides a custom error handler.
-     * * `preloadingStrategy` configures a preloading strategy (see {\@link PreloadAllModules}).
+     * * `preloadingStrategy` configures a preloading strategy (see `PreloadAllModules`).
      * * `onSameUrlNavigation` configures how the router handles navigation to the current URL. See
-     * {\@link ExtraOptions} for more details.
+     * `ExtraOptions` for more details.
+     * * `paramsInheritanceStrategy` defines how the router merges params, data and resolved data
+     * from parent to child routes.
      * @param {?} routes
      * @param {?=} config
      * @return {?}
@@ -6959,15 +7840,17 @@ var RouterModule = (function () {
      * Creates a module with all the router providers and directives. It also optionally sets up an
      * application listener to perform an initial navigation.
      *
-     * Options (see {\@link ExtraOptions}):
+     * Options (see `ExtraOptions`):
      * * `enableTracing` makes the router log all its internal events to the console.
      * * `useHash` enables the location strategy that uses the URL fragment instead of the history
      * API.
      * * `initialNavigation` disables the initial navigation.
      * * `errorHandler` provides a custom error handler.
-     * * `preloadingStrategy` configures a preloading strategy (see {\@link PreloadAllModules}).
+     * * `preloadingStrategy` configures a preloading strategy (see `PreloadAllModules`).
      * * `onSameUrlNavigation` configures how the router handles navigation to the current URL. See
-     * {\@link ExtraOptions} for more details.
+     * `ExtraOptions` for more details.
+     * * `paramsInheritanceStrategy` defines how the router merges params, data and resolved data
+     * from parent to child routes.
      * @param {?} routes
      * @param {?=} config
      * @return {?}
@@ -6990,6 +7873,11 @@ var RouterModule = (function () {
                     deps: [
                         _angular_common.PlatformLocation, [new _angular_core.Inject(_angular_common.APP_BASE_HREF), new _angular_core.Optional()], ROUTER_CONFIGURATION
                     ]
+                },
+                {
+                    provide: RouterScroller,
+                    useFactory: createRouterScroller,
+                    deps: [Router, _angular_common.ViewportScroller, ROUTER_CONFIGURATION]
                 },
                 {
                     provide: PreloadingStrategy,
@@ -7018,15 +7906,31 @@ var RouterModule = (function () {
         return { ngModule: RouterModule, providers: [provideRoutes(routes)] };
     };
     RouterModule.decorators = [
-        { type: _angular_core.NgModule, args: [{ declarations: ROUTER_DIRECTIVES, exports: ROUTER_DIRECTIVES },] },
+        { type: _angular_core.NgModule, args: [{
+                    declarations: ROUTER_DIRECTIVES,
+                    exports: ROUTER_DIRECTIVES,
+                    entryComponents: [EmptyOutletComponent]
+                },] },
     ];
     /** @nocollapse */
     RouterModule.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [ROUTER_FORROOT_GUARD,] },] },
-        { type: Router, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [ROUTER_FORROOT_GUARD,] }] },
+        { type: Router, decorators: [{ type: _angular_core.Optional }] }
     ]; };
     return RouterModule;
 }());
+/**
+ * @param {?} router
+ * @param {?} viewportScroller
+ * @param {?} config
+ * @return {?}
+ */
+function createRouterScroller(router, viewportScroller, config) {
+    if (config.scrollOffset) {
+        viewportScroller.setOffset(config.scrollOffset);
+    }
+    return new RouterScroller(router, viewportScroller, config);
+}
 /**
  * @param {?} platformLocationStrategy
  * @param {?} baseHref
@@ -7049,9 +7953,11 @@ function provideForRootGuard(router) {
     return 'guarded';
 }
 /**
- * \@whatItDoes Registers routes.
+ * \@description
  *
- * \@howToUse
+ * Registers routes.
+ *
+ * ### Example
  *
  * ```
  * \@NgModule({
@@ -7061,7 +7967,7 @@ function provideForRootGuard(router) {
  * class MyNgModule {}
  * ```
  *
- * \@stable
+ *
  * @param {?} routes
  * @return {?}
  */
@@ -7072,9 +7978,11 @@ function provideRoutes(routes) {
     ];
 }
 /**
- * \@whatItDoes Represents options to configure the router.
+ * \@description
  *
- * \@stable
+ * Represents options to configure the router.
+ *
+ *
  * @record
  */
 
@@ -7094,7 +8002,8 @@ function provideRoutes(routes) {
  */
 function setupRouter(ref, urlSerializer, contexts, location, injector, loader, compiler, config, opts, urlHandlingStrategy, routeReuseStrategy) {
     if (opts === void 0) { opts = {}; }
-    var /** @type {?} */ router = new Router(null, urlSerializer, contexts, location, injector, loader, compiler, flatten(config));
+    /** @type {?} */
+    var router = new Router(null, urlSerializer, contexts, location, injector, loader, compiler, flatten(config));
     if (urlHandlingStrategy) {
         router.urlHandlingStrategy = urlHandlingStrategy;
     }
@@ -7104,8 +8013,12 @@ function setupRouter(ref, urlSerializer, contexts, location, injector, loader, c
     if (opts.errorHandler) {
         router.errorHandler = opts.errorHandler;
     }
+    if (opts.malformedUriErrorHandler) {
+        router.malformedUriErrorHandler = opts.malformedUriErrorHandler;
+    }
     if (opts.enableTracing) {
-        var /** @type {?} */ dom_1 = _angular_platformBrowser.ɵgetDOM();
+        /** @type {?} */
+        var dom_1 = _angular_platformBrowser.ɵgetDOM();
         router.events.subscribe(function (e) {
             dom_1.logGroup("Router Event: " + ((/** @type {?} */ (e.constructor))).name);
             dom_1.log(e.toString());
@@ -7115,6 +8028,15 @@ function setupRouter(ref, urlSerializer, contexts, location, injector, loader, c
     }
     if (opts.onSameUrlNavigation) {
         router.onSameUrlNavigation = opts.onSameUrlNavigation;
+    }
+    if (opts.paramsInheritanceStrategy) {
+        router.paramsInheritanceStrategy = opts.paramsInheritanceStrategy;
+    }
+    if (opts.urlUpdateStrategy) {
+        router.urlUpdateStrategy = opts.urlUpdateStrategy;
+    }
+    if (opts.relativeLinkResolution) {
+        router.relativeLinkResolution = opts.relativeLinkResolution;
     }
     return router;
 }
@@ -7136,11 +8058,11 @@ function rootRoute(router) {
  * The router navigation starts, reaches the point when preactivation is done, and then
  * pauses. It waits for the hook to be resolved. We then resolve it only in a bootstrap listener.
  */
-var RouterInitializer = (function () {
+var RouterInitializer = /** @class */ (function () {
     function RouterInitializer(injector) {
         this.injector = injector;
         this.initNavigation = false;
-        this.resultOfPreactivationDone = new rxjs_Subject.Subject();
+        this.resultOfPreactivationDone = new rxjs.Subject();
     }
     /**
      * @return {?}
@@ -7150,12 +8072,17 @@ var RouterInitializer = (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ p = this.injector.get(_angular_common.LOCATION_INITIALIZED, Promise.resolve(null));
+        /** @type {?} */
+        var p = this.injector.get(_angular_common.LOCATION_INITIALIZED, Promise.resolve(null));
         return p.then(function () {
-            var /** @type {?} */ resolve = /** @type {?} */ ((null));
-            var /** @type {?} */ res = new Promise(function (r) { return resolve = r; });
-            var /** @type {?} */ router = _this.injector.get(Router);
-            var /** @type {?} */ opts = _this.injector.get(ROUTER_CONFIGURATION);
+            /** @type {?} */
+            var resolve = /** @type {?} */ ((null));
+            /** @type {?} */
+            var res = new Promise(function (r) { return resolve = r; });
+            /** @type {?} */
+            var router = _this.injector.get(Router);
+            /** @type {?} */
+            var opts = _this.injector.get(ROUTER_CONFIGURATION);
             if (_this.isLegacyDisabled(opts) || _this.isLegacyEnabled(opts)) {
                 resolve(true);
             }
@@ -7173,7 +8100,7 @@ var RouterInitializer = (function () {
                         // subsequent navigations should not be delayed
                     }
                     else {
-                        return /** @type {?} */ (rxjs_observable_of.of(null));
+                        return /** @type {?} */ (rxjs.of(null));
                     }
                 };
                 router.initialNavigation();
@@ -7193,10 +8120,16 @@ var RouterInitializer = (function () {
      * @return {?}
      */
     function (bootstrappedComponentRef) {
-        var /** @type {?} */ opts = this.injector.get(ROUTER_CONFIGURATION);
-        var /** @type {?} */ preloader = this.injector.get(RouterPreloader);
-        var /** @type {?} */ router = this.injector.get(Router);
-        var /** @type {?} */ ref = this.injector.get(_angular_core.ApplicationRef);
+        /** @type {?} */
+        var opts = this.injector.get(ROUTER_CONFIGURATION);
+        /** @type {?} */
+        var preloader = this.injector.get(RouterPreloader);
+        /** @type {?} */
+        var routerScroller = this.injector.get(RouterScroller);
+        /** @type {?} */
+        var router = this.injector.get(Router);
+        /** @type {?} */
+        var ref = this.injector.get(_angular_core.ApplicationRef);
         if (bootstrappedComponentRef !== ref.components[0]) {
             return;
         }
@@ -7207,6 +8140,7 @@ var RouterInitializer = (function () {
             router.setUpLocationChangeListener();
         }
         preloader.setUpPreloading();
+        routerScroller.init();
         router.resetRootComponentType(ref.componentTypes[0]);
         this.resultOfPreactivationDone.next(/** @type {?} */ ((null)));
         this.resultOfPreactivationDone.complete();
@@ -7239,7 +8173,7 @@ var RouterInitializer = (function () {
     ];
     /** @nocollapse */
     RouterInitializer.ctorParameters = function () { return [
-        { type: _angular_core.Injector, },
+        { type: _angular_core.Injector }
     ]; };
     return RouterInitializer;
 }());
@@ -7257,11 +8191,11 @@ function getAppInitializer(r) {
 function getBootstrapListener(r) {
     return r.bootstrapListener.bind(r);
 }
-/**
+/** *
  * A token for the router initializer that will be called after the app is bootstrapped.
  *
  * \@experimental
- */
+  @type {?} */
 var ROUTER_INITIALIZER = new _angular_core.InjectionToken('Router Initializer');
 /**
  * @return {?}
@@ -7282,7 +8216,7 @@ function provideRouterInitializer() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * @license
@@ -7291,15 +8225,8 @@ function provideRouterInitializer() {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of the common package.
- */
-/**
- * \@stable
- */
-var VERSION = new _angular_core.Version('5.1.0-beta.0-21bfaf226');
+/** @type {?} */
+var VERSION = new _angular_core.Version('7.0.0-beta.4-a2418a9037');
 
 exports.RouterLink = RouterLink;
 exports.RouterLinkWithHref = RouterLinkWithHref;
@@ -7321,6 +8248,7 @@ exports.RouteConfigLoadEnd = RouteConfigLoadEnd;
 exports.RouteConfigLoadStart = RouteConfigLoadStart;
 exports.RouterEvent = RouterEvent;
 exports.RoutesRecognized = RoutesRecognized;
+exports.Scroll = Scroll;
 exports.RouteReuseStrategy = RouteReuseStrategy;
 exports.Router = Router;
 exports.ROUTES = ROUTES;
@@ -7347,20 +8275,23 @@ exports.UrlSegmentGroup = UrlSegmentGroup;
 exports.UrlSerializer = UrlSerializer;
 exports.UrlTree = UrlTree;
 exports.VERSION = VERSION;
+exports.ɵEmptyOutletComponent = EmptyOutletComponent;
 exports.ɵROUTER_PROVIDERS = ROUTER_PROVIDERS;
 exports.ɵflatten = flatten;
 exports.ɵa = ROUTER_FORROOT_GUARD;
-exports.ɵg = RouterInitializer;
-exports.ɵh = getAppInitializer;
-exports.ɵi = getBootstrapListener;
-exports.ɵd = provideForRootGuard;
-exports.ɵc = provideLocationStrategy;
-exports.ɵj = provideRouterInitializer;
-exports.ɵf = rootRoute;
+exports.ɵh = RouterInitializer;
+exports.ɵc = createRouterScroller;
+exports.ɵi = getAppInitializer;
+exports.ɵj = getBootstrapListener;
+exports.ɵe = provideForRootGuard;
+exports.ɵd = provideLocationStrategy;
+exports.ɵk = provideRouterInitializer;
+exports.ɵg = rootRoute;
 exports.ɵb = routerNgProbeToken;
-exports.ɵe = setupRouter;
-exports.ɵk = Tree;
-exports.ɵl = TreeNode;
+exports.ɵf = setupRouter;
+exports.ɵn = RouterScroller;
+exports.ɵl = Tree;
+exports.ɵm = TreeNode;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
