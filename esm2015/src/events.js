@@ -69,13 +69,9 @@ export class NavigationStart extends RouterEvent {
      * @param {?=} restoredState
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, /** @docsNotRequired */
-    /** @docsNotRequired */
     navigationTrigger = 'imperative', /** @docsNotRequired */
-    /** @docsNotRequired */
     restoredState = null) {
         super(id, url);
         this.navigationTrigger = navigationTrigger;
@@ -126,9 +122,7 @@ export class NavigationEnd extends RouterEvent {
      * @param {?} urlAfterRedirects
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;
@@ -162,9 +156,7 @@ export class NavigationCancel extends RouterEvent {
      * @param {?} reason
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, reason) {
         super(id, url);
         this.reason = reason;
@@ -196,9 +188,7 @@ export class NavigationError extends RouterEvent {
      * @param {?} error
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, error) {
         super(id, url);
         this.error = error;
@@ -233,9 +223,7 @@ export class RoutesRecognized extends RouterEvent {
      * @param {?} state
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects, state) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;
@@ -276,9 +264,7 @@ export class GuardsCheckStart extends RouterEvent {
      * @param {?} state
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects, state) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;
@@ -319,9 +305,7 @@ export class GuardsCheckEnd extends RouterEvent {
      * @param {?} shouldActivate
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects, state, shouldActivate) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;
@@ -370,9 +354,7 @@ export class ResolveStart extends RouterEvent {
      * @param {?} state
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects, state) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;
@@ -413,9 +395,7 @@ export class ResolveEnd extends RouterEvent {
      * @param {?} state
      */
     constructor(/** @docsNotRequired */
-    /** @docsNotRequired */
     id, /** @docsNotRequired */
-    /** @docsNotRequired */
     url, urlAfterRedirects, state) {
         super(id, url);
         this.urlAfterRedirects = urlAfterRedirects;

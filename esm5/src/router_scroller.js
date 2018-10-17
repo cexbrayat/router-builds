@@ -51,7 +51,6 @@ var RouterScroller = /** @class */ (function () {
         return this.router.events.subscribe(function (e) {
             if (e instanceof NavigationStart) {
                 // store the scroll position of the current stable navigations.
-                // store the scroll position of the current stable navigations.
                 _this.store[_this.lastId] = _this.viewportScroller.getScrollPosition();
                 _this.lastSource = e.navigationTrigger;
                 _this.restoredId = e.restoredState ? e.restoredState.navigationId : 0;

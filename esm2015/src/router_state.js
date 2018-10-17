@@ -23,6 +23,7 @@ import { Tree, TreeNode } from './utils/tree';
  * RouterState is a tree of activated routes. Every node in this tree knows about the "consumed" URL
  * segments, the extracted parameters, and the resolved data.
  *
+ * \@usageNotes
  * ### Example
  *
  * ```
@@ -510,6 +511,7 @@ if (false) {
  * This is a tree of activated route snapshots. Every node in this tree knows about
  * the "consumed" URL segments, the extracted parameters, and the resolved data.
  *
+ * \@usageNotes
  * ### Example
  *
  * ```

@@ -124,6 +124,7 @@ function containsSegmentGroupHelper(container, containee, containeePaths) {
  * serialized tree.
  * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
  *
+ * \@usageNotes
  * ### Example
  *
  * ```
@@ -153,6 +154,7 @@ var /**
  * serialized tree.
  * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
  *
+ * \@usageNotes
  * ### Example
  *
  * ```
@@ -214,6 +216,7 @@ UrlTree = /** @class */ (function () {
  * serialized tree.
  * UrlTree is a data structure that provides a lot of affordances in dealing with URLs
  *
+ * \@usageNotes
  * ### Example
  *
  * ```
@@ -363,7 +366,8 @@ if (false) {
  * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
  * parameters associated with the segment.
  *
- *  ## Example
+ * \@usageNotes
+ *  ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -388,7 +392,8 @@ var /**
  * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
  * parameters associated with the segment.
  *
- *  ## Example
+ * \@usageNotes
+ *  ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})
@@ -443,7 +448,8 @@ UrlSegment = /** @class */ (function () {
  * A UrlSegment is a part of a URL between the two slashes. It contains a path and the matrix
  * parameters associated with the segment.
  *
- *  ## Example
+ * \@usageNotes
+ *  ### Example
  *
  * ```
  * \@Component({templateUrl:'template.html'})

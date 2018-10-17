@@ -286,6 +286,7 @@ export function provideForRootGuard(router) {
  *
  * Registers routes.
  *
+ * \@usageNotes
  * ### Example
  *
  * ```

@@ -103,7 +103,6 @@ var ApplyRedirects = /** @class */ (function () {
         return urlTrees$.pipe(catchError(function (e) {
             if (e instanceof AbsoluteRedirect) {
                 // after an absolute redirect we do not apply any more redirects!
-                // after an absolute redirect we do not apply any more redirects!
                 _this.allowRedirects = false;
                 // we need to run matching, so we can fetch all lazy-loaded modules
                 return _this.match(e.urlTree);
